@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  PetBnB
-//
-//  Created by Jennet on 2024-05-15.
-//
-
 import SwiftUI
 import Firebase
 
@@ -15,47 +8,47 @@ struct ContentView: View {
     
     var body: some View {
         if !signedIn {
-            SignInView(signedIn: $signedIn)
+            LogInView(signedIn: $signedIn)
         } else {
-            ExploreView()
+            MainTabView()
         }
     }
-        
 }
-struct SignInView : View {
-    @Binding var signedIn : Bool
-    var auth = Auth.auth()
-    
-    
+
+struct MainTabView: View {
     var body: some View {
-        Button("Sign in") {
-            auth.signInAnonymously { result, error in
-                if let error = error {
-                    print("error signing in")
+        TabView {
+            createTabView(view: ExploreView(), title: "Utforska", systemImage: "magnifyingglass", showTitle: false)
+            createTabView(view: FavoritesView(), title: "Favoriter", systemImage: "heart", showTitle: true)
+            createTabView(view: ChatView(), title: "Chatt", systemImage: "message", showTitle: true)
+            createTabView(view: ProfileView(), title: "Profil", systemImage: "person", showTitle: false)
+        }
+        .accentColor(Color("secondary"))
+    }
+    
+    @ViewBuilder
+        func createTabView<V: View>(view: V, title: String, systemImage: String, showTitle: Bool) -> some View {
+            NavigationView {
+                if showTitle {
+                    view
+                        .navigationTitle("")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
+                                Text(title)
+                                    .font(.headline)
+                                    .foregroundColor(.text)
+                            }
+                        }
                 } else {
-                    signedIn = true
+                    view
                 }
-                
             }
-            
+            .tabItem {
+                Label(title, systemImage: systemImage)
+            }
         }
     }
-}
-struct ExploreView: View {
-    let db = Firestore.firestore()
-    
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }.onAppear {
-//            db.collection("test").addDocument(data: ["name" : "Test"])
-        }
-        
-    }
-}
 
 #Preview {
     ContentView()
