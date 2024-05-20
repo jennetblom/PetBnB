@@ -3,36 +3,23 @@ import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class HomeViewModel: ObservableObject {
+class ExploreViewModel: ObservableObject {
     @Published var homes = [Home]()
-    private var db = Firestore.firestore()
+    private let firestoreUtils = FirestoreUtils()
 
     init() {
         fetchHomes()
     }
 
     func fetchHomes() {
-           db.collection("homes").getDocuments { (querySnapshot, error) in
-               if let error = error {
-                   print("Error getting documents: \(error.localizedDescription)")
-               } else {
-                   if let querySnapshot = querySnapshot {
-                       for document in querySnapshot.documents {
-                           print("Raw document data: \(document.data())")
-                       }
-                       
-                       self.homes = querySnapshot.documents.compactMap { document in
-                           do {
-                               let home = try document.data(as: Home.self)
-                               print("Successfully fetched home: \(home)")
-                               return home
-                           } catch {
-                               print("Error decoding home: \(error)")
-                               return nil
-                           }
-                       }
-                       print("Fetched homes: \(self.homes)")
+           firestoreUtils.fetchHomes { result in
+               switch result {
+               case .success(let homes):
+                   DispatchQueue.main.async {
+                       self.homes = homes
                    }
+               case .failure(let error):
+                   print("Error fetching homes: \(error.localizedDescription)")
                }
            }
        }
