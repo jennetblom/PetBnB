@@ -1,27 +1,29 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @StateObject private var viewModel = HomeViewModel()
     @State private var selectedFilter: String = "Hund"
     
     let filters = ["Fågel", "Fisk", "Reptil", "Hund", "Katt", "Pälsdjur"]
 
     var body: some View {
-        NavigationView {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                TextField("Sök stad", text: .constant(""))
+                    .padding(.leading, 10)
+            }
+            .padding(.top)
+            .background(Color("background"))
+            .cornerRadius(8)
+            .padding(.horizontal)
+
             VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    TextField("Sök stad", text: .constant(""))
-                        .padding(.leading, 10)
-                }
-                .padding()
-                .background(Color("background"))
-                .cornerRadius(8)
-                .padding(.horizontal)
-                
                 ZStack(alignment: .bottom) {
                     HStack(spacing: 0) {
                         ForEach(filters, id: \.self) { filter in
                             FilterButton(filter: filter, isSelected: filter == selectedFilter) {
                                 selectedFilter = filter
+                                print("Selected filter: \(filter)")
                             }
                         }
                     }
@@ -36,34 +38,41 @@ struct ExploreView: View {
                         .padding(.bottom, 8)
                 }
                 .padding(.top)
-                
+
                 ScrollView {
                     VStack(spacing: 16) {
-                        HomeView(
-                            images: ["placeholder_home", "placeholder_home", "placeholder_home"],
-                            city: "Göteborg",
-                            description: "Fransk bulldog i villa",
-                            roomsBeds: "3 rum, 2 sängar",
-                            week: "v.28",
-                            rating: "4.8"
-                        )
-                        HomeView(
-                            images: ["placeholder_home", "placeholder_home", "placeholder_home"],
-                            city: "Another City",
-                            description: "Cozy cabin in the mountains",
-                            roomsBeds: "2 rum, 1 säng",
-                            week: "$900/week",
-                            rating: "4.5"
-                        )
+                        if viewModel.homes.isEmpty {
+                            Text("No homes available")
+                                .foregroundColor(.gray)
+                        } else {
+                            ForEach(viewModel.homes.filter { $0.animals.keys.contains(selectedFilter) }) { home in
+                                HomeView(
+                                    images: Array(home.images.values),
+                                    city: home.city,
+                                    description: home.additionalInfoHome,
+                                    roomsBeds: "\(home.rooms) rum, \(home.beds) sängar",
+                                    availability: "v.\(home.availability)",
+                                    rating: home.rating
+                                )
+                                .onAppear {
+                                    print("Displayed home: \(home.name)")
+                                }
+                            }
+                        }
+                        Spacer()
                     }
+                    .padding(.horizontal) 
                 }
-                
-                Spacer()
             }
+            .padding(.top)
+        }
+        .onAppear {
+            print("ExploreView appeared, fetching homes...")
+            viewModel.fetchHomes()
         }
     }
 }
- 
+
 struct FilterButton: View {
     var filter: String
     var isSelected: Bool

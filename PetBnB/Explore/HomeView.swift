@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    var images: [String]
+    var images: [URL]
     var city: String
     var description: String
     var roomsBeds: String
-    var week: String
-    var rating: String
+    var availability: String
+    var rating: Double
 
     @State private var isFavorite: Bool = false
 
@@ -14,12 +14,22 @@ struct HomeView: View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
                 TabView {
-                    ForEach(images, id: \.self) { imageName in
-                        Image(imageName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 250)
-                            .clipped()
+                    ForEach(images, id: \.self) { imageUrl in
+                        AsyncImage(url: imageUrl) { phase in
+                            if let image = phase.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 250)
+                                    .clipped()
+                            } else if phase.error != nil {
+                                Color.red 
+                                    .frame(height: 250)
+                            } else {
+                                Color.gray
+                                    .frame(height: 250)
+                            }
+                        }
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())
@@ -49,10 +59,10 @@ struct HomeView: View {
                     }
                     Spacer()
                     VStack(alignment: .trailing) {
-                        Text(week)
+                        Text(availability)
                             .font(.headline)
                         HStack(spacing: 2) {
-                            Text(rating)
+                            Text(String(format: "%.1f", rating))
                                 .font(.subheadline)
                             Image(systemName: "star")
                                 .font(.subheadline)
@@ -73,11 +83,15 @@ struct HomeView: View {
 
 #Preview {
     HomeView(
-        images: ["placeholder_home", "placeholder_home2", "placeholder_home3"],
+        images: [
+                    URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home.png?alt=media&token=0e13552e-0052-4bd2-9170-856beacea3b1")!,
+                    URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home2.png?alt=media&token=a2c1ea5a-134a-466d-be39-19aedfa13e9a")!,
+                    URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home3.png?alt=media&token=2f52cde5-4812-43df-8772-82c6c54d7b71")!
+                ],
         city: "Göteborg",
         description: "Fransk bulldog i villa",
         roomsBeds: "3 rum, 2 sängar",
-        week: "v.28",
-        rating: "4.8"
+        availability: "v.28",
+        rating: 4.8
     )
 }
