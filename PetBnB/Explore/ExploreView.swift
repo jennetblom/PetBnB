@@ -10,15 +10,19 @@ struct ExploreView: View {
         VStack(alignment: .leading, spacing: 0) {
             SearchBarView()
             FilterBarView(selectedFilter: $selectedFilter, filters: filters)
-            HomeListView(viewModel: viewModel, selectedFilter: selectedFilter)
+            
+            if viewModel.loading {
+                ProgressView("Laddar...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                HomeListView(viewModel: viewModel, selectedFilter: selectedFilter)
+            }
         }
         .onAppear {
             viewModel.fetchHomes()
         }
     }
 }
-
-
 
 #Preview {
     ExploreView()
