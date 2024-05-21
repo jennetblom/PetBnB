@@ -17,10 +17,11 @@ struct ExploreView: View {
             } else {
                 HomeListView(viewModel: viewModel, selectedFilter: selectedFilter)
             }
-        } /// 
+        }
         .onAppear {
             viewModel.fetchHomes()
         }
+        .environmentObject(viewModel)
     }
 }
 

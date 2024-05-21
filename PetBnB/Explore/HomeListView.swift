@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct HomeListView: View {
-    @ObservedObject var viewModel: ExploreViewModel
-    var selectedFilter: String
+struct HomeListView<ViewModel: HomeListViewModel>: View {
+    @ObservedObject var viewModel: ViewModel
+    var selectedFilter: String?
 
     var body: some View {
         ScrollView {
@@ -11,16 +11,21 @@ struct HomeListView: View {
                     Text("No homes available")
                         .foregroundColor(.gray)
                 } else {
-                    ForEach(viewModel.homes.filter { $0.animals.keys.contains(selectedFilter) }) { home in
+                    ForEach(viewModel.homes.filter { home in
+                        guard let selectedFilter = selectedFilter else { return true }
+                        return home.animals.keys.contains(selectedFilter)
+                    }) { home in
                         HomeView(
                             images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString },
                             city: home.city,
                             description: home.additionalInfoHome,
                             roomsBeds: "\(home.rooms) rum, \(home.beds) sängar",
                             availability: "v.\(home.availability)",
-                            rating: home.rating
+                            rating: home.rating,
+                            homeID: home.id ?? ""
                         )
                         .transition(.opacity)
+                        .environmentObject(viewModel)
                     }
                 }
                 Spacer()
