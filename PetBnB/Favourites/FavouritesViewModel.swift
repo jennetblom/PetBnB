@@ -6,6 +6,7 @@ import FirebaseFirestoreSwift
 class FavoritesViewModel: ObservableObject, HomeListViewModel {
     @Published var homes = [Home]()
     @Published var loading = true
+    @Published var searchText: String = ""
     private let firestoreUtils = FirestoreUtils()
     private var cancellables = Set<AnyCancellable>()
 
@@ -26,6 +27,12 @@ class FavoritesViewModel: ObservableObject, HomeListViewModel {
                     self.loading = false
                 }
             }
+        }
+    }
+
+    var filteredHomes: [Home] {
+        homes.filter { home in
+            searchText.isEmpty || home.city.lowercased().contains(searchText.lowercased())
         }
     }
 }

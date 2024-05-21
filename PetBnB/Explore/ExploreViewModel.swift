@@ -6,6 +6,7 @@ import FirebaseFirestoreSwift
 class ExploreViewModel: ObservableObject, HomeListViewModel {
     @Published var homes = [Home]()
     @Published var loading = true
+    @Published var searchText: String = ""
     private let firestoreUtils = FirestoreUtils()
     private var cancellables = Set<AnyCancellable>()
 
@@ -30,14 +31,20 @@ class ExploreViewModel: ObservableObject, HomeListViewModel {
     }
     
     func updateFavoriteStatus(for homeID: String, isFavorite: Bool) {
-           firestoreUtils.updateFavoriteStatus(homeID: homeID, isFavorite: isFavorite)
-               .sink(receiveCompletion: { completion in
-                   if case .failure(let error) = completion {
-                       print("Error updating favorite status: \(error.localizedDescription)")
-                   }
-               }, receiveValue: { [weak self] in
-                   self?.fetchHomes()
-               })
-               .store(in: &cancellables)
-       }
+        firestoreUtils.updateFavoriteStatus(homeID: homeID, isFavorite: isFavorite)
+            .sink(receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    print("Error updating favorite status: \(error.localizedDescription)")
+                }
+            }, receiveValue: { [weak self] in
+                self?.fetchHomes()
+            })
+            .store(in: &cancellables)
+    }
+
+    var filteredHomes: [Home] {
+        homes.filter { home in
+            searchText.isEmpty || home.city.lowercased().contains(searchText.lowercased())
+        }
+    }
 }

@@ -7,11 +7,11 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                if viewModel.homes.isEmpty {
-                    Text("No homes available")
+                if viewModel.filteredHomes.isEmpty {
+                    Text("Inga tillgängliga boende")
                         .foregroundColor(.gray)
                 } else {
-                    ForEach(viewModel.homes.filter { home in
+                    ForEach(viewModel.filteredHomes.filter { home in
                         guard let selectedFilter = selectedFilter else { return true }
                         return home.animals.keys.contains(selectedFilter)
                     }) { home in
@@ -25,7 +25,6 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
                             homeID: home.id ?? ""
                         )
                         .transition(.opacity)
-                        .environmentObject(viewModel)
                     }
                 }
                 Spacer()

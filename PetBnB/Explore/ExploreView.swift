@@ -8,7 +8,7 @@ struct ExploreView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            SearchBarView()
+            SearchBarView(searchText: $viewModel.searchText)
             FilterBarView(selectedFilter: $selectedFilter, filters: filters)
             
             if viewModel.loading {
