@@ -2,18 +2,37 @@
 import SwiftUI
 
 struct AddHomeVIew: View {
-    @State private var beds: String = "6"
+    @State private var beds: String = "hämta från fb"
     
     var body: some View {
+        NavigationStack{
         VStack{
             Form {
                 Section(header: Text("Boende")) {
                     HStack{
-                        Text("Antal bäddar:")
-                        TextField("Antal sängar", text: $beds) }
+                        Text("Sovplatser:")
+                        TextField("Sovplatser", text: $beds) }
                 }
-                
-                Section(header: Text("Djur")) {
+                //If more than 1 animal add more sections
+                Section(header: HStack {
+                                    Text("Djur 1")
+                                    Spacer()
+                                    Button(action: {
+                                        
+                                        //viewModel.addAnimal()
+                                    }) {
+                                        Image(systemName: "plus")
+                                    }
+                                })  {
+                    HStack{
+                        Text("Typ:")
+                        TextField("Typ", text: $beds) }
+                    HStack{
+                        Text("Ålder:")
+                        TextField("Ålder", text: $beds) }
+                    HStack{
+                        Text("Övrig info:")
+                        TextField("Övrig info", text: $beds) }
                     
                 }
                 
@@ -23,6 +42,9 @@ struct AddHomeVIew: View {
                 
             }
         }
+        .navigationTitle("Lägg till boende")
+        .navigationBarTitleDisplayMode(.inline)
+    }
     }
 }
 
