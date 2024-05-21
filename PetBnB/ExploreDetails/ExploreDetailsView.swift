@@ -1,2 +1,11 @@
+import SwiftUI
 
-import Foundation
+struct ExploreDetailsView: View {
+    var body: some View {
+        Text("Explore Details")
+    }
+}
+
+#Preview {
+    ExploreDetailsView()
+}

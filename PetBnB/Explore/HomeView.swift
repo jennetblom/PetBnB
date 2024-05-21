@@ -17,7 +17,7 @@ struct HomeView: View {
             ZStack(alignment: .topTrailing) {
                 ImageCarouselView(images: images)
                 FavouriteButton(isFavorite: $isFavorite)
-                    .onChange(of: isFavorite) { newValue in
+                    .onChange(of: isFavorite) { oldValue, newValue in
                         viewModel.updateFavoriteStatus(for: homeID, isFavorite: newValue)
                     }
             }
