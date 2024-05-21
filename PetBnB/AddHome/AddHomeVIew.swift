@@ -14,6 +14,7 @@ struct AddHomeView: View {
         NavigationStack {
             VStack {
                 Form {
+                    //Homes section
                     Section(header: Text("Boende")) {
                         HStack {
                             Text("Sovplatser:")
@@ -21,7 +22,7 @@ struct AddHomeView: View {
                         }
                     }
 
-                    // Djuravsnitt
+                    // Animal section
                     ForEach(0..<animalCount, id: \.self) { index in
                         AnimalSectionView(
                             index: index,
@@ -37,7 +38,7 @@ struct AddHomeView: View {
                 }
                 .padding()
                 .onAppear {
-                    // Initieringslogik om nödvändigt
+                    // Get info from profile
                 }
             }
             .navigationTitle("Lägg till boende")
@@ -45,7 +46,7 @@ struct AddHomeView: View {
         }
     }
 
-    // Funktion för att lägga till ett nytt djur
+    // Add a new animal
     private func addAnimal() {
         animalCount += 1
         animalType.append("")
