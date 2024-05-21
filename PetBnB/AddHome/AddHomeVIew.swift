@@ -5,23 +5,21 @@ import SwiftUI
 
 struct AddHomeView: View {
     @State private var beds: String = "hämta från fb"
+    @State private var rooms: String = ""
+    @State private var city: String = ""
+    @State private var additionalInfo: String = ""
     @State private var animalCount = 1
     @State private var animalType: [String] = [""]
     @State private var animalAge: [String] = [""]
     @State private var animalInfo: [String] = [""]
-
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Form {
                     //Homes section
-                    Section(header: Text("Boende")) {
-                        HStack {
-                            Text("Sovplatser:")
-                            TextField("Sovplatser", text: $beds)
-                        }
-                    }
-
+                    HomeSectionView(beds: $beds, rooms: $rooms, city: $city, additionalInfo: $additionalInfo)
+                    
                     // Animal section
                     ForEach(0..<animalCount, id: \.self) { index in
                         AnimalSectionView(
@@ -45,7 +43,7 @@ struct AddHomeView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-
+    
     // Add a new animal
     private func addAnimal() {
         animalCount += 1
