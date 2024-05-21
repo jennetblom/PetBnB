@@ -4,6 +4,7 @@
 //
 //  Created by Ina Burström on 2024-05-21.
 //
+import SwiftUI
 
 struct HomeSectionView: View {
     @Binding var beds: String
