@@ -13,4 +13,15 @@ struct User: Identifiable, Codable {
     var favourite: Bool
     var profilePicture: URL?
     
+    var city : String
+    var numberOfBeds : Int
+    var numberOfRooms : Int
+    var homeInfo : String
+    var animals: [String: AnimalInfo]
+    var userAge : Int
+    var userInfo : String
+    var animalExperienceType : String
+    var animalExperienceInfo : String
+    
+    
 }
