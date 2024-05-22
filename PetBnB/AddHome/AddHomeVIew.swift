@@ -23,9 +23,7 @@ struct AddHomeView: View {
                         )
                     }
                 }
-                
                 Spacer()
-                
             }
             .navigationTitle("Lägg till boende")
             .navigationBarTitleDisplayMode(.inline)

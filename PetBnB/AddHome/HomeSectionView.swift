@@ -13,7 +13,9 @@ struct HomeSectionView: View {
     @Binding var additionalInfo: String
     @Binding var homeTitle: String
     let limit = 20
-
+    @State private var fromDate = Date()
+    @State private var toDate = Date()
+    
     var body: some View {
         Section(header: Text("Rubrik")) {
             TextField("Fyll i din rubrik för boendet här", text: $homeTitle)
@@ -40,6 +42,23 @@ struct HomeSectionView: View {
             HStack {
                 Text("Övrig info:")
                 TextField("Övrig info", text: $additionalInfo)
+            }
+            
+            HStack{
+                Text("Tillgängligt från:")
+                DatePicker(
+                            "",
+                            selection: $fromDate,
+                            in: Date().addingTimeInterval(-1000000)...Date(),
+                            displayedComponents: [.date])
+            }
+            HStack{
+                Text("Tillgängligt till:")
+                DatePicker(
+                            "",
+                            selection: $toDate,
+                            in: Date().addingTimeInterval(-1000000)...Date(),
+                            displayedComponents: [.date])
             }
         }
     }
