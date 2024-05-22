@@ -1,80 +1,25 @@
 import SwiftUI
 
 struct AddHomeView: View {
-    @State private var beds: String = "hämta från fb"
-    @State private var rooms: String = ""
-    @State private var city: String = ""
-    @State private var additionalInfo: String = ""
-    @State private var animalCount = 1
-    @State private var animalType: [String] = [""]
-    @State private var animalAge: [String] = [""]
-    @State private var animalInfo: [String] = [""]
-    @State private var selectedImages: [UIImage] = []
-    @State private var isShowingImagePicker = false
-
+    @Environment(\.presentationMode) var presentationMode
+    @StateObject private var viewModel = AddHomeViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Form {
-                    if !selectedImages.isEmpty {
-                        VStack {
-                            TabView {
-                                ForEach(selectedImages, id: \.self) { uiImage in
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(height: 200)
-                                        .clipped()
-                                        .cornerRadius(8)
-                                }
-                            }
-                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-                            .frame(height: 200)
-                            
-                            Button(action: {
-                                isShowingImagePicker = true
-                            }) {
-                                Text("Lägg till fler bilder")
-                                    .font(.headline)
-                                    .foregroundColor(.blue)
-                            }
-                            .padding(.top, 10)
-                        }
-                    } else {
-                        Button(action: {
-                            isShowingImagePicker = true
-                        }) {
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.3))
-                                    .frame(height: 200)
-                                    .cornerRadius(8)
-                                
-                                VStack {
-                                    Image(systemName: "photo.on.rectangle")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 50, height: 50)
-                                    Text("Lägg till bilder")
-                                        .font(.headline)
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                        }
-                    }
-
-                    HomeSectionView(beds: $beds, rooms: $rooms, city: $city, additionalInfo: $additionalInfo)
-
-                    ForEach(0..<animalCount, id: \.self) { index in
+                    ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
+                    
+                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, city: $viewModel.city, additionalInfo: $viewModel.additionalInfo)
+                    
+                    ForEach(0..<viewModel.animalCount, id: \.self) { index in
                         AnimalSectionView(
                             index: index,
-                            animalType: $animalType[index],
-                            animalAge: $animalAge[index],
-                            animalInfo: $animalInfo[index],
-                            isLast: index == animalCount - 1,
-                            addAnimalAction: {
-                                addAnimal()
-                            }
+                            animalType: $viewModel.animalType[index],
+                            animalAge: $viewModel.animalAge[index],
+                            animalInfo: $viewModel.animalInfo[index],
+                            isLast: index == viewModel.animalCount - 1,
+                            addAnimalAction: viewModel.addAnimal
                         )
                     }
                 }
@@ -84,17 +29,28 @@ struct AddHomeView: View {
             }
             .navigationTitle("Lägg till boende")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $isShowingImagePicker) {
-                ImagePicker(selectedImages: $selectedImages)
+            .toolbar { // Adding custom back button
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(Color("secondary"))
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        //save
+                    }) {
+                        Text("Spara")
+                            .foregroundColor(Color("secondary"))
+                    }
+                }
+            }
+            .sheet(isPresented: $viewModel.isShowingImagePicker) {
+                ImagePicker(selectedImages: $viewModel.selectedImages)
             }
         }
-    }
-
-    private func addAnimal() {
-        animalCount += 1
-        animalType.append("")
-        animalAge.append("")
-        animalInfo.append("")
     }
 }
 #Preview {

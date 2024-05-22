@@ -50,6 +50,7 @@
 		A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */; };
 		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
 		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
+		A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSectionView.swift; sourceTree = "<group>"; };
 		A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionView.swift; sourceTree = "<group>"; };
 		A904C6192BFCE67E004C0116 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			children = (
 				5548EDA82BFA972000E4CBF2 /* AddHomeVIew.swift */,
 				A904C6192BFCE67E004C0116 /* ImagePicker.swift */,
+				A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */,
 				A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */,
 				5548EDAA2BFA972800E4CBF2 /* AddHomeViewModel.swift */,
 				A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */,
@@ -455,6 +458,7 @@
 				55CED72F2BFB736C0064EC52 /* AnimalInfo.swift in Sources */,
 				5548ED932BFA966E00E4CBF2 /* ExploreView.swift in Sources */,
 				A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */,
+				A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */,
 				5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */,
 				55CED7332BFB83010064EC52 /* FilterBarView.swift in Sources */,
 				5548ED8D2BFA963800E4CBF2 /* LogInViewModel.swift in Sources */,
