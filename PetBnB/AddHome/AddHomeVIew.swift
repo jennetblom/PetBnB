@@ -16,41 +16,53 @@ struct AddHomeView: View {
         NavigationStack {
             VStack {
                 Form {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(selectedImages, id: \.self) { image in
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 200, height: 200)
-                                    .clipped()
-                                    .cornerRadius(10)
-                                    .padding(.trailing, 10)
+                    if !selectedImages.isEmpty {
+                        VStack {
+                            TabView {
+                                ForEach(selectedImages, id: \.self) { uiImage in
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(height: 200)
+                                        .clipped()
+                                        .cornerRadius(8)
+                                }
                             }
+                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+                            .frame(height: 200)
+                            
                             Button(action: {
                                 isShowingImagePicker = true
                             }) {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color.gray.opacity(0.3))
-                                        .frame(width: 200, height: 200)
-                                        .cornerRadius(10)
-                                    
-                                    VStack {
-                                        Image(systemName: "photo.on.rectangle")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 50, height: 50)
-                                        Text("Lägg till bilder")
-                                            .font(.headline)
-                                            .foregroundColor(.gray)
-                                    }
+                                Text("Lägg till fler bilder")
+                                    .font(.headline)
+                                    .foregroundColor(.blue)
+                            }
+                            .padding(.top, 10)
+                        }
+                    } else {
+                        Button(action: {
+                            isShowingImagePicker = true
+                        }) {
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(height: 200)
+                                    .cornerRadius(8)
+                                
+                                VStack {
+                                    Image(systemName: "photo.on.rectangle")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50, height: 50)
+                                    Text("Lägg till bilder")
+                                        .font(.headline)
+                                        .foregroundColor(.gray)
                                 }
                             }
                         }
                     }
-                    .frame(height: 200)
-                    
+
                     HomeSectionView(beds: $beds, rooms: $rooms, city: $city, additionalInfo: $additionalInfo)
 
                     ForEach(0..<animalCount, id: \.self) { index in
@@ -85,7 +97,6 @@ struct AddHomeView: View {
         animalInfo.append("")
     }
 }
-
 #Preview {
     AddHomeView()
 }
