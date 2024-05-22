@@ -35,6 +35,7 @@ struct AnimalSectionView: View {
                     HStack {
                         Image(systemName: "plus")
                         Text("Lägg till djur")
+                            .foregroundStyle(Color("secondary"))
                     }
                 }
             }
