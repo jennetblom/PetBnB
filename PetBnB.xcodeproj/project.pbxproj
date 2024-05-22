@@ -49,6 +49,7 @@
 		5D08B2872BF62D5D00F41D38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */; };
 		A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */; };
 		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
+		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSectionView.swift; sourceTree = "<group>"; };
 		A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionView.swift; sourceTree = "<group>"; };
+		A904C6192BFCE67E004C0116 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				5548EDA82BFA972000E4CBF2 /* AddHomeVIew.swift */,
+				A904C6192BFCE67E004C0116 /* ImagePicker.swift */,
 				A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */,
 				5548EDAA2BFA972800E4CBF2 /* AddHomeViewModel.swift */,
 				A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */,
@@ -451,6 +454,7 @@
 				55CED72D2BFB508A0064EC52 /* HomeView.swift in Sources */,
 				55CED72F2BFB736C0064EC52 /* AnimalInfo.swift in Sources */,
 				5548ED932BFA966E00E4CBF2 /* ExploreView.swift in Sources */,
+				A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */,
 				5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */,
 				55CED7332BFB83010064EC52 /* FilterBarView.swift in Sources */,
 				5548ED8D2BFA963800E4CBF2 /* LogInViewModel.swift in Sources */,
