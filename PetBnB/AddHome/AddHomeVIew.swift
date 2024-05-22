@@ -10,7 +10,7 @@ struct AddHomeView: View {
                 Form {
                     ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
                     
-                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, city: $viewModel.city, additionalInfo: $viewModel.additionalInfo)
+                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, city: $viewModel.city, additionalInfo: $viewModel.additionalInfo, homeTitle: $viewModel.homeTitle)
                     
                     ForEach(0..<viewModel.animalCount, id: \.self) { index in
                         AnimalSectionView(

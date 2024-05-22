@@ -11,8 +11,19 @@ struct HomeSectionView: View {
     @Binding var rooms: String
     @Binding var city: String
     @Binding var additionalInfo: String
+    @Binding var homeTitle: String
+    let limit = 20
 
     var body: some View {
+        Section(header: Text("Rubrik")) {
+            TextField("Fyll i din rubrik för boendet här", text: $homeTitle)
+                .onChange(of: homeTitle) { newValue in
+                    if newValue.count > limit {
+                        homeTitle = String(newValue.prefix(limit))
+                    }
+                }
+        }
+        
         Section(header: Text("Boende")) {
             HStack {
                 Text("Sovplatser:")

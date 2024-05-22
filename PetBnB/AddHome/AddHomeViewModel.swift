@@ -3,9 +3,10 @@ import Combine
 import PhotosUI
 
 class AddHomeViewModel: ObservableObject {
-    @Published var beds: String = "hämta från fb"
+    @Published var beds: String = ""
     @Published var rooms: String = ""
     @Published var city: String = ""
+    @Published var homeTitle: String = ""
     @Published var additionalInfo: String = ""
     @Published var animalCount: Int = 1
     @Published var animalType: [String] = [""]
