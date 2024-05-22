@@ -1,6 +1,3 @@
-
-import SwiftUI
-
 import SwiftUI
 
 struct AddHomeView: View {
@@ -12,15 +9,50 @@ struct AddHomeView: View {
     @State private var animalType: [String] = [""]
     @State private var animalAge: [String] = [""]
     @State private var animalInfo: [String] = [""]
-    
+    @State private var selectedImages: [UIImage] = []
+    @State private var isShowingImagePicker = false
+
     var body: some View {
         NavigationStack {
             VStack {
                 Form {
-                    //Homes section
-                    HomeSectionView(beds: $beds, rooms: $rooms, city: $city, additionalInfo: $additionalInfo)
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(selectedImages, id: \.self) { image in
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 200, height: 200)
+                                    .clipped()
+                                    .cornerRadius(10)
+                                    .padding(.trailing, 10)
+                            }
+                            Button(action: {
+                                isShowingImagePicker = true
+                            }) {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color.gray.opacity(0.3))
+                                        .frame(width: 200, height: 200)
+                                        .cornerRadius(10)
+                                    
+                                    VStack {
+                                        Image(systemName: "photo.on.rectangle")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 50, height: 50)
+                                        Text("Lägg till bilder")
+                                            .font(.headline)
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .frame(height: 200)
                     
-                    // Animal section
+                    HomeSectionView(beds: $beds, rooms: $rooms, city: $city, additionalInfo: $additionalInfo)
+
                     ForEach(0..<animalCount, id: \.self) { index in
                         AnimalSectionView(
                             index: index,
@@ -34,17 +66,18 @@ struct AddHomeView: View {
                         )
                     }
                 }
-                .padding()
-                .onAppear {
-                    // Get info from profile
-                }
+                
+                Spacer()
+                
             }
             .navigationTitle("Lägg till boende")
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $isShowingImagePicker) {
+                ImagePicker(selectedImages: $selectedImages)
+            }
         }
     }
-    
-    // Add a new animal
+
     private func addAnimal() {
         animalCount += 1
         animalType.append("")
