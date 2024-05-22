@@ -35,14 +35,16 @@ struct FilterButton: View {
     var isSelected: Bool
     var action: () -> Void
 
+    @State private var isPressed: Bool = false
+
     var body: some View {
         Button(action: action) {
             VStack {
                 Text(filter)
                     .font(.system(size: 16))
-                    .fontWeight(isSelected ? .bold : .regular)
                     .foregroundColor(isSelected ? Color("text") : .primary)
                     .scaleEffect(isSelected ? 1.2 : 1.0)
+                    .scaleEffect(isPressed ? 1.1 : 1.0)
                     .animation(.spring(), value: isSelected)
                 Rectangle()
                     .fill(isSelected ? Color("text") : Color.clear)
@@ -53,5 +55,21 @@ struct FilterButton: View {
             .padding(.vertical, 8)
             .padding(.horizontal, 0)
         }
+        .buttonStyle(PlainButtonStyle())
+        .scaleEffect(isPressed ? 1.1 : 1.0)
+        .animation(.spring(), value: isPressed)
+        .gesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                    withAnimation {
+                        isPressed = true
+                    }
+                }
+                .onEnded { _ in
+                    withAnimation {
+                        isPressed = false
+                    }
+                }
+        )
     }
 }

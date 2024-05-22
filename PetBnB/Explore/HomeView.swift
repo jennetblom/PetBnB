@@ -7,84 +7,29 @@ struct HomeView: View {
     var roomsBeds: String
     var availability: String
     var rating: Double
+    var homeID: String
 
     @State private var isFavorite: Bool = false
+    @EnvironmentObject var viewModel: ExploreViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                TabView {
-                    ForEach(images, id: \.self) { imageUrl in
-                        AsyncImage(url: imageUrl) { phase in
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(height: 250)
-                                    .clipped()
-                                    .cornerRadius(8)
-                            } else if phase.error != nil {
-                                Image("placeholder_error_image")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(height: 250)
-                                    .clipped()
-                                    .cornerRadius(8)
-
-                            } else {
-                                Color("background")
-                                    .frame(height: 250)
-                                    .cornerRadius(8)
-                            }
-                        }
+                ImageCarouselView(images: images)
+                FavouriteButton(isFavorite: $isFavorite)
+                    .onChange(of: isFavorite) { oldValue, newValue in
+                        viewModel.updateFavoriteStatus(for: homeID, isFavorite: newValue)
                     }
-                }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                .frame(height: 250)
-
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        isFavorite.toggle()
-                    }
-                }) {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                        .foregroundColor(Color("details"))
-                        .padding()
-                        .background(Color.black.opacity(0.5))
-                        .clipShape(Circle())
-                        .shadow(radius: 4)
-                        .padding([.top, .trailing])
-                }
             }
-
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(city)
-                            .font(.headline)
-                        Text(description)
-                            .font(.subheadline)
-                        Text(roomsBeds)
-                            .font(.subheadline)
-                    }
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Text(availability)
-                            .font(.headline)
-                        HStack(spacing: 2) {
-                            Text(String(format: "%.1f", rating))
-                                .font(.subheadline)
-                            Image(systemName: "star.fill")
-                                .font(.subheadline)
-                                .foregroundColor(Color("details"))
-                        }
-                    }
-                }
-                .padding(.horizontal)
-            }
-            .padding(.vertical)
+            HomeInformationView(
+                city: city,
+                description: description,
+                roomsBeds: roomsBeds,
+                availability: availability,
+                rating: rating
+            )
         }
-        .background(Color.white)
+        .background(Color("background"))
         .cornerRadius(12)
         .shadow(radius: 4)
         .padding(.horizontal)
@@ -103,6 +48,7 @@ struct HomeView: View {
         description: "Fransk bulldog i villa",
         roomsBeds: "3 rum, 2 sängar",
         availability: "v.28",
-        rating: 4.8
-    )
+        rating: 4.8,
+        homeID: "example_home_id"
+    ).environmentObject(ExploreViewModel())
 }
