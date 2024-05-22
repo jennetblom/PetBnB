@@ -45,21 +45,21 @@ struct HomeSectionView: View {
             }
             
             HStack{
-                Text("Tillgängligt från:")
-                DatePicker(
-                            "",
-                            selection: $fromDate,
-                            in: Date().addingTimeInterval(-1000000)...Date(),
-                            displayedComponents: [.date])
-            }
-            HStack{
-                Text("Tillgängligt till:")
-                DatePicker(
-                            "",
-                            selection: $toDate,
-                            in: Date().addingTimeInterval(-1000000)...Date(),
-                            displayedComponents: [.date])
-            }
+                            Text("Tillgängligt från:")
+                            DatePicker(
+                                "",
+                                selection: $fromDate,
+                                in: Date()...,
+                                displayedComponents: [.date])
+                        }
+                        HStack{
+                            Text("Tillgängligt till:")
+                            DatePicker(
+                                "",
+                                selection: $toDate,
+                                in: fromDate...,
+                                displayedComponents: [.date])
+                        }
         }
     }
 }
