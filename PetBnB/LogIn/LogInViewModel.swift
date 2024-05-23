@@ -22,16 +22,4 @@ class LogInViewModel: ObservableObject {
             self.signedIn = true
         }
     }
-    
-    
-    func signUp() {
-        
-        auth.createUser(withEmail: email, password: password) { result, error in
-            if let error = error {
-                print("Error signing up: \(error.localizedDescription)")
-                return
-            }
-            self.signedIn = true
-        }
-    }
 }
