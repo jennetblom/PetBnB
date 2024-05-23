@@ -59,6 +59,7 @@
 		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
 		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
 		A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */; };
+		A904C6212BFFC05E004C0116 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A904C6202BFFC05E004C0116 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D08B27D2BF628F000F41D38 /* FirebaseAuth in Frameworks */,
+				A904C6212BFFC05E004C0116 /* FirebaseStorage in Frameworks */,
 				5D08B27F2BF628F000F41D38 /* FirebaseFirestore in Frameworks */,
 				5D08B2812BF628F000F41D38 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -279,6 +281,7 @@
 				5D036D192BF4B970008D2C7A /* PetBnBTests */,
 				5D036D232BF4B970008D2C7A /* PetBnBUITests */,
 				5D036D072BF4B96D008D2C7A /* Products */,
+				A904C61F2BFFC05E004C0116 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -339,6 +342,13 @@
 			path = PetBnBUITests;
 			sourceTree = "<group>";
 		};
+		A904C61F2BFFC05E004C0116 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -359,6 +369,7 @@
 				5D08B27C2BF628F000F41D38 /* FirebaseAuth */,
 				5D08B27E2BF628F000F41D38 /* FirebaseFirestore */,
 				5D08B2802BF628F000F41D38 /* FirebaseFirestoreSwift */,
+				A904C6202BFFC05E004C0116 /* FirebaseStorage */,
 			);
 			productName = PetBnB;
 			productReference = 5D036D062BF4B96D008D2C7A /* PetBnB.app */;
@@ -871,6 +882,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5D08B27B2BF628F000F41D38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		A904C6202BFFC05E004C0116 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D08B27B2BF628F000F41D38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
