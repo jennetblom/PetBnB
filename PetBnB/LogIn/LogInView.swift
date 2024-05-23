@@ -68,6 +68,14 @@ struct LogInView: View {
             .padding(.horizontal)
             .padding(.top, 10)
             
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .font(.custom("SF Pro Text", size: 15))
+                    .padding(.horizontal)
+                    .padding(.top, 10)
+            }
+            
             HStack {
                 Button(action: {
                     showSignUpView = true
@@ -99,17 +107,18 @@ struct LogInView: View {
             .padding(.top, 20)
             
             Spacer()
-                .onChange(of: viewModel.signedIn) { newValue in
-                    if newValue {
-                        signedIn = true
-                    }
-                }
-                .sheet(isPresented: $showSignUpView) {
-                    SignUpView()
-                }
+        }
+        .onChange(of: viewModel.signedIn) { newValue in
+            if newValue {
+                signedIn = true
+            }
+        }
+        .sheet(isPresented: $showSignUpView) {
+            SignUpView()
         }
     }
 }
+
 
 
 #Preview {
