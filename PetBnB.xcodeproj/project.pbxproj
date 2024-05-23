@@ -51,14 +51,14 @@
 		5D08B27F2BF628F000F41D38 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5D08B27E2BF628F000F41D38 /* FirebaseFirestore */; };
 		5D08B2812BF628F000F41D38 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5D08B2802BF628F000F41D38 /* FirebaseFirestoreSwift */; };
 		5D08B2872BF62D5D00F41D38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */; };
-
+		5DCD18D52BFF76DF0006A4B1 /* RowViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */; };
+		5DCD18D72BFF77D00006A4B1 /* HomeOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */; };
+		5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */; };
 		5DEAFB8D2BFDE9AD00BF067C /* RatingBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */; };
-
 		A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */; };
 		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
 		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
 		A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */; };
-
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,9 +123,10 @@
 		5D036D242BF4B970008D2C7A /* PetBnBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBnBUITests.swift; sourceTree = "<group>"; };
 		5D036D262BF4B970008D2C7A /* PetBnBUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBnBUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-
+		5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowViews.swift; sourceTree = "<group>"; };
+		5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOwnerView.swift; sourceTree = "<group>"; };
+		5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGuestView.swift; sourceTree = "<group>"; };
 		5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBarView.swift; sourceTree = "<group>"; };
-
 		A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSectionView.swift; sourceTree = "<group>"; };
 		A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionView.swift; sourceTree = "<group>"; };
 		A904C6192BFCE67E004C0116 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -213,6 +214,9 @@
 				5548EDA42BFA970700E4CBF2 /* ProfileView.swift */,
 				5548EDA62BFA971500E4CBF2 /* ProfileVIewModel.swift */,
 				5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */,
+				5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */,
+				5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */,
+				5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -477,6 +481,7 @@
 				55CED72D2BFB508A0064EC52 /* HomeView.swift in Sources */,
 				55CED72F2BFB736C0064EC52 /* AnimalInfo.swift in Sources */,
 				5548ED932BFA966E00E4CBF2 /* ExploreView.swift in Sources */,
+				5DCD18D72BFF77D00006A4B1 /* HomeOwnerView.swift in Sources */,
 				A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */,
 				A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */,
 				5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */,
@@ -487,6 +492,7 @@
 				5548EDB32BFA975400E4CBF2 /* MapView.swift in Sources */,
 				5548ED8F2BFA965100E4CBF2 /* SignUpView.swift in Sources */,
 				55C120402BFCE6470005B734 /* FavoriteButton.swift in Sources */,
+				5DCD18D52BFF76DF0006A4B1 /* RowViews.swift in Sources */,
 				5548ED9B2BFA96A000E4CBF2 /* ChatView.swift in Sources */,
 				5548EDA12BFA96EB00E4CBF2 /* ChatWindowView.swift in Sources */,
 				5548EDAD2BFA973800E4CBF2 /* FirestoreUtils.swift in Sources */,
@@ -511,6 +517,7 @@
 				5548EDA72BFA971500E4CBF2 /* ProfileVIewModel.swift in Sources */,
 				5548EDB82BFA9EDE00E4CBF2 /* User.swift in Sources */,
 				5D036D0A2BF4B96D008D2C7A /* PetBnBApp.swift in Sources */,
+				5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */,
 				5548EDBA2BFA9EE800E4CBF2 /* Home.swift in Sources */,
 				5548EDB12BFA974D00E4CBF2 /* ExploreDetailsViewModel.swift in Sources */,
 				5548EDAB2BFA972800E4CBF2 /* AddHomeViewModel.swift in Sources */,
