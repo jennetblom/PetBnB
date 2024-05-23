@@ -5,12 +5,12 @@ import SwiftUI
 struct LogInView: View {
     @Binding var signedIn: Bool
     @StateObject private var viewModel = LogInViewModel()
+    @State private var showSignUpView = false
     
     var body: some View {
         VStack {
             Spacer()
-            
-            
+              
             Image("PetHouse")
                 .resizable()
                 .scaledToFit()
@@ -104,42 +104,28 @@ struct LogInView: View {
                 if newValue {
                     signedIn = true
                 }
+                .padding()
+                .background(Color("primary"))
+                .foregroundColor(Color("text"))
+                .cornerRadius(8)
+                
+                Button(action: {
+                    self.showSignUpView = true
+                }) {
+                    Text("Registrera")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding()
+                .sheet(isPresented: $showSignUpView) {
+                    SignUpView()
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //@Binding var signedIn: Bool
-        //  var auth = Auth.auth()
-        
-        //  var body: some View {
-        //  VStack {
-        //     Button("Logga in") {
-        //       auth.signInAnonymously { result, error in
-        //         if error != nil {
-        //           print("error signing in")
-        //     } else {
-        //       signedIn = true
-        // }
-        //   }
-        //          }
-        //        .padding()
-        //      .background(Color("primary"))
-        //    .foregroundColor(Color("text"))
-        //  .cornerRadius(8)
-        //  }
-        //   }
     }
     
     #Preview {
         LogInView(signedIn: .constant(false))
     }
-    
-    
 

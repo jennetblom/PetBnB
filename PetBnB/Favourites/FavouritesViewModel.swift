@@ -3,7 +3,7 @@ import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class ExploreViewModel: ObservableObject, HomeListViewModel {
+class FavoritesViewModel: ObservableObject, HomeListViewModel {
     @Published var homes = [Home]()
     @Published var loading = true
     @Published var searchText: String = ""
@@ -16,7 +16,7 @@ class ExploreViewModel: ObservableObject, HomeListViewModel {
 
     func fetchHomes() {
         loading = true
-        firestoreUtils.fetchHomes { result in
+        firestoreUtils.fetchFavoriteHomes(userID: "currentUserID") { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let homes):
@@ -28,18 +28,6 @@ class ExploreViewModel: ObservableObject, HomeListViewModel {
                 }
             }
         }
-    }
-    
-    func updateFavoriteStatus(for homeID: String, isFavorite: Bool) {
-        firestoreUtils.updateFavoriteStatus(homeID: homeID, isFavorite: isFavorite)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    print("Error updating favorite status: \(error.localizedDescription)")
-                }
-            }, receiveValue: { [weak self] in
-                self?.fetchHomes()
-            })
-            .store(in: &cancellables)
     }
 
     var filteredHomes: [Home] {
