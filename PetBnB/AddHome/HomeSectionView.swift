@@ -7,8 +7,8 @@
 import SwiftUI
 
 struct HomeSectionView: View {
-    @Binding var beds: String
-    @Binding var rooms: String
+    @Binding var beds: Int
+    @Binding var rooms: Int
     @Binding var city: String
     @Binding var additionalInfo: String
     @Binding var homeTitle: String
@@ -29,11 +29,11 @@ struct HomeSectionView: View {
         Section(header: Text("Boende")) {
             HStack {
                 Text("Sovplatser:")
-                TextField("Sovplatser", text: $beds)
+                TextField("Sovplatser", value: $beds, formatter: NumberFormatter())
             }
             HStack {
                 Text("Antal rum:")
-                TextField("Antal rum", text: $rooms)
+                TextField("Antal rum", value: $rooms, formatter: NumberFormatter())
             }
             HStack {
                 Text("Stad:")
