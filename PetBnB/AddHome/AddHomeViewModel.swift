@@ -21,6 +21,8 @@ class AddHomeViewModel: ObservableObject {
     @Published var animalInfo: [String] = [""]
     @Published var rating: Double = 0.0
     @Published var isShowingImagePicker: Bool = false
+    
+    private let firestoreUtils = FirestoreUtils()
 
     func addAnimal() {
         animalType.append("")
@@ -30,86 +32,11 @@ class AddHomeViewModel: ObservableObject {
     }
 
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
-        let db = Firestore.firestore()
-        let homeRef = db.collection("homes").document()
-        
-        var animalInfos: [String: AnimalInfo] = [:]
-        for index in 0..<animalCount {
-            let animalInfo = AnimalInfo(type: animalType[index], age: animalAge[index], additionalInfoAnimal: animalInfo[index])
-            animalInfos["animal\(index)"] = animalInfo
-        }
-
-        uploadImages { result in
-            switch result {
-            case .success(let imageUrls):
-                let home = Home(
-                    id: homeRef.documentID,
-                    name: self.homeTitle,
-                    beds: self.beds,
-                    rooms: self.rooms,
-                    size: self.size,
-                    animals: animalInfos,
-                    additionalInfoHome: self.additionalInfo,
-                    city: self.city,
-                    availability: self.availability,
-                    images: imageUrls,
-                    rating: self.rating
-                )
-
-                // Save home document
-                do {
-                    try homeRef.setData(from: home) { error in
-                        if let error = error {
-                            completion(.failure(error))
-                        } else {
-                            completion(.success(()))
-                        }
-                    }
-                } catch {
-                    completion(.failure(error))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, selectedImages: selectedImages, animalCount: animalCount, animalType: animalType, animalAge: animalAge, animalInfo: animalInfo, rating: rating, completion: completion)
+        //TODO: Save chosen availability
     }
 
-    private func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
-        let storage = Storage.storage()
-        let storageRef = storage.reference().child("homeImages")
-        
-        var imageUrls: [String: URL] = [:]
-        var uploadCount = 0
-
-        for (index, image) in selectedImages.enumerated() {
-            let imageRef = storageRef.child(UUID().uuidString + ".jpg")
-            if let imageData = image.jpegData(compressionQuality: 0.8) {
-                imageRef.putData(imageData, metadata: nil) { metadata, error in
-                    if let error = error {
-                        completion(.failure(error))
-                        return
-                    }
-
-                    imageRef.downloadURL { url, error in
-                        if let error = error {
-                            completion(.failure(error))
-                            return
-                        }
-
-                        if let url = url {
-                            imageUrls["image\(index)"] = url
-                            uploadCount += 1
-
-                            if uploadCount == self.selectedImages.count {
-                                completion(.success(imageUrls))
-                            }
-                        }
-                    }
-                }
-            } else {
-                completion(.failure(NSError(domain: "imageDataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Could not convert image to data."])))
-                return
-            }
-        }
+    func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
+        firestoreUtils.uploadImages(images: selectedImages, completion: completion)
     }
 }
