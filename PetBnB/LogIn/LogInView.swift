@@ -10,7 +10,7 @@ struct LogInView: View {
     var body: some View {
         VStack {
             Spacer()
-              
+            
             Image("PetHouse")
                 .resizable()
                 .scaledToFit()
@@ -56,76 +56,62 @@ struct LogInView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.custom("SF Pro Text", size: 15))
             }
+            
+            .padding(.horizontal)
+            .padding(.bottom, 20)
+            
+            Toggle(isOn: $viewModel.rememberMe) {
+                Text("Kom ihåg mig ")
+                    .font(.custom("SF Pro Text", size: 15))
                 
-                    .padding(.horizontal)
-                    .padding(.bottom, 20)
-                
-                Toggle(isOn: $viewModel.rememberMe) {
-                    Text("Kom ihåg mig ")
+            }
+            .padding(.horizontal)
+            .padding(.top, 10)
+            
+            HStack {
+                Button(action: {
+                    showSignUpView = true
+                }) {
+                    Text("Registrera")
                         .font(.custom("SF Pro Text", size: 15))
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .padding()
+                        .background(Color("primary"))
+                        .foregroundColor(Color("text"))
+                        .cornerRadius(10)
                     
                 }
                 .padding(.horizontal)
-                .padding(.top, 10)
-                
-                HStack {
-                    Button(action: {
-                        viewModel.signUp()
-                    }) {
-                        Text("Registrera")
-                            .font(.custom("SF Pro Text", size: 15))
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding()
-                            .background(Color("primary"))
-                            .foregroundColor(Color("text"))
-                            .cornerRadius(10)
-                        
-                    }
-                    .padding(.horizontal)
-                    
-                    Button(action: {
-                        viewModel.signIn()
-                    }) {
-                        Text("Logga in")
-                            .font(.custom("SF Pro Text", size: 15))
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding()
-                            .background(Color("primary"))
-                            .foregroundColor(Color("text"))
-                            .cornerRadius(10)
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.top, 20)
-                
-                Spacer()
-            }
-            .onChange(of: viewModel.signedIn) { newValue in
-                if newValue {
-                    signedIn = true
-                }
-                .padding()
-                .background(Color("primary"))
-                .foregroundColor(Color("text"))
-                .cornerRadius(8)
                 
                 Button(action: {
-                    self.showSignUpView = true
+                    viewModel.signIn()
                 }) {
-                    Text("Registrera")
-                        .foregroundColor(.white)
+                    Text("Logga in")
+                        .font(.custom("SF Pro Text", size: 15))
+                        .frame(minWidth: 0, maxWidth: .infinity)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color("primary"))
+                        .foregroundColor(Color("text"))
                         .cornerRadius(10)
                 }
-                .padding()
+                .padding(.horizontal)
+            }
+            .padding(.top, 20)
+            
+            Spacer()
+                .onChange(of: viewModel.signedIn) { newValue in
+                    if newValue {
+                        signedIn = true
+                    }
+                }
                 .sheet(isPresented: $showSignUpView) {
                     SignUpView()
-            }
+                }
         }
     }
-    
-    #Preview {
-        LogInView(signedIn: .constant(false))
-    }
+}
 
+
+#Preview {
+    LogInView(signedIn: .constant(false))
+}
