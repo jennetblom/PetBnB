@@ -12,7 +12,7 @@ struct SearchBarView: View {
         .padding(.vertical, 10)
         .background(Color(UIColor.lightGray.withAlphaComponent(0.3)))
         .cornerRadius(8)
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 30)
         
     }
 }
