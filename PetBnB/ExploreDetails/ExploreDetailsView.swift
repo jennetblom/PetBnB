@@ -1,11 +1,14 @@
 import SwiftUI
 
 struct ExploreDetailsView: View {
+    var home: Home
+
     var body: some View {
-        Text("Explore Details")
+        VStack {
+            Text(home.city)
+                .font(.largeTitle)            
+        }
     }
 }
 
-#Preview {
-    ExploreDetailsView()
-}
+

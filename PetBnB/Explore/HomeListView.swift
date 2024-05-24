@@ -15,16 +15,19 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
                         guard let selectedFilter = selectedFilter else { return true }
                         return home.animals.keys.contains(selectedFilter)
                     }) { home in
-                        HomeView(
-                            images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString },
-                            city: home.city,
-                            name: home.name,
-                            roomsBeds: "\(home.rooms) rum, \(home.beds) sängar",
-                            availability: "v.\(home.availability)",
-                            rating: home.rating,
-                            homeID: home.id ?? ""
-                        )
-                        .transition(.opacity)
+                        NavigationLink(destination: ExploreDetailsView(home: home)) {
+                            HomeView(
+                                images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString },
+                                city: home.city,
+                                name: home.name,
+                                roomsBeds: "\(home.rooms) rum, \(home.beds) sängar",
+                                availability: "v.\(home.availability)",
+                                rating: home.rating,
+                                homeID: home.id ?? ""
+                            )
+                            .transition(.opacity)
+                            .buttonStyle(PlainButtonStyle()) 
+                        }
                     }
                 }
                 Spacer()
