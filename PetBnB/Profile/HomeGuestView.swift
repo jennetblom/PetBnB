@@ -16,14 +16,6 @@ struct HomeGuestView : View {
                     .padding(.vertical)
                 GuestAnimalExperienceView()
             }
-            //            Button("Spara") {
-            //                
-            //            }.frame(width: 220, height: 40)
-            //                .background(Color("primary"))
-            //                .foregroundColor(.black)
-            //                .cornerRadius(10.0)
-            //                .padding()
-            //        }
         }
     }
 }
@@ -43,7 +35,7 @@ struct AboutMeGuestView : View {
             }
             
             RowView(title: "Ålder") {
-                Picker("Välj ålder", selection: $viewModel.userGuestAge){
+                Picker("Välj ålder", selection: $viewModel.userAge){
                     ForEach(ages, id: \.self) { age in
                         Text("\(age)").tag(age)
                     }
@@ -53,7 +45,7 @@ struct AboutMeGuestView : View {
             }.padding(.horizontal, 10)
             
             InfoRowView(title: "Berätta lite om dig själv") {
-                TextEditor(text: $viewModel.userGuestInfo)
+                TextEditor(text: $viewModel.userInfo)
                         .scrollContentBackground(.hidden)
                         .frame(height: 70)
                         .padding(EdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2))
@@ -79,7 +71,7 @@ struct GuestAnimalExperienceView : View {
                 Spacer()
             }
             RowView(title: "Typ av djur") {
-                Picker("Välj djur", selection: $viewModel.animalGuestExperienceType){
+                Picker("Välj djur", selection: $viewModel.animalExperienceType){
                     ForEach(animals, id: \.self) { animal in
                         Text(animal).tag(animal)
                     }
@@ -89,7 +81,7 @@ struct GuestAnimalExperienceView : View {
             }.padding(.horizontal, 10)
             
             InfoRowView(title: "Vad har du för erfarenhet av djur?") {
-                TextEditor(text: $viewModel.animalGuestExperienceInfo)
+                TextEditor(text: $viewModel.animalExperienceInfo)
                     .scrollContentBackground(.hidden)
                     .frame(height: 70)
                     .padding(EdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2))

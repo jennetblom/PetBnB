@@ -14,14 +14,14 @@ class ProfileViewModel: ObservableObject {
     @Published var city = "Stockholm"
     @Published var numberOfBeds = 0
     @Published var numberOfRooms = 0
-    @Published var housingInfo = ""
+    @Published var homeInfo = ""
     @Published var animalType = "Katt"
     @Published var animalAge = 0
     @Published var animalInfo = ""
-    @Published var userGuestAge = 0
-    @Published var userGuestInfo = ""
-    @Published var animalGuestExperienceType = "Reptil"
-    @Published var animalGuestExperienceInfo = ""
+    @Published var userAge = 0
+    @Published var userInfo = ""
+    @Published var animalExperienceType = "Reptil"
+    @Published var animalExperienceInfo = ""
     
     func fetchUserProfileFromFirebase() {
             guard let user = auth.currentUser else { return }
@@ -31,17 +31,17 @@ class ProfileViewModel: ObservableObject {
                     let data = document.data()
                     self.name = data?["name"] as? String ?? ""
                     self.rating = data?["rating"] as? Int ?? 0
-                    self.city = data?["city"] as? String ?? ""
+                    self.city = data?["city"] as? String ?? "Göteborg"
                     self.numberOfBeds = data?["numberOfBeds"] as? Int ?? 0
                     self.numberOfRooms = data?["numberOfRooms"] as? Int ?? 0
-                    self.housingInfo = data?["housingInfo"] as? String ?? ""
-                    self.animalType = data?["animalType"] as? String ?? ""
+                    self.homeInfo = data?["homeInfo"] as? String ?? ""
+                    self.animalType = data?["animalType"] as? String ?? "Reptil"
                     self.animalAge = data?["animalAge"] as? Int ?? 0
                     self.animalInfo = data?["animalInfo"] as? String ?? ""
-                    self.userGuestAge = data?["userGuestAge"] as? Int ?? 0
-                    self.userGuestInfo = data?["userGuestInfo"] as? String ?? ""
-                    self.animalGuestExperienceType = data?["animalGuestExperienceType"] as? String ?? ""
-                    self.animalGuestExperienceInfo = data?["animalGuestExperienceInfo"] as? String ?? ""
+                    self.userAge = data?["userAge"] as? Int ?? 0
+                    self.userInfo = data?["userInfo"] as? String ?? ""
+                    self.animalExperienceType = data?["animalExperienceType"] as? String ?? "Katt"
+                    self.animalExperienceInfo = data?["animalExperienceInfo"] as? String ?? ""
                 } else {
                     print("Document does not exist")
                 }
@@ -56,14 +56,14 @@ class ProfileViewModel: ObservableObject {
                 "city": self.city,
                 "numberOfBeds": self.numberOfBeds,
                 "numberOfRooms": self.numberOfRooms,
-                "housingInfo": self.housingInfo,
+                "homeInfo": self.homeInfo,
                 "animalType": self.animalType,
                 "animalAge": self.animalAge,
                 "animalInfo": self.animalInfo,
-                "userGuestAge": self.userGuestAge,
-                "userGuestInfo": self.userGuestInfo,
-                "animalGuestExperienceType": self.animalGuestExperienceType,
-                "animalGuestExperienceInfo": self.animalGuestExperienceInfo
+                "userAge": self.userAge,
+                "userInfo": self.userInfo,
+                "animalGuestExperienceType": self.animalExperienceType,
+                "animalGuestExperienceInfo": self.animalExperienceInfo
             ]
             
             db.collection("users").document(user.uid).setData(userProfileData, merge: true) { error in

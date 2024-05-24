@@ -76,7 +76,7 @@ struct HousingInfoView : View {
                 }.padding(.horizontal,10)
                 
                 InfoRowView(title: "Info om boendet") {
-                    TextEditor(text: $viewModel.housingInfo)
+                    TextEditor(text: $viewModel.homeInfo)
                             .scrollContentBackground(.hidden)
                             .frame(height: 70)
                             .padding(EdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2))
