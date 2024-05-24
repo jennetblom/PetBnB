@@ -25,7 +25,7 @@ class ProfileViewModel: ObservableObject {
     @Published var animalExperienceInfo = ""
     
     func addAnimal() {
-         animalType.append("")
+         animalType.append("Fågel")
          animalAge.append(0)
          animalInfo.append("")
          animalCount += 1
