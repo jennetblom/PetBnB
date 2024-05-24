@@ -10,7 +10,7 @@ import SwiftUI
 struct AnimalSectionView: View {
     let index: Int
     @Binding var animalType: String
-    @Binding var animalAge: String
+    @Binding var animalAge: Int
     @Binding var animalInfo: String
     var isLast: Bool
     var addAnimalAction: () -> Void
@@ -23,7 +23,7 @@ struct AnimalSectionView: View {
             }
             HStack {
                 Text("Ålder:")
-                TextField("Ålder", text: $animalAge)
+                TextField("Ålder", value: $animalAge, formatter: NumberFormatter())
             }
             HStack {
                 Text("Övrig info:")

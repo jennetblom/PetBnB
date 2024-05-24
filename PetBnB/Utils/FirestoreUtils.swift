@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseStorage
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
@@ -90,4 +91,87 @@ class FirestoreUtils {
             }
         }
     }
-}
+    
+    func saveHome(homeTitle: String, beds: Int, rooms: Int, size: Int, additionalInfo: String, city: String, availability: Int, selectedImages: [UIImage], animalCount: Int, animalType: [String], animalAge: [Int], animalInfo: [String], rating: Double, completion: @escaping (Result<Void, Error>) -> Void) {
+            let homeRef = db.collection("homes").document()
+
+            var animalInfos: [String: AnimalInfo] = [:]
+            for index in 0..<animalCount {
+                let animalInfo = AnimalInfo(type: animalType[index], age: animalAge[index], additionalInfoAnimal: animalInfo[index])
+                animalInfos["animal\(index)"] = animalInfo
+            }
+
+            uploadImages(images: selectedImages) { result in
+                switch result {
+                case .success(let imageUrls):
+                    let home = Home(
+                        id: homeRef.documentID,
+                        name: homeTitle,
+                        beds: beds,
+                        rooms: rooms,
+                        size: size,
+                        animals: animalInfos,
+                        additionalInfoHome: additionalInfo,
+                        city: city,
+                        availability: availability,
+                        images: imageUrls,
+                        rating: rating
+                    )
+
+                    // Spara hem dokumentet
+                    do {
+                        try homeRef.setData(from: home) { error in
+                            if let error = error {
+                                completion(.failure(error))
+                            } else {
+                                completion(.success(()))
+                            }
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+
+        func uploadImages(images: [UIImage], completion: @escaping (Result<[String: URL], Error>) -> Void) {
+            let storage = Storage.storage()
+            let storageRef = storage.reference().child("homeImages")
+
+            var imageUrls: [String: URL] = [:]
+            var uploadCount = 0
+
+            for (index, image) in images.enumerated() {
+                let imageRef = storageRef.child(UUID().uuidString + ".jpg")
+                if let imageData = image.jpegData(compressionQuality: 0.8) {
+                    imageRef.putData(imageData, metadata: nil) { metadata, error in
+                        if let error = error {
+                            completion(.failure(error))
+                            return
+                        }
+
+                        imageRef.downloadURL { url, error in
+                            if let error = error {
+                                completion(.failure(error))
+                                return
+                            }
+
+                            if let url = url {
+                                imageUrls["image\(index)"] = url
+                                uploadCount += 1
+
+                                if uploadCount == images.count {
+                                    completion(.success(imageUrls))
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    completion(.failure(NSError(domain: "imageDataError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Could not convert image to data."])))
+                    return
+                }
+            }
+        }
+    }
