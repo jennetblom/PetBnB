@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HomeInformationView: View {
     var city: String
-    var description: String
+    var name: String
     var roomsBeds: String
     var availability: String
     var rating: Double
@@ -13,7 +13,7 @@ struct HomeInformationView: View {
                 VStack(alignment: .leading) {
                     Text(city)
                         .font(.headline)
-                    Text(description)
+                    Text(name)
                         .font(.subheadline)
                     Text(roomsBeds)
                         .font(.subheadline)

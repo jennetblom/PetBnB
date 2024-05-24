@@ -18,7 +18,7 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
                         HomeView(
                             images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString },
                             city: home.city,
-                            description: home.additionalInfoHome,
+                            name: home.name,
                             roomsBeds: "\(home.rooms) rum, \(home.beds) sängar",
                             availability: "v.\(home.availability)",
                             rating: home.rating,

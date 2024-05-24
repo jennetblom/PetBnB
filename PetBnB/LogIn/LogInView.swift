@@ -1,11 +1,12 @@
 
 import SwiftUI
-//import Firebase
+import Firebase
 
 struct LogInView: View {
     @Binding var signedIn: Bool
     @StateObject private var viewModel = LogInViewModel()
     @State private var showSignUpView = false
+    var auth = Auth.auth()
     
     var body: some View {
         VStack {
@@ -93,6 +94,7 @@ struct LogInView: View {
                 
                 Button(action: {
                     viewModel.signIn()
+                
                 }) {
                     Text("Logga in")
                         .font(.custom("SF Pro Text", size: 15))
@@ -107,6 +109,7 @@ struct LogInView: View {
             .padding(.top, 20)
             
             Spacer()
+
         }
         .onChange(of: viewModel.signedIn) { newValue in
             if newValue {
@@ -115,6 +118,7 @@ struct LogInView: View {
         }
         .sheet(isPresented: $showSignUpView) {
             SignUpView()
+
         }
     }
 }

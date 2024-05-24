@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 class FavoritesViewModel: ObservableObject, HomeListViewModel {
     @Published var homes = [Home]()
@@ -10,13 +11,23 @@ class FavoritesViewModel: ObservableObject, HomeListViewModel {
     private let firestoreUtils = FirestoreUtils()
     private var cancellables = Set<AnyCancellable>()
 
+    var currentUserID: String? {
+        Auth.auth().currentUser?.uid
+    }
+
     init() {
         fetchHomes()
     }
 
     func fetchHomes() {
+        guard let userID = currentUserID else {
+            print("Error: No user is currently signed in.")
+            self.loading = false
+            return
+        }
+
         loading = true
-        firestoreUtils.fetchFavoriteHomes(userID: "currentUserID") { result in
+        firestoreUtils.fetchFavoriteHomes(userID: userID) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let homes):
