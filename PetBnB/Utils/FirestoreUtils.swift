@@ -27,9 +27,9 @@ class FirestoreUtils {
             }
         }
     }
-    
-    func updateFavoriteStatus(homeID: String, isFavorite: Bool) -> AnyPublisher<Void, Error> {
-        let userFavoritesRef = db.collection("users").document("currentUserID").collection("favorites")
+
+    func updateFavoriteStatus(homeID: String, isFavorite: Bool, userID: String) -> AnyPublisher<Void, Error> {
+        let userFavoritesRef = db.collection("users").document(userID).collection("favorites")
         return Future<Void, Error> { promise in
             if isFavorite {
                 userFavoritesRef.document(homeID).setData(["homeID": homeID]) { error in
