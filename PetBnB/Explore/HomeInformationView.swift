@@ -27,7 +27,7 @@ struct HomeInformationView: View {
                             .font(.subheadline)
                         Image(systemName: "star.fill")
                             .font(.subheadline)
-                            .foregroundColor(Color("details"))
+                            .foregroundColor(Color(red: 1.0, green: 0.843, blue: 0.0))
                     }
                 }
             }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FilterBarView: View {
-    @Binding var selectedFilter: String
+    @Binding var selectedFilter: String?
     let filters: [String]
 
     var body: some View {
@@ -10,9 +10,17 @@ struct FilterBarView: View {
                 ForEach(filters, id: \.self) { filter in
                     FilterButton(filter: filter, isSelected: filter == selectedFilter) {
                         withAnimation {
-                            selectedFilter = filter
+                            if filter == selectedFilter {
+                                selectedFilter = nil
+                            } else {
+                                selectedFilter = filter
+                            }
                         }
-                        print("Selected filter: \(filter)")
+                    }
+                    .onTapGesture(count: 2) {
+                        withAnimation {
+                            selectedFilter = nil
+                        }
                     }
                 }
             }
