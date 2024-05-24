@@ -27,7 +27,7 @@ struct ExploreView: View {
                 NavigationLink(destination: AddHomeView()) {
                     Image(systemName: "plus")
                         .font(.title)
-                        .foregroundColor(Color("details"))
+                        .foregroundColor(Color("secondary"))
                 }
             }
         }
