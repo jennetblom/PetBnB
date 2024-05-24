@@ -41,24 +41,30 @@ struct ProfileView: View {
         .environmentObject(viewModel)
     }
 }
-struct profileHeaderWithImageAndStars : View {
+struct profileHeaderWithImageAndStars: View {
     @EnvironmentObject var viewModel: ProfileViewModel
-    @Binding var rating : Int
+    @Binding var rating: Int
     
     var body: some View {
-        HStack{
+        HStack {
             Image("catimage")
                 .resizable()
                 .frame(width: 100, height: 100)
-                .offset(x: 0)
-            VStack{
-                Text(viewModel.name)
-                    .font(.title2)
-                    .offset(x:-35, y: 0)
+                .offset(x: 50)
+            
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(viewModel.name)
+                        .font(.title2)
+                        .offset(x: 55)
+                    Spacer() // Ensure the text grows to the right
+                }
+                
                 RatingBar(rating: $rating)
-                    .offset(x: 10, y: -5)
+                    .offset(x: 55, y: -10)
             }
-        }.padding()
+        }
+        .padding()
     }
 }
 
