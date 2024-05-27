@@ -1,5 +1,5 @@
-
 import Foundation
+import SwiftUI
 import Firebase
 
 class SignUpViewModel: ObservableObject {
@@ -10,9 +10,19 @@ class SignUpViewModel: ObservableObject {
     @Published var errorMessage = ""
     
     @Published var showLogInView = false
-    @Published var registrationSuccess = false
+    @Published var registrationSuccess = false {
+        didSet{
+            if registrationSuccess {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .userDidSignIn, object: nil)
+                }
+            }
+        }
+        
+    }
     
-    func register() {
+    func register(signedIn: Binding<Bool>) {
+
         if password != confirmPassword {
             errorMessage = "Lösenorden matchar inte"
         } else if name.isEmpty || email.isEmpty || password.isEmpty {
@@ -37,7 +47,7 @@ class SignUpViewModel: ObservableObject {
                     let db = Firestore.firestore()
                     db.collection("users").document(user.uid).setData([
                         "name": self.name,
-                        "email": self.email, // Corrected spelling
+                        "email": self.email,
                         "password": self.password,
                         "uid": user.uid
                     ]) { error in
@@ -47,6 +57,7 @@ class SignUpViewModel: ObservableObject {
                         }
                         DispatchQueue.main.async {
                             self.registrationSuccess = true
+                            signedIn.wrappedValue = true
                         }
                         print("Användare \(user.uid) registrerad med namn \(self.name) och mejl \(self.email)")
                         print("registrering bekräftad: \(self.registrationSuccess)")
@@ -55,4 +66,7 @@ class SignUpViewModel: ObservableObject {
             }
         }
     }
+}
+extension Notification.Name {
+    static let userDidSignIn = Notification.Name("userDidSignIn")
 }

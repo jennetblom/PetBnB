@@ -18,7 +18,6 @@ struct ContentView: View {
 struct MainTabView: View {
     var body: some View {
         TabView {
-            
             createTabView(view: ExploreView(), title: "Utforska", systemImage: "magnifyingglass", showTitle: false)
             createTabView(view: FavoritesView(), title: "Favoriter", systemImage: "heart", showTitle: true)
             createTabView(view: ChatView(), title: "Chatt", systemImage: "message", showTitle: true)
