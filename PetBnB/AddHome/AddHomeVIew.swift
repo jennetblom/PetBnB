@@ -6,7 +6,7 @@ struct AddHomeView: View {
     @State private var isSaving: Bool = false
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -58,6 +58,9 @@ struct AddHomeView: View {
             .alert(isPresented: $showError) {
                             Alert(title: Text("Fel"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
                         }
+            .onAppear {
+                        viewModel.fetchAndUpdateUser()
+                    }
         }
     }
     private func saveHome() {
