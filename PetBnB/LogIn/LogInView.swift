@@ -9,7 +9,7 @@ struct LogInView: View {
     var auth = Auth.auth()
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 Spacer()
                 
@@ -63,8 +63,18 @@ struct LogInView: View {
                 .padding(.horizontal, 40)
                 .padding(.bottom, 20)
                 
-                
                 HStack {
+                                  NavigationLink(destination: SignUpView(signedIn: $signedIn).navigationBarBackButtonHidden(true)) {
+                                      Text("Registrera")
+                                          .font(.custom("SF Pro Text", size: 15))
+                                          .frame(minWidth: 0, maxWidth: .infinity)
+                                          .padding()
+                                          .background(Color("primary"))
+                                          .foregroundColor(Color("text"))
+                                          .cornerRadius(10)
+                                  }
+                
+                /*HStack {
                     Button(action: {
                         showSignUpView = true
                     }) {
@@ -76,7 +86,7 @@ struct LogInView: View {
                             .foregroundColor(Color("text"))
                             .cornerRadius(10)
                         
-                    }
+                    }*/
                     .padding(.horizontal)
                     
                     Button(action: {
@@ -101,18 +111,28 @@ struct LogInView: View {
             }
             .onChange(of: viewModel.signedIn) { newValue in
                 if newValue {
-                    signedIn = true
+                    signedIn = false
                 }
             }
             .sheet(isPresented: $showSignUpView) {
-                SignUpView()
-                
+                                    SignUpView(signedIn: $signedIn)
             }
-        }
-    }
-    
-}
+               }.onAppear {
+                   if let user = auth.currentUser {
+                       signedIn = false
+                   }
+               }
+           }
+       }
 
-#Preview {
-    LogInView(signedIn: .constant(false))
-}
+
+
+   //#Preview {
+     //  LogInView(signedIn: .constant(false))
+   //}
+   struct LogInView_Previews: PreviewProvider {
+       static var previews: some View {
+           LogInView(signedIn: .constant(false))
+       }
+   }
+
