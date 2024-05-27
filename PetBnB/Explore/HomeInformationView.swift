@@ -5,7 +5,6 @@ struct HomeInformationView: View {
     var name: String
     var roomsBeds: String
     var availability: String
-    var rating: Double
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -27,14 +26,7 @@ struct HomeInformationView: View {
                     Text(availability)
                         .font(.headline)
                         .foregroundColor(Color("text"))
-                    HStack(spacing: 2) {
-                        Text(String(format: "%.1f", rating))
-                            .font(.subheadline)
-                            .foregroundColor(Color("text"))
-                        Image(systemName: "star.fill")
-                            .font(.subheadline)
-                            .foregroundColor(Color(red: 1.0, green: 0.843, blue: 0.0))
-                    }
+                    
                 }
             }
             .padding(.horizontal)
