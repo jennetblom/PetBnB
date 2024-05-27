@@ -13,8 +13,8 @@ struct HomeSectionView: View {
     @Binding var additionalInfo: String
     @Binding var homeTitle: String
     let limit = 20
-    @State private var fromDate = Date()
-    @State private var toDate = Date()
+    @Binding var startDate: Date
+    @Binding var endDate: Date
     
     var body: some View {
         Section(header: Text("Rubrik")) {
@@ -48,7 +48,7 @@ struct HomeSectionView: View {
                             Text("Tillgängligt från:")
                             DatePicker(
                                 "",
-                                selection: $fromDate,
+                                selection: $startDate,
                                 in: Date()...,
                                 displayedComponents: [.date])
                         }
@@ -56,8 +56,8 @@ struct HomeSectionView: View {
                             Text("Tillgängligt till:")
                             DatePicker(
                                 "",
-                                selection: $toDate,
-                                in: fromDate...,
+                                selection: $endDate,
+                                in: startDate...,
                                 displayedComponents: [.date])
                         }
         }
