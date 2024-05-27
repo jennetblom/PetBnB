@@ -29,19 +29,19 @@ struct HomeSectionView: View {
         Section(header: Text("Boende")) {
             HStack {
                 Text("Sovplatser:")
-                TextField("Sovplatser", value: $beds, formatter: NumberFormatter())
+                TextField("Fyll i här", value: $beds, formatter: NumberFormatter())
             }
             HStack {
                 Text("Antal rum:")
-                TextField("Antal rum", value: $rooms, formatter: NumberFormatter())
+                TextField("Fyll i här", value: $rooms, formatter: NumberFormatter())
             }
             HStack {
                 Text("Stad:")
-                TextField("Stad", text: $city)
+                TextField("Fyll i här", text: $city)
             }
             HStack {
                 Text("Övrig info:")
-                TextField("Övrig info", text: $additionalInfo)
+                TextField("Fyll i här", text: $additionalInfo)
             }
             
             HStack{
