@@ -10,11 +10,11 @@ import SwiftUI
 
 struct HomeOwnerView : View {
     @EnvironmentObject var viewModel: ProfileViewModel
-    
+    @Binding var hasChanges : Bool
     var body: some View {
         VStack{
             ScrollView {
-                HousingInfoView()
+                HousingInfoView( hasChanges: $hasChanges)
                 
                 animalInfoList
                 
@@ -46,6 +46,8 @@ struct HousingInfoView : View {
     var beds = Array(0...10)
     var rooms = Array(0...10)
     
+    @Binding var hasChanges : Bool
+    
     var body: some View {
         VStack{
             HStack{
@@ -63,7 +65,13 @@ struct HousingInfoView : View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .accentColor(.gray)
+                .onChange(of: viewModel.city, initial: false){
+                    print("")
+                    hasChanges = true
+                }
+                
             }.padding(.horizontal, 10)
+            
             
             
             RowView(title: "Sovplatser") {

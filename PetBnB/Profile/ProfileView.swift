@@ -3,7 +3,7 @@ import SwiftUI
 struct ProfileView: View {
     @State private var selectedSegment = 0
     @StateObject var viewModel = ProfileViewModel()
-    
+    @State var hasChanges : Bool = false
     let segments = ["Uthyrare", "Hyresgäst"]
     
     var body: some View {
@@ -20,20 +20,23 @@ struct ProfileView: View {
             profileHeaderWithImageAndStars(rating: $viewModel.rating)
             
             if selectedSegment == 0 {
-                HomeOwnerView()
+                HomeOwnerView(hasChanges: $hasChanges)
             } else {
                 HomeGuestView()
             }
             Spacer()
             
-            Button("Spara") {
-                viewModel.saveUserProfileToFirebase()
-                
-            }.frame(width: 220, height: 40)
-                .background(Color("primary"))
-                .foregroundColor(.black)
-                .cornerRadius(10.0)
-                .padding()
+            if hasChanges {
+                Button("Spara") {
+                    hasChanges = false
+                    viewModel.saveUserProfileToFirebase()
+                    
+                }.frame(width: 220, height: 40)
+                    .background(Color("primary"))
+                    .foregroundColor(.black)
+                    .cornerRadius(10.0)
+                    .padding()
+            }
         
         }.onAppear {
             viewModel.fetchUserProfileFromFirebase()
