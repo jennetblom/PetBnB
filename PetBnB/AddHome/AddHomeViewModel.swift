@@ -13,7 +13,9 @@ class AddHomeViewModel: ObservableObject {
     @Published var size: Int = 0
     @Published var additionalInfo: String = ""
     @Published var city: String = ""
-    @Published var availability: Int = 0
+    var availability: Int = 0
+    @Published var startDate: Date = Date()
+    @Published var endDate: Date = Date()
     @Published var selectedImages: [UIImage] = []
     @Published var animalCount: Int = 1
     @Published var animalType: [String] = [""]
@@ -32,8 +34,14 @@ class AddHomeViewModel: ObservableObject {
     }
 
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
-        firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, selectedImages: selectedImages, animalCount: animalCount, animalType: animalType, animalAge: animalAge, animalInfo: animalInfo, rating: rating, completion: completion)
-        //TODO: Save chosen availability
+        calculateAvailability()
+        firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, startDate: startDate, endDate: endDate, selectedImages: selectedImages, animalCount: animalCount, animalType: animalType, animalAge: animalAge, animalInfo: animalInfo, rating: rating, completion: completion)
+    }
+    
+    func calculateAvailability() {
+        let calendar = Calendar.current
+        let weekOfYear = calendar.component(.weekOfYear, from: startDate)
+        availability = weekOfYear
     }
 
     func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
