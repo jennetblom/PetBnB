@@ -19,15 +19,15 @@ struct AnimalSectionView: View {
         Section(header: Text("Djur \(index + 1)")) {
             HStack {
                 Text("Typ:")
-                TextField("Typ", text: $animalType)
+                TextField("Fyll i här (ex. hund)", text: $animalType)
             }
             HStack {
                 Text("Ålder:")
-                TextField("Ålder", value: $animalAge, formatter: NumberFormatter())
+                TextField("Fyll i här", value: $animalAge, formatter: NumberFormatter())
             }
             HStack {
                 Text("Övrig info:")
-                TextField("Övrig info", text: $animalInfo)
+                TextField("Fyll i här", text: $animalInfo)
             }
 
             if isLast {
