@@ -112,8 +112,8 @@ class FirestoreUtils {
         }
     }
     
-    func saveHome(homeTitle: String, beds: Int, rooms: Int, size: Int, additionalInfo: String, city: String, availability: Int, startDate: Date, endDate: Date, selectedImages: [UIImage], animalCount: Int, animalType: [String], animalAge: [Int], animalInfo: [String], rating: Double, completion: @escaping (Result<Void, Error>) -> Void) {
-            
+    func saveHome(homeTitle: String, beds: Int, rooms: Int, size: Int, additionalInfo: String, city: String, availability: Int, startDate: Date, endDate: Date, selectedImages: [UIImage], animals: [AnimalInfo], rating: Double, completion: @escaping (Result<Void, Error>) -> Void) {
+        
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(.failure(NSError(domain: "SaveHome", code: -1, userInfo: [NSLocalizedDescriptionKey: "No user is logged in"])))
             return
@@ -121,10 +121,10 @@ class FirestoreUtils {
         
         let homeRef = db.collection("homes").document()
         
+        // Convert array of AnimalInfo to dictionary
         var animalInfos: [String: AnimalInfo] = [:]
-        for index in 0..<animalCount {
-            let animalInfo = AnimalInfo(type: animalType[index], age: animalAge[index], additionalInfoAnimal: animalInfo[index])
-            animalInfos["animal\(index)"] = animalInfo
+        for (index, animal) in animals.enumerated() {
+            animalInfos["animal\(index)"] = animal
         }
         
         uploadImages(images: selectedImages) { result in

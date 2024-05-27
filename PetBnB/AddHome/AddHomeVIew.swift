@@ -19,19 +19,20 @@ struct AddHomeView: View {
                         
                         HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, city: $viewModel.city, additionalInfo: $viewModel.additionalInfo, homeTitle: $viewModel.homeTitle, startDate: $viewModel.startDate, endDate: $viewModel.endDate)
                         
-                        ForEach(0..<viewModel.animalCount, id: \.self) { index in
+                        ForEach(viewModel.animals.indices, id: \.self) { index in
                             AnimalSectionView(
                                 index: index,
-                                animalType: $viewModel.animalType[index],
-                                animalAge: $viewModel.animalAge[index],
-                                animalInfo: $viewModel.animalInfo[index],
-                                isLast: index == viewModel.animalCount - 1,
-                                addAnimalAction: viewModel.addAnimal
+                                animalInfo: $viewModel.animals[index],
+                                isLast: index == viewModel.animals.count - 1,
+                                addAnimalAction: viewModel.addAnimal,
+                                removeAnimalAction: {
+                                    viewModel.removeAnimal(at: index)
+                                }
                             )
                         }
-                    }
-                }
-                Spacer()
+                                        }
+                                    }
+                                    Spacer()
             }
             .navigationTitle("Lägg till boende")
             .navigationBarTitleDisplayMode(.inline)
