@@ -39,4 +39,27 @@ class AddHomeViewModel: ObservableObject {
     func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
         firestoreUtils.uploadImages(images: selectedImages, completion: completion)
     }
+    
+    func fetchAndUpdateUser() {
+            guard let userID = Auth.auth().currentUser?.uid else {
+                print("Error: No user is logged in")
+                return
+            }
+            firestoreUtils.fetchUser(withID: userID) { result in
+                switch result {
+                case .success(let user):
+                    DispatchQueue.main.async {
+                        self.city = user.city
+                        self.beds = user.numberOfBeds
+                        self.rooms = user.numberOfRooms
+                        self.animalType = user.animals.map { $0.value.type }
+                        self.animalAge = user.animals.map { $0.value.age }
+                        self.animalInfo = user.animals.map { $0.value.additionalInfoAnimal }
+                        self.animalCount = user.animals.count
+                    }
+                case .failure(let error):
+                    print("Error fetching user: \(error)")
+                }
+            }
+        }
 }
