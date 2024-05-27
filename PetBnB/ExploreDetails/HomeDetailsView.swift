@@ -8,27 +8,27 @@ struct HomeDetailsView: View {
             Text("Boende")
                 .font(.headline)
             HStack {
-                Text("Stad:")
+                Text("Stad")
                 Spacer()
                 Text(home.city)
             }
             HStack {
-                Text("Sovplatser:")
+                Text("Sovplatser")
                 Spacer()
                 Text("\(home.beds)")
             }
             HStack {
-                Text("Antal rum:")
+                Text("Antal rum")
                 Spacer()
                 Text("\(home.rooms)")
             }
             HStack {
-                Text("Storlek:")
+                Text("Storlek")
                 Spacer()
                 Text("\(home.size) kvm2")
             }
             HStack {
-                Text("Tillgänglighet:")
+                Text("Tillgänglighet")
                 Spacer()
                 if let startDate = home.startDate, let endDate = home.endDate {
                     Text("\(formatDate(startDate)) - \(formatDate(endDate))")
@@ -37,7 +37,7 @@ struct HomeDetailsView: View {
                 }
             }
             HStack(alignment: .top) {
-                Text("Info om boendet:")
+                Text("Info om boendet")
                 Spacer()
                 Text(home.additionalInfoHome)
                     .frame(width: UIScreen.main.bounds.width * 0.5)

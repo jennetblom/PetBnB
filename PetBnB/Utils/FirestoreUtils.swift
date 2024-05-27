@@ -194,6 +194,25 @@ class FirestoreUtils {
         }
     }
     
+    func fetchUser(by userID: String, completion: @escaping (Result<User, Error>) -> Void) {
+            db.collection("users").document(userID).getDocument { document, error in
+                if let document = document, document.exists {
+                    do {
+                        let user = try document.data(as: User.self)
+                        completion(.success(user))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                } else {
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Document does not exist"])))
+                    }
+                }
+            }
+        }
+    
     func uploadImages(images: [UIImage], completion: @escaping (Result<[String: URL], Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference().child("homeImages")

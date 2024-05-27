@@ -16,7 +16,7 @@ struct MapButtonView: View {
                     .padding()
                     .background(Color("primary"))
                     .foregroundColor(Color("text"))
-                    .cornerRadius(8)
+                    .cornerRadius(12)
                 }
                 Spacer()
             }

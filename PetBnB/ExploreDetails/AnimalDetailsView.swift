@@ -8,22 +8,22 @@ struct AnimalDetailsView: View {
             ForEach(home.animals.keys.sorted(), id: \.self) { key in
                 if let animalInfo = home.animals[key] {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Boende")
+                        Text("Djur")
                             .font(.headline)
                     
                         HStack {
                         
-                            Text("Typ:")
+                            Text("Typ")
                             Spacer()
                             Text(animalInfo.type)
                         }
                         HStack {
-                            Text("Ålder:")
+                            Text("Ålder")
                             Spacer()
                             Text("\(animalInfo.age)")
                         }
                         HStack(alignment: .top) {
-                            Text("Info om djuret:")
+                            Text("Info om djuret")
                             Spacer()
                             Text(animalInfo.additionalInfoAnimal)
                                 .frame(width: UIScreen.main.bounds.width * 0.5)

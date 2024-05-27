@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ExploreDetailsView: View {
     var home: Home
+    @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
 
     var body: some View {
         ZStack {
@@ -10,7 +11,7 @@ struct ExploreDetailsView: View {
                     ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                         .frame(height: 300)
                     
-                    HomeHeaderView(home: home)
+                    HomeHeaderView(home: home, userName: exploreDetailsViewModel.user?.name, userRating: exploreDetailsViewModel.user?.rating)
                     
                     HomeDetailsView(home: home)
                     
@@ -26,8 +27,13 @@ struct ExploreDetailsView: View {
             MapButtonView()
                 .padding()
         }
-        .navigationTitle(home.city)
+        .navigationTitle(home.name ?? "Ingen användare")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if let userID = home.userID {
+                exploreDetailsViewModel.fetchUser(by: userID)
+            }
+        }
     }
 }
 
