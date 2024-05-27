@@ -13,6 +13,8 @@ struct Home: Identifiable, Codable {
     var additionalInfoHome: String
     var city: String
     var availability: Int
+    var startDate: Date
+    var endDate: Date
     var images: [String: URL]
     var rating: Double
     
