@@ -27,7 +27,8 @@ struct AddHomeView: View {
                                 addAnimalAction: viewModel.addAnimal,
                                 removeAnimalAction: {
                                     viewModel.removeAnimal(at: index)
-                                }
+                                },
+                                hasMultipleAnimals: viewModel.animals.count > 1
                             )
                         }
                                         }

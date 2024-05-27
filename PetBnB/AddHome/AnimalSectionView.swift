@@ -13,17 +13,21 @@ struct AnimalSectionView: View {
     var isLast: Bool
     var addAnimalAction: () -> Void
     var removeAnimalAction: () -> Void
+    var hasMultipleAnimals: Bool
 
     var body: some View {
         Section(header: HStack {
-            Text("Djur \(index + 1)")
-            Spacer()
-            Button(action: removeAnimalAction) {
-                Image(systemName: "trash")
-                    .font(.caption)
-                    .foregroundColor(.red)
-            }
-        }) {
+                    Text("Djur \(index + 1)")
+                    Spacer()
+                    if hasMultipleAnimals {
+                        Button(action: removeAnimalAction) {
+                            Image(systemName: "trash")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                        }
+                    }
+                }) {
+                
             HStack {
                 Text("Typ:")
                 TextField("Fyll i här (ex. hund)", text: $animalInfo.type)
