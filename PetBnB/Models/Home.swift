@@ -4,6 +4,7 @@ import FirebaseFirestoreSwift
 
 struct Home: Identifiable, Codable {
     @DocumentID var id: String?
+    var userID: String
     var name: String
     var beds: Int
     var rooms: Int
