@@ -8,7 +8,7 @@ struct User: Identifiable, Codable {
     var name: String
     var email: String
     var password: String
-    var homeID: String?
+    var homeIDs: [String]?
     var favourite: Bool?
     
     var profilePicture: URL?
