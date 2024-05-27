@@ -8,7 +8,6 @@ struct AddHomeView: View {
     @State private var errorMessage: String = ""
 
     var body: some View {
-        NavigationStack {
             VStack {
                 if isSaving {
                     ProgressView("Sparar...")
@@ -36,32 +35,21 @@ struct AddHomeView: View {
             }
             .navigationTitle("Lägg till boende")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { // Adding custom back button
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(Color("secondary"))
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: saveHome) {
-                        Text("Spara")
-                            .foregroundColor(Color("secondary"))
-                    }
-                }
-            }
+            .navigationBarItems(trailing:
+                Button(action: saveHome) {
+                    Text("Spara")
+                    .foregroundColor(Color("secondary"))
+            })
             .sheet(isPresented: $viewModel.isShowingImagePicker) {
                 ImagePicker(selectedImages: $viewModel.selectedImages)
             }
             .alert(isPresented: $showError) {
-                            Alert(title: Text("Fel"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
-                        }
+                Alert(title: Text("Fel"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+            }
             .onAppear {
-                        viewModel.fetchAndUpdateUser()
-                    }
-        }
+                viewModel.fetchAndUpdateUser()
+            }
+        
     }
     private func saveHome() {
         isSaving = true

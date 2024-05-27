@@ -26,7 +26,6 @@ struct ExploreView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: AddHomeView()) {
                     Image(systemName: "plus")
-                        .font(.title)
                         .foregroundColor(Color("secondary"))
                 }
             }
