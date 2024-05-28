@@ -30,7 +30,7 @@ class ProfileViewModel: ObservableObject {
          animalInfo.append("")
          animalCount += 1
      }
-    func fetchUserProfileFromFirebase() {
+    func fetchUserProfileFromFirebase(completion: @escaping () -> Void) {
         guard let user = auth.currentUser else { return }
         
         db.collection("users").document(user.uid).getDocument { [weak self] document, error in
@@ -63,9 +63,11 @@ class ProfileViewModel: ObservableObject {
                         }
                         self.animalCount = animalsData.count
                     }
+                    completion()
                 }
             } else {
                 print("Document does not exist")
+                completion()
             }
         }
     }
