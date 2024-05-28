@@ -10,6 +10,7 @@ import SwiftUI
 struct ImagePickerView: View {
     @Binding var selectedImages: [UIImage]
     @Binding var isShowingImagePicker: Bool
+    
 
     var body: some View {
         VStack {
@@ -60,6 +61,9 @@ struct ImagePickerView: View {
                     }
                 }
             }
+        }
+        .sheet(isPresented: $isShowingImagePicker) {
+                    ImagePicker(selectedImages: $selectedImages, selectedSingleImage: .constant(nil), isSingleImage: false)
         }
     }
 }

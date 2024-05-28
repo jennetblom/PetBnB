@@ -1,20 +1,15 @@
-//
-//  ImagePicker.swift
-//  PetBnB
-//
-//  Created by Ina Burström on 2024-05-21.
-//
-
 import SwiftUI
 import PhotosUI
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImages: [UIImage]
+    @Binding var selectedSingleImage: UIImage?
+    var isSingleImage: Bool
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = 0 // 0 is no limit
+        configuration.selectionLimit = isSingleImage ? 1 : 0 // 1 for single image, 0 for multiple
 
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = context.coordinator
@@ -47,7 +42,11 @@ struct ImagePicker: UIViewControllerRepresentable {
                     provider.loadObject(ofClass: UIImage.self) { (image, error) in
                         DispatchQueue.main.async {
                             if let uiImage = image as? UIImage {
-                                self.parent.selectedImages.append(uiImage)
+                                if self.parent.isSingleImage {
+                                    self.parent.selectedSingleImage = uiImage
+                                } else {
+                                    self.parent.selectedImages.append(uiImage)
+                                }
                             }
                             group.leave()
                         }
