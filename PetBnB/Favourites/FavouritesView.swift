@@ -1,9 +1,21 @@
-
 import SwiftUI
 
 struct FavoritesView: View {
+    @StateObject private var viewModel = FavoritesViewModel()
+    
     var body: some View {
-        Text("Favoriter")
+        VStack(alignment: .leading, spacing: 0) {
+            if viewModel.loading {
+                ProgressView("Laddar...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                HomeListView(viewModel: viewModel, selectedFilter: nil)
+            }
+        }
+        .onAppear {
+            viewModel.fetchHomes()
+        }
+        .environmentObject(viewModel)
     }
 }
 

@@ -4,24 +4,30 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
 
-class ExploreViewModel: ObservableObject, HomeListViewModel {
+class FavoritesViewModel: ObservableObject, HomeListViewModel {
     @Published var homes = [Home]()
     @Published var loading = true
     @Published var searchText: String = ""
     private let firestoreUtils = FirestoreUtils()
     private var cancellables = Set<AnyCancellable>()
-    
-    var currentUserID: String {
-        Auth.auth().currentUser?.uid ?? "unknownUser"
+
+    var currentUserID: String? {
+        Auth.auth().currentUser?.uid
     }
-    
+
     init() {
         fetchHomes()
     }
 
     func fetchHomes() {
+        guard let userID = currentUserID else {
+            print("Error: No user is currently signed in.")
+            self.loading = false
+            return
+        }
+
         loading = true
-        firestoreUtils.fetchHomes { result in
+        firestoreUtils.fetchFavoriteHomes(userID: userID) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let homes):
@@ -33,22 +39,6 @@ class ExploreViewModel: ObservableObject, HomeListViewModel {
                 }
             }
         }
-    }
-    
-    func updateFavoriteStatus(for homeID: String, isFavorite: Bool) {
-        firestoreUtils.updateFavoriteStatus(homeID: homeID, isFavorite: isFavorite, userID: currentUserID)
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    print("Error updating favorite status: \(error.localizedDescription)")
-                }
-            }, receiveValue: {
-
-            })
-            .store(in: &cancellables)
-    }
-    
-    func fetchFavoriteHomes(userID: String, completion: @escaping (Result<[Home], Error>) -> Void) {
-        firestoreUtils.fetchFavoriteHomes(userID: userID, completion: completion)
     }
 
     var filteredHomes: [Home] {

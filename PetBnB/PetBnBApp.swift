@@ -13,11 +13,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct PetBnBApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var exploreViewModel = ExploreViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(exploreViewModel)
+
         }
     }
-    // test dev default
 }

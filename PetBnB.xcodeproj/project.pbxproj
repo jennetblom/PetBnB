@@ -14,7 +14,6 @@
 		5548ED932BFA966E00E4CBF2 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED922BFA966E00E4CBF2 /* ExploreView.swift */; };
 		5548ED952BFA967700E4CBF2 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED942BFA967700E4CBF2 /* ExploreViewModel.swift */; };
 		5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED962BFA968500E4CBF2 /* FavouritesView.swift */; };
-		5548ED992BFA969800E4CBF2 /* FavourtiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED982BFA969800E4CBF2 /* FavourtiesViewModel.swift */; };
 		5548ED9B2BFA96A000E4CBF2 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED9A2BFA96A000E4CBF2 /* ChatView.swift */; };
 		5548ED9D2BFA96AC00E4CBF2 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED9C2BFA96AC00E4CBF2 /* ChatViewModel.swift */; };
 		5548EDA12BFA96EB00E4CBF2 /* ChatWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548EDA02BFA96EB00E4CBF2 /* ChatWindowView.swift */; };
@@ -31,6 +30,16 @@
 		5548EDB82BFA9EDE00E4CBF2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548EDB72BFA9EDE00E4CBF2 /* User.swift */; };
 		5548EDBA2BFA9EE800E4CBF2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548EDB92BFA9EE800E4CBF2 /* Home.swift */; };
 		5548EDBC2BFA9EFB00E4CBF2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548EDBB2BFA9EFB00E4CBF2 /* Message.swift */; };
+		55C1203C2BFCE6010005B734 /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1203B2BFCE6010005B734 /* ImageCarouselView.swift */; };
+		55C120402BFCE6470005B734 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1203F2BFCE6470005B734 /* FavoriteButton.swift */; };
+		55C120422BFCE6750005B734 /* HomeInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120412BFCE6750005B734 /* HomeInformationView.swift */; };
+		55C120442BFD334D0005B734 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120432BFD334D0005B734 /* FavouritesViewModel.swift */; };
+		55C120462BFD366A0005B734 /* HomeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120452BFD366A0005B734 /* HomeListViewModel.swift */; };
+		55CED72D2BFB508A0064EC52 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED72C2BFB508A0064EC52 /* HomeView.swift */; };
+		55CED72F2BFB736C0064EC52 /* AnimalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED72E2BFB736C0064EC52 /* AnimalInfo.swift */; };
+		55CED7312BFB82E90064EC52 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED7302BFB82E90064EC52 /* SearchBarView.swift */; };
+		55CED7332BFB83010064EC52 /* FilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED7322BFB83010064EC52 /* FilterBarView.swift */; };
+		55CED7352BFB83260064EC52 /* HomeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED7342BFB83260064EC52 /* HomeListView.swift */; };
 		5D036D0A2BF4B96D008D2C7A /* PetBnBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D036D092BF4B96D008D2C7A /* PetBnBApp.swift */; };
 		5D036D0C2BF4B96D008D2C7A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D036D0B2BF4B96D008D2C7A /* ContentView.swift */; };
 		5D036D0E2BF4B970008D2C7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D036D0D2BF4B970008D2C7A /* Assets.xcassets */; };
@@ -42,6 +51,15 @@
 		5D08B27F2BF628F000F41D38 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5D08B27E2BF628F000F41D38 /* FirebaseFirestore */; };
 		5D08B2812BF628F000F41D38 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5D08B2802BF628F000F41D38 /* FirebaseFirestoreSwift */; };
 		5D08B2872BF62D5D00F41D38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */; };
+		5DCD18D52BFF76DF0006A4B1 /* RowViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */; };
+		5DCD18D72BFF77D00006A4B1 /* HomeOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */; };
+		5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */; };
+		5DEAFB8D2BFDE9AD00BF067C /* RatingBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */; };
+		A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */; };
+		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
+		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
+		A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */; };
+		A904C6212BFFC05E004C0116 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A904C6202BFFC05E004C0116 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +87,6 @@
 		5548ED922BFA966E00E4CBF2 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		5548ED942BFA967700E4CBF2 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		5548ED962BFA968500E4CBF2 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
-		5548ED982BFA969800E4CBF2 /* FavourtiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavourtiesViewModel.swift; sourceTree = "<group>"; };
 		5548ED9A2BFA96A000E4CBF2 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		5548ED9C2BFA96AC00E4CBF2 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		5548EDA02BFA96EB00E4CBF2 /* ChatWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWindowView.swift; sourceTree = "<group>"; };
@@ -86,6 +103,16 @@
 		5548EDB72BFA9EDE00E4CBF2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5548EDB92BFA9EE800E4CBF2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5548EDBB2BFA9EFB00E4CBF2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		55C1203B2BFCE6010005B734 /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselView.swift; sourceTree = "<group>"; };
+		55C1203F2BFCE6470005B734 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
+		55C120412BFCE6750005B734 /* HomeInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInformationView.swift; sourceTree = "<group>"; };
+		55C120432BFD334D0005B734 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
+		55C120452BFD366A0005B734 /* HomeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListViewModel.swift; sourceTree = "<group>"; };
+		55CED72C2BFB508A0064EC52 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		55CED72E2BFB736C0064EC52 /* AnimalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalInfo.swift; sourceTree = "<group>"; };
+		55CED7302BFB82E90064EC52 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		55CED7322BFB83010064EC52 /* FilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarView.swift; sourceTree = "<group>"; };
+		55CED7342BFB83260064EC52 /* HomeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListView.swift; sourceTree = "<group>"; };
 		5D036D062BF4B96D008D2C7A /* PetBnB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetBnB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D036D092BF4B96D008D2C7A /* PetBnBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBnBApp.swift; sourceTree = "<group>"; };
 		5D036D0B2BF4B96D008D2C7A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +124,14 @@
 		5D036D242BF4B970008D2C7A /* PetBnBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBnBUITests.swift; sourceTree = "<group>"; };
 		5D036D262BF4B970008D2C7A /* PetBnBUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBnBUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowViews.swift; sourceTree = "<group>"; };
+		5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOwnerView.swift; sourceTree = "<group>"; };
+		5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGuestView.swift; sourceTree = "<group>"; };
+		5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBarView.swift; sourceTree = "<group>"; };
+		A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSectionView.swift; sourceTree = "<group>"; };
+		A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionView.swift; sourceTree = "<group>"; };
+		A904C6192BFCE67E004C0116 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D08B27D2BF628F000F41D38 /* FirebaseAuth in Frameworks */,
+				A904C6212BFFC05E004C0116 /* FirebaseStorage in Frameworks */,
 				5D08B27F2BF628F000F41D38 /* FirebaseFirestore in Frameworks */,
 				5D08B2812BF628F000F41D38 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -132,6 +168,13 @@
 			children = (
 				5548ED922BFA966E00E4CBF2 /* ExploreView.swift */,
 				5548ED942BFA967700E4CBF2 /* ExploreViewModel.swift */,
+				55CED72C2BFB508A0064EC52 /* HomeView.swift */,
+				55CED7302BFB82E90064EC52 /* SearchBarView.swift */,
+				55CED7322BFB83010064EC52 /* FilterBarView.swift */,
+				55CED7342BFB83260064EC52 /* HomeListView.swift */,
+				55C1203B2BFCE6010005B734 /* ImageCarouselView.swift */,
+				55C120412BFCE6750005B734 /* HomeInformationView.swift */,
+				55C120452BFD366A0005B734 /* HomeListViewModel.swift */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -151,7 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				5548ED962BFA968500E4CBF2 /* FavouritesView.swift */,
-				5548ED982BFA969800E4CBF2 /* FavourtiesViewModel.swift */,
+				55C120432BFD334D0005B734 /* FavouritesViewModel.swift */,
 			);
 			path = Favourites;
 			sourceTree = "<group>";
@@ -172,6 +215,10 @@
 			children = (
 				5548EDA42BFA970700E4CBF2 /* ProfileView.swift */,
 				5548EDA62BFA971500E4CBF2 /* ProfileVIewModel.swift */,
+				5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */,
+				5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */,
+				5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */,
+				5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -180,7 +227,11 @@
 			isa = PBXGroup;
 			children = (
 				5548EDA82BFA972000E4CBF2 /* AddHomeVIew.swift */,
+				A904C6192BFCE67E004C0116 /* ImagePicker.swift */,
+				A904C61B2BFE0DE7004C0116 /* ImagePickerView.swift */,
+				A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */,
 				5548EDAA2BFA972800E4CBF2 /* AddHomeViewModel.swift */,
+				A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */,
 			);
 			path = AddHome;
 			sourceTree = "<group>";
@@ -189,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				5548EDAC2BFA973800E4CBF2 /* FirestoreUtils.swift */,
+				55C1203F2BFCE6470005B734 /* FavoriteButton.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -217,6 +269,7 @@
 				5548EDB72BFA9EDE00E4CBF2 /* User.swift */,
 				5548EDB92BFA9EE800E4CBF2 /* Home.swift */,
 				5548EDBB2BFA9EFB00E4CBF2 /* Message.swift */,
+				55CED72E2BFB736C0064EC52 /* AnimalInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -228,6 +281,7 @@
 				5D036D192BF4B970008D2C7A /* PetBnBTests */,
 				5D036D232BF4B970008D2C7A /* PetBnBUITests */,
 				5D036D072BF4B96D008D2C7A /* Products */,
+				A904C61F2BFFC05E004C0116 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -288,6 +342,13 @@
 			path = PetBnBUITests;
 			sourceTree = "<group>";
 		};
+		A904C61F2BFFC05E004C0116 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -308,6 +369,7 @@
 				5D08B27C2BF628F000F41D38 /* FirebaseAuth */,
 				5D08B27E2BF628F000F41D38 /* FirebaseFirestore */,
 				5D08B2802BF628F000F41D38 /* FirebaseFirestoreSwift */,
+				A904C6202BFFC05E004C0116 /* FirebaseStorage */,
 			);
 			productName = PetBnB;
 			productReference = 5D036D062BF4B96D008D2C7A /* PetBnB.app */;
@@ -427,29 +489,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55CED72D2BFB508A0064EC52 /* HomeView.swift in Sources */,
+				55CED72F2BFB736C0064EC52 /* AnimalInfo.swift in Sources */,
 				5548ED932BFA966E00E4CBF2 /* ExploreView.swift in Sources */,
+				5DCD18D72BFF77D00006A4B1 /* HomeOwnerView.swift in Sources */,
+				A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */,
+				A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */,
 				5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */,
+				55CED7332BFB83010064EC52 /* FilterBarView.swift in Sources */,
 				5548ED8D2BFA963800E4CBF2 /* LogInViewModel.swift in Sources */,
+				55CED7352BFB83260064EC52 /* HomeListView.swift in Sources */,
+				5DEAFB8D2BFDE9AD00BF067C /* RatingBarView.swift in Sources */,
 				5548EDB32BFA975400E4CBF2 /* MapView.swift in Sources */,
 				5548ED8F2BFA965100E4CBF2 /* SignUpView.swift in Sources */,
+				55C120402BFCE6470005B734 /* FavoriteButton.swift in Sources */,
+				5DCD18D52BFF76DF0006A4B1 /* RowViews.swift in Sources */,
 				5548ED9B2BFA96A000E4CBF2 /* ChatView.swift in Sources */,
 				5548EDA12BFA96EB00E4CBF2 /* ChatWindowView.swift in Sources */,
 				5548EDAD2BFA973800E4CBF2 /* FirestoreUtils.swift in Sources */,
 				5548EDAF2BFA974300E4CBF2 /* ExploreDetailsView.swift in Sources */,
 				5548EDBC2BFA9EFB00E4CBF2 /* Message.swift in Sources */,
+				55C1203C2BFCE6010005B734 /* ImageCarouselView.swift in Sources */,
+				55C120462BFD366A0005B734 /* HomeListViewModel.swift in Sources */,
 				5548EDA92BFA972000E4CBF2 /* AddHomeVIew.swift in Sources */,
 				5548ED8B2BFA962D00E4CBF2 /* LogInView.swift in Sources */,
 				5548EDB52BFA975D00E4CBF2 /* MapViewModel.swift in Sources */,
 				5548EDA52BFA970700E4CBF2 /* ProfileView.swift in Sources */,
 				5548ED952BFA967700E4CBF2 /* ExploreViewModel.swift in Sources */,
 				5548EDA32BFA96FC00E4CBF2 /* ChatWindowViewModel.swift in Sources */,
-				5548ED992BFA969800E4CBF2 /* FavourtiesViewModel.swift in Sources */,
+				A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */,
+				55CED7312BFB82E90064EC52 /* SearchBarView.swift in Sources */,
+				55C120422BFCE6750005B734 /* HomeInformationView.swift in Sources */,
 				5D036D0C2BF4B96D008D2C7A /* ContentView.swift in Sources */,
 				5548ED912BFA965C00E4CBF2 /* SignUpViewModel.swift in Sources */,
+				55C120442BFD334D0005B734 /* FavouritesViewModel.swift in Sources */,
 				5548ED9D2BFA96AC00E4CBF2 /* ChatViewModel.swift in Sources */,
+				A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */,
 				5548EDA72BFA971500E4CBF2 /* ProfileVIewModel.swift in Sources */,
 				5548EDB82BFA9EDE00E4CBF2 /* User.swift in Sources */,
 				5D036D0A2BF4B96D008D2C7A /* PetBnBApp.swift in Sources */,
+				5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */,
 				5548EDBA2BFA9EE800E4CBF2 /* Home.swift in Sources */,
 				5548EDB12BFA974D00E4CBF2 /* ExploreDetailsViewModel.swift in Sources */,
 				5548EDAB2BFA972800E4CBF2 /* AddHomeViewModel.swift in Sources */,
@@ -803,6 +882,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5D08B27B2BF628F000F41D38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		A904C6202BFFC05E004C0116 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D08B27B2BF628F000F41D38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
