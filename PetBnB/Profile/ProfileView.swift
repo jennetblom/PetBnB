@@ -80,12 +80,13 @@ struct profileHeaderWithImageAndStars: View {
     @Binding var profileImageUrl: URL?
     
     var body: some View {
-        HStack {
+        HStack (alignment: .center) {
             if let selectedImage = selectedImage {
                 Image(uiImage: selectedImage)
                     .resizable()
                     .frame(width: 100, height: 100)
-                    .clipShape(Circle())
+                    .cornerRadius(20)
+                    .clipped()
                     .onTapGesture {
                         showImagePicker = true
                     }
@@ -98,7 +99,8 @@ struct profileHeaderWithImageAndStars: View {
                     case .success(let image):
                         image.resizable()
                             .frame(width: 100, height: 100)
-                            .clipShape(Circle())
+                            .cornerRadius(20)
+                            .clipped()
                             .onTapGesture {
                                 showImagePicker = true
                             }
@@ -106,7 +108,11 @@ struct profileHeaderWithImageAndStars: View {
                         Image("profileIcon")
                             .resizable()
                             .frame(width: 100, height: 100)
-                            .clipShape(Circle())
+                            .clipped()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1)
+                                     )
                             .onTapGesture {
                                 showImagePicker = true
                             }
@@ -114,7 +120,12 @@ struct profileHeaderWithImageAndStars: View {
                         Image("profileIcon")
                             .resizable()
                             .frame(width: 100, height: 100)
-                            .clipShape(Circle())
+                            //.cornerRadius(20)
+                            .clipped()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1)
+                                     )
                             .onTapGesture {
                                 showImagePicker = true
                             }
@@ -124,23 +135,25 @@ struct profileHeaderWithImageAndStars: View {
                 Image("profileIcon")
                     .resizable()
                     .frame(width: 100, height: 100)
-                    .clipShape(Circle())
+                   // .cornerRadius(20)
+                    .clipped()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray, lineWidth: 1)
+                             )
                     .onTapGesture {
                         showImagePicker = true
                     }
             }
             
             VStack(alignment: .leading) {
-                HStack {
+                 
                     Text(viewModel.name)
                         .font(.title2)
-                        .offset(x: 55)
-                    Spacer() // Ensure the text grows to the right
-                }
                 
                 RatingBar(rating: $rating)
-                    .offset(x: 55, y: -10)
             }
+            .padding(.leading,10)
         }
         .padding()
     }
