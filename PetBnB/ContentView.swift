@@ -31,7 +31,7 @@ struct MainTabView: View {
         NavigationView {
             if showTitle {
                 view
-                    .navigationTitle(title)  
+                    .navigationTitle(title)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
