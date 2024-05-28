@@ -11,6 +11,32 @@ struct ChatView: View {
         }
     }
 }
+struct HeaderView : View {
+    var body: some View {
+        HStack {
+            Image("catimage")
+                .resizable()
+                .frame(width: 45, height: 45)
+                .cornerRadius(44)
+                .overlay(RoundedRectangle(cornerRadius: 44).stroke(Color.black,lineWidth: 0.5))
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Username")
+                    .font(.system(size: 16, weight: .bold))
+                HStack {
+                    Circle()
+                        .foregroundColor(.green)
+                        .frame(width: 12, height: 12)
+                    Text("Online")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color(.lightGray))
+                }
+            }
+            Spacer()
+        }
+        .padding()
+    }
+}
 struct MessageRowView: View {
     var body: some View {
         ScrollView {
@@ -25,7 +51,7 @@ struct MessageRowView: View {
                                 .overlay(RoundedRectangle(cornerRadius: 44).stroke(Color.black,lineWidth: 0.5))
                             VStack(alignment: .leading) {
                                 Text("Username")
-                                    .font(.system(size: 16, weight: .bold))
+                                    .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 Text("Message sent to user")
                                     .font(.system(size: 14))
@@ -33,7 +59,7 @@ struct MessageRowView: View {
                             }
                             Spacer()
                             Text("22d")
-                                .font(.system(size: 14, weight: .regular))
+                                .font(.system(size: 12, weight: .regular))
                                 .foregroundColor(.black)
                         }
                         
@@ -50,29 +76,4 @@ struct MessageRowView: View {
     ChatView()
 }
 
-struct HeaderView : View {
-    var body: some View {
-        HStack {
-            Image("catimage")
-                .resizable()
-                .frame(width: 45, height: 45)
-                .cornerRadius(44)
-                .overlay(RoundedRectangle(cornerRadius: 44).stroke(Color.black,lineWidth: 0.5))
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Username")
-                    .font(.system(size: 20, weight: .bold))
-                HStack {
-                    Circle()
-                        .foregroundColor(.green)
-                        .frame(width: 12, height: 12)
-                    Text("Online")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(.lightGray))
-                }
-            }
-            Spacer()
-        }
-        .padding()
-    }
-}
+

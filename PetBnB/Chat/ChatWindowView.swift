@@ -27,12 +27,36 @@ struct ChatWindowView : View {
             .navigationBarTitleDisplayMode(.inline)
             
     }
+
+    var messagesView: some View {
+        ScrollView {
+            ForEach(messages) { message in
+                HStack {
+                    if message.senderID == "user1" { // Assuming "user1" is the current user
+                        Spacer()
+                        MessageBubble(message: message.content, color: Color("primary"), timestamp: message.timestamp)
+                    } else {
+                        Image("catimage")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(44)
+                            .overlay(RoundedRectangle(cornerRadius : 44).stroke(Color.black, lineWidth: 0.5))
+                        MessageBubble(message: message.content, color: Color.gray.opacity(0.1), timestamp: message.timestamp)
+                        Spacer()
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+            }
+            Spacer()
+        }
+    }
     var chatBottomBar: some View {
         HStack(spacing: 16) {
             ZStack(alignment: .leading) {
                
                 TextEditor(text: $chatText)
-                    .frame(height: 60)
+                    .frame(height: 50)
                     .padding(.leading, 4)
                     .fontWeight(.light) // Adjust as needed
                     .cornerRadius(10)
@@ -62,29 +86,6 @@ struct ChatWindowView : View {
         .padding(.horizontal)
         .padding(.vertical, 8)
     }
-    var messagesView: some View {
-        ScrollView {
-            ForEach(messages) { message in
-                HStack {
-                    if message.senderID == "user1" { // Assuming "user1" is the current user
-                        Spacer()
-                        MessageBubble(message: message.content, color: Color("primary"), timestamp: message.timestamp)
-                    } else {
-                        Image("catimage")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .cornerRadius(44)
-                            .overlay(RoundedRectangle(cornerRadius : 44).stroke(Color.black, lineWidth: 0.5))
-                        MessageBubble(message: message.content, color: Color.gray.opacity(0.1), timestamp: message.timestamp)
-                        Spacer()
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
-            }
-            Spacer()
-        }
-    }
 }
  
 struct MessageBubble: View {
@@ -95,6 +96,7 @@ struct MessageBubble: View {
     var body: some View {
         VStack(alignment: .trailing) {
             Text(message)
+                .font(.system(size: 16))
                 .padding()
                 .background(color)
                 .cornerRadius(8)
