@@ -17,11 +17,12 @@ struct ChatWindowView : View {
     
     var body : some View {
         VStack{
+        Divider()
         messagesView
             
         Divider()
         chatBottomBar
-    
+//        Divider()
            
         }.navigationTitle("Username")
             .navigationBarTitleDisplayMode(.inline)
