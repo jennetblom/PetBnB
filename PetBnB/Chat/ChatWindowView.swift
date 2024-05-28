@@ -5,7 +5,7 @@ import FirebaseFirestore
 
 struct ChatWindowView : View {
     
-    @State var chatText = "Write something..."
+    @State var chatText = ""
  
     @State var messages = [
            Message(id: "0", senderID: "user1", receiverID: "user2", content: "Hejsan!", timestamp: Timestamp(date: Date())),
@@ -19,32 +19,45 @@ struct ChatWindowView : View {
         VStack{
         Divider()
         messagesView
-            
-        Divider()
-        chatBottomBar
-//        Divider()
-           
-        }.navigationTitle("Username")
-            .navigationBarTitleDisplayMode(.inline)
-    }
-    var chatBottomBar : some View {
         
+        chatBottomBar
+            Divider()
+        }
+        .navigationTitle("Username")
+            .navigationBarTitleDisplayMode(.inline)
+            
+    }
+    var chatBottomBar: some View {
         HStack(spacing: 16) {
-            Image(systemName: "photo.on.rectangle")
-                .font(.system(size: 20))
-                .foregroundColor(Color(.darkGray))
-            TextEditor(text: $chatText)
-                .frame(height: 40)
+            ZStack(alignment: .leading) {
+               
+                TextEditor(text: $chatText)
+                    .frame(height: 60)
+                    .padding(.leading, 4)
+                    .fontWeight(.light) // Adjust as needed
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray, lineWidth: 0.3)
+                    )
+                if chatText.isEmpty {
+                    Text("Write something...")
+                        .foregroundColor(.gray)
+                        .padding(.leading, 4)
+                        .offset(x: 5, y: -10)
+                }
+            }
+            
             Button {
-                
+                // Handle send action
             } label: {
                 Text("Send")
                     .foregroundColor(.black)
-            }.padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(Color("primary"))
-                .cornerRadius(4)
-            
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+                    .background(Color("primary"))
+                    .cornerRadius(8)
+            }
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
