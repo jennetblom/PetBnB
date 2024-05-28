@@ -6,22 +6,23 @@ struct ExploreDetailsView: View {
 
     var body: some View {
         ZStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+            Form {
+                Section {
                     ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                         .frame(height: 300)
-                    
-                    HomeHeaderView(home: home, userName: exploreDetailsViewModel.user?.name, userRating: exploreDetailsViewModel.user?.rating)
-                    
-                    HomeDetailsView(home: home)
-                    
-                    AnimalDetailsView(home: home)
-
-                    AdditionalInfoView(additionalInfo: home.additionalInfoHome)
-
-                    Spacer()
                 }
-                .padding(.horizontal)
+                
+                HomeHeaderView(home: home,
+                               userName: exploreDetailsViewModel.user?.name,
+                               userRating: exploreDetailsViewModel.user?.rating,
+                               userAge: exploreDetailsViewModel.user?.userAge,
+                               userInfo: exploreDetailsViewModel.user?.userInfo)
+                
+                HomeDetailsView(home: home)
+                
+                AnimalDetailsView(home: home)
+                
+                AdditionalInfoView(additionalInfo: home.additionalInfoHome)
             }
             
             MapButtonView()
@@ -39,8 +40,8 @@ struct ExploreDetailsView: View {
 
 #Preview {
     ExploreDetailsView(home: Home(
-        id: "example_home_id",
-        userID: "example_user_id",
+        id: "tTCAOPeuRXAGLY2PXQTg",
+        userID: "2KPl8hEiH7Y8Pg62hvF2ZOamKaY2",
         name: "Fransk bulldog i villa",
         beds: 2,
         rooms: 3,

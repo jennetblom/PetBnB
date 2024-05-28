@@ -4,47 +4,54 @@ struct HomeDetailsView: View {
     var home: Home
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Boende")
-                .font(.headline)
-            HStack {
-                Text("Stad")
-                Spacer()
-                Text(home.city)
-            }
-            HStack {
-                Text("Sovplatser")
-                Spacer()
-                Text("\(home.beds)")
-            }
-            HStack {
-                Text("Antal rum")
-                Spacer()
-                Text("\(home.rooms)")
-            }
-            HStack {
-                Text("Storlek")
-                Spacer()
-                Text("\(home.size) kvm2")
-            }
-            HStack {
-                Text("Tillgänglighet")
-                Spacer()
-                if let startDate = home.startDate, let endDate = home.endDate {
-                    Text("\(formatDate(startDate)) - \(formatDate(endDate))")
-                } else {
-                    Text("N/A")
+        Section(header: Text("Boende")) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("Stad")
+                    Spacer()
+                    Text(home.city)
                 }
-            }
-            HStack(alignment: .top) {
-                Text("Info om boendet")
-                Spacer()
-                Text(home.additionalInfoHome)
-                    .frame(width: UIScreen.main.bounds.width * 0.5)
+                HStack {
+                    Text("Sovplatser")
+                    Spacer()
+                    Text("\(home.beds)")
+                }
+                HStack {
+                    Text("Antal rum")
+                    Spacer()
+                    Text("\(home.rooms)")
+                }
+                HStack {
+                    Text("Storlek")
+                    Spacer()
+                    Text("\(home.size) kvm2")
+                }
+                VStack(alignment: .leading, spacing: 4) {
+                    if let startDate = home.startDate, let endDate = home.endDate {
+                        HStack {
+                            Text("Tillgänglighet")
+                            Spacer()
+                            Text(formatDate(startDate))
+                        }
+                        HStack {
+                            Spacer()
+                            Text(formatDate(endDate))
+                        }
+                    } else {
+                        HStack {
+                            Text("N/A")
+                            Spacer()
+                        }
+                    }
+                }
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Info om boendet")
+                    Text(home.additionalInfoHome)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
         }
         .padding(.horizontal)
-        .foregroundColor(.black)
     }
     
     private func formatDate(_ date: Date) -> String {
