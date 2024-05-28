@@ -27,28 +27,28 @@ struct MainTabView: View {
     }
     
     @ViewBuilder
-        func createTabView<V: View>(view: V, title: String, systemImage: String, showTitle: Bool) -> some View {
-            NavigationView {
-                if showTitle {
-                    view
-                        .navigationTitle("")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .principal) {
-                                Text(title)
-                                    .font(.headline)
-                                    .foregroundColor(.text)
-                            }
+    func createTabView<V: View>(view: V, title: String, systemImage: String, showTitle: Bool) -> some View {
+        NavigationView {
+            if showTitle {
+                view
+                    .navigationTitle(title)  
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            Text(title)
+                                .font(.headline)
+                                .foregroundColor(.text)
                         }
-                } else {
-                    view
-                }
-            }
-            .tabItem {
-                Label(title, systemImage: systemImage)
+                    }
+            } else {
+                view
             }
         }
+        .tabItem {
+            Label(title, systemImage: systemImage)
+        }
     }
+}
 
 #Preview {
     ContentView()

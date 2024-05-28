@@ -35,6 +35,11 @@
 		55C120422BFCE6750005B734 /* HomeInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120412BFCE6750005B734 /* HomeInformationView.swift */; };
 		55C120442BFD334D0005B734 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120432BFD334D0005B734 /* FavouritesViewModel.swift */; };
 		55C120462BFD366A0005B734 /* HomeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120452BFD366A0005B734 /* HomeListViewModel.swift */; };
+		55C120482C04CBAE0005B734 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120472C04CBAD0005B734 /* HomeHeaderView.swift */; };
+		55C1204A2C04CBD20005B734 /* HomeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120492C04CBD20005B734 /* HomeDetailsView.swift */; };
+		55C1204E2C04CC1E0005B734 /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1204D2C04CC1E0005B734 /* AnimalDetailsView.swift */; };
+		55C120502C04CC550005B734 /* AdditionalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1204F2C04CC550005B734 /* AdditionalInfoView.swift */; };
+		55C120522C04CCBC0005B734 /* MapButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C120512C04CCBC0005B734 /* MapButtonView.swift */; };
 		55CED72D2BFB508A0064EC52 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED72C2BFB508A0064EC52 /* HomeView.swift */; };
 		55CED72F2BFB736C0064EC52 /* AnimalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED72E2BFB736C0064EC52 /* AnimalInfo.swift */; };
 		55CED7312BFB82E90064EC52 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CED7302BFB82E90064EC52 /* SearchBarView.swift */; };
@@ -108,6 +113,11 @@
 		55C120412BFCE6750005B734 /* HomeInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInformationView.swift; sourceTree = "<group>"; };
 		55C120432BFD334D0005B734 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		55C120452BFD366A0005B734 /* HomeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListViewModel.swift; sourceTree = "<group>"; };
+		55C120472C04CBAD0005B734 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		55C120492C04CBD20005B734 /* HomeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailsView.swift; sourceTree = "<group>"; };
+		55C1204D2C04CC1E0005B734 /* AnimalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailsView.swift; sourceTree = "<group>"; };
+		55C1204F2C04CC550005B734 /* AdditionalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoView.swift; sourceTree = "<group>"; };
+		55C120512C04CCBC0005B734 /* MapButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonView.swift; sourceTree = "<group>"; };
 		55CED72C2BFB508A0064EC52 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		55CED72E2BFB736C0064EC52 /* AnimalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalInfo.swift; sourceTree = "<group>"; };
 		55CED7302BFB82E90064EC52 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -250,6 +260,11 @@
 			children = (
 				5548EDAE2BFA974300E4CBF2 /* ExploreDetailsView.swift */,
 				5548EDB02BFA974D00E4CBF2 /* ExploreDetailsViewModel.swift */,
+				55C120472C04CBAD0005B734 /* HomeHeaderView.swift */,
+				55C120492C04CBD20005B734 /* HomeDetailsView.swift */,
+				55C1204D2C04CC1E0005B734 /* AnimalDetailsView.swift */,
+				55C1204F2C04CC550005B734 /* AdditionalInfoView.swift */,
+				55C120512C04CCBC0005B734 /* MapButtonView.swift */,
 			);
 			path = ExploreDetails;
 			sourceTree = "<group>";
@@ -498,6 +513,7 @@
 				5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */,
 				55CED7332BFB83010064EC52 /* FilterBarView.swift in Sources */,
 				5548ED8D2BFA963800E4CBF2 /* LogInViewModel.swift in Sources */,
+				55C120482C04CBAE0005B734 /* HomeHeaderView.swift in Sources */,
 				55CED7352BFB83260064EC52 /* HomeListView.swift in Sources */,
 				5DEAFB8D2BFDE9AD00BF067C /* RatingBarView.swift in Sources */,
 				5548EDB32BFA975400E4CBF2 /* MapView.swift in Sources */,
@@ -514,6 +530,8 @@
 				5548EDA92BFA972000E4CBF2 /* AddHomeVIew.swift in Sources */,
 				5548ED8B2BFA962D00E4CBF2 /* LogInView.swift in Sources */,
 				5548EDB52BFA975D00E4CBF2 /* MapViewModel.swift in Sources */,
+				55C1204E2C04CC1E0005B734 /* AnimalDetailsView.swift in Sources */,
+				55C1204A2C04CBD20005B734 /* HomeDetailsView.swift in Sources */,
 				5548EDA52BFA970700E4CBF2 /* ProfileView.swift in Sources */,
 				5548ED952BFA967700E4CBF2 /* ExploreViewModel.swift in Sources */,
 				5548EDA32BFA96FC00E4CBF2 /* ChatWindowViewModel.swift in Sources */,
@@ -521,12 +539,14 @@
 				55CED7312BFB82E90064EC52 /* SearchBarView.swift in Sources */,
 				55C120422BFCE6750005B734 /* HomeInformationView.swift in Sources */,
 				5D036D0C2BF4B96D008D2C7A /* ContentView.swift in Sources */,
+				55C120522C04CCBC0005B734 /* MapButtonView.swift in Sources */,
 				5548ED912BFA965C00E4CBF2 /* SignUpViewModel.swift in Sources */,
 				55C120442BFD334D0005B734 /* FavouritesViewModel.swift in Sources */,
 				5548ED9D2BFA96AC00E4CBF2 /* ChatViewModel.swift in Sources */,
 				A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */,
 				5548EDA72BFA971500E4CBF2 /* ProfileVIewModel.swift in Sources */,
 				5548EDB82BFA9EDE00E4CBF2 /* User.swift in Sources */,
+				55C120502C04CC550005B734 /* AdditionalInfoView.swift in Sources */,
 				5D036D0A2BF4B96D008D2C7A /* PetBnBApp.swift in Sources */,
 				5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */,
 				5548EDBA2BFA9EE800E4CBF2 /* Home.swift in Sources */,

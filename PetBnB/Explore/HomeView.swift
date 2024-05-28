@@ -6,7 +6,6 @@ struct HomeView: View {
     var name: String
     var roomsBeds: String
     var availability: String
-    var rating: Double
     var homeID: String
 
     @State private var isFavorite: Bool = false
@@ -28,8 +27,7 @@ struct HomeView: View {
                 city: city,
                 name: name,
                 roomsBeds: roomsBeds,
-                availability: availability,
-                rating: rating
+                availability: availability
             )
         }
         .background(Color("background"))
@@ -64,7 +62,6 @@ struct HomeView: View {
         name: "Fransk bulldog i villa",
         roomsBeds: "3 rum, 2 sängar",
         availability: "v.28",
-        rating: 4.8,
         homeID: "example_home_id"
     ).environmentObject(ExploreViewModel())
 }

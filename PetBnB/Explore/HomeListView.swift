@@ -22,7 +22,6 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
                                 name: home.name,
                                 roomsBeds: "\(home.rooms) rum, \(home.beds) sängar",
                                 availability: "v.\(home.availability)",
-                                rating: home.rating,
                                 homeID: home.id ?? ""
                             )
                             .transition(.opacity)
