@@ -41,7 +41,7 @@ struct ExploreDetailsView: View {
 #Preview {
     ExploreDetailsView(home: Home(
         id: "tTCAOPeuRXAGLY2PXQTg",
-        userID: "2KPl8hEiH7Y8Pg62hvF2ZOamKaY2",
+        userID: "pdKIMskgwUTSTPeN15wkG5TbI3D2",
         name: "Fransk bulldog i villa",
         beds: 2,
         rooms: 3,
