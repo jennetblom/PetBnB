@@ -64,20 +64,7 @@ struct LogInView: View {
                 .padding(.bottom, 20)
                 
                 HStack {
-                                  NavigationLink(destination: SignUpView(signedIn: $signedIn).navigationBarBackButtonHidden(true)) {
-                                      Text("Registrera")
-                                          .font(.custom("SF Pro Text", size: 15))
-                                          .frame(minWidth: 0, maxWidth: .infinity)
-                                          .padding()
-                                          .background(Color("primary"))
-                                          .foregroundColor(Color("text"))
-                                          .cornerRadius(10)
-                                  }
-                
-                /*HStack {
-                    Button(action: {
-                        showSignUpView = true
-                    }) {
+                    NavigationLink(destination: SignUpView(signedIn: $signedIn).navigationBarBackButtonHidden(true)) {
                         Text("Registrera")
                             .font(.custom("SF Pro Text", size: 15))
                             .frame(minWidth: 0, maxWidth: .infinity)
@@ -85,8 +72,21 @@ struct LogInView: View {
                             .background(Color("primary"))
                             .foregroundColor(Color("text"))
                             .cornerRadius(10)
-                        
-                    }*/
+                    }
+                    
+                    /*HStack {
+                     Button(action: {
+                     showSignUpView = true
+                     }) {
+                     Text("Registrera")
+                     .font(.custom("SF Pro Text", size: 15))
+                     .frame(minWidth: 0, maxWidth: .infinity)
+                     .padding()
+                     .background(Color("primary"))
+                     .foregroundColor(Color("text"))
+                     .cornerRadius(10)
+                     
+                     }*/
                     .padding(.horizontal)
                     
                     Button(action: {
@@ -111,28 +111,19 @@ struct LogInView: View {
             }
             .onChange(of: viewModel.signedIn) { newValue in
                 if newValue {
-                    signedIn = false
+                    signedIn = true
                 }
             }
             .sheet(isPresented: $showSignUpView) {
-                                    SignUpView(signedIn: $signedIn)
+                SignUpView(signedIn: $signedIn)
             }
-               }.onAppear {
-                   if let user = auth.currentUser {
-                       signedIn = false
-                   }
-               }
-           }
-       }
+        }
+    }
+}
 
 
 
-   //#Preview {
-     //  LogInView(signedIn: .constant(false))
-   //}
-   struct LogInView_Previews: PreviewProvider {
-       static var previews: some View {
-           LogInView(signedIn: .constant(false))
-       }
-   }
+#Preview {
+    LogInView(signedIn: .constant(false))
+}
 
