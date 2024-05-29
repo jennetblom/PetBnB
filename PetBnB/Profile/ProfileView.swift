@@ -1,10 +1,11 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var selectedSegment = 0
     @StateObject var viewModel = ProfileViewModel()
+    var userID: String 
+    @State private var selectedSegment = 0 
     @State var hasChanges: Bool = false
-    @State var isLoading: Bool = true 
+    @State var isLoading: Bool = true
     @State var ignoreChanges: Bool = true
 
     let segments = ["Uthyrare", "Hyresgäst"]
@@ -43,7 +44,7 @@ struct ProfileView: View {
 
         }
         .onAppear {
-            viewModel.fetchUserProfileFromFirebase {
+            viewModel.fetchUserProfileFromFirebase(for: userID) { // Updated method call
                 isLoading = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     ignoreChanges = false
@@ -82,5 +83,5 @@ struct profileHeaderWithImageAndStars: View {
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(userID: "exampleUserID")
 }

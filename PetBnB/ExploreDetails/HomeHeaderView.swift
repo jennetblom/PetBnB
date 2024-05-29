@@ -11,8 +11,12 @@ struct HomeHeaderView: View {
         Section(header: Text("Uthyrare")) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    if let userName = userName {
-                        Text(userName)
+                    if let userName = userName, let userID = home.userID {
+                        NavigationLink(destination: ProfileView(userID: userID)) {
+                            Text(userName)
+                                .underline()
+                                .foregroundColor(.blue)
+                        }
                     }
                     Spacer()
                     if let userRating = userRating {

@@ -30,47 +30,45 @@ class ProfileViewModel: ObservableObject {
          animalInfo.append("")
          animalCount += 1
      }
-    func fetchUserProfileFromFirebase(completion: @escaping () -> Void) {
-        guard let user = auth.currentUser else { return }
-        
-        db.collection("users").document(user.uid).getDocument { [weak self] document, error in
-            guard let self = self else { return }
-            if let document = document, document.exists {
-                guard let data = document.data() else { return }
-                DispatchQueue.main.async {
-                    self.name = data["name"] as? String ?? ""
-                    self.rating = data["rating"] as? Int ?? 0
-                    self.city = data["city"] as? String ?? "Göteborg"
-                    self.numberOfBeds = data["numberOfBeds"] as? Int ?? 0
-                    self.numberOfRooms = data["numberOfRooms"] as? Int ?? 0
-                    self.homeInfo = data["homeInfo"] as? String ?? ""
-                    self.userAge = data["userAge"] as? Int ?? 0
-                    self.userInfo = data["userInfo"] as? String ?? ""
-                    self.animalExperienceType = data["animalExperienceType"] as? String ?? "Katt"
-                    self.animalExperienceInfo = data["animalExperienceInfo"] as? String ?? ""
-                    
-                    if let animalsData = data["animals"] as? [String: [String: Any]] {
-                        self.animalType.removeAll()
-                        self.animalAge.removeAll()
-                        self.animalInfo.removeAll()
+    func fetchUserProfileFromFirebase(for userID: String, completion: @escaping () -> Void) { 
+            db.collection("users").document(userID).getDocument { [weak self] document, error in
+                guard let self = self else { return }
+                if let document = document, document.exists {
+                    guard let data = document.data() else { return }
+                    DispatchQueue.main.async {
+                        self.name = data["name"] as? String ?? ""
+                        self.rating = data["rating"] as? Int ?? 0
+                        self.city = data["city"] as? String ?? "Göteborg"
+                        self.numberOfBeds = data["numberOfBeds"] as? Int ?? 0
+                        self.numberOfRooms = data["numberOfRooms"] as? Int ?? 0
+                        self.homeInfo = data["homeInfo"] as? String ?? ""
+                        self.userAge = data["userAge"] as? Int ?? 0
+                        self.userInfo = data["userInfo"] as? String ?? ""
+                        self.animalExperienceType = data["animalExperienceType"] as? String ?? "Katt"
+                        self.animalExperienceInfo = data["animalExperienceInfo"] as? String ?? ""
                         
-                        for index in 0..<animalsData.count {
-                            if let animalData = animalsData["animal\(index)"] {
-                                self.animalType.append(animalData["type"] as? String ?? "Reptil")
-                                self.animalAge.append(animalData["age"] as? Int ?? 0)
-                                self.animalInfo.append(animalData["additionalInfoAnimal"] as? String ?? "")
+                        if let animalsData = data["animals"] as? [String: [String: Any]] {
+                            self.animalType.removeAll()
+                            self.animalAge.removeAll()
+                            self.animalInfo.removeAll()
+                            
+                            for index in 0..<animalsData.count {
+                                if let animalData = animalsData["animal\(index)"] {
+                                    self.animalType.append(animalData["type"] as? String ?? "Reptil")
+                                    self.animalAge.append(animalData["age"] as? Int ?? 0)
+                                    self.animalInfo.append(animalData["additionalInfoAnimal"] as? String ?? "")
+                                }
                             }
+                            self.animalCount = animalsData.count
                         }
-                        self.animalCount = animalsData.count
+                        completion()
                     }
+                } else {
+                    print("Document does not exist")
                     completion()
                 }
-            } else {
-                print("Document does not exist")
-                completion()
             }
         }
-    }
         func saveUserProfileToFirebase() {
             guard let user = auth.currentUser else { return }
                  
