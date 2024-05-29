@@ -157,20 +157,17 @@ struct profileHeaderWithImageAndStars: View {
             }
             
             VStack(alignment: .leading) {
-                 
-                    Text(viewModel.name)
-                        .font(.title2)
-                        .offset(x: 55)
-                    Spacer()
-                }
-          
-                RatingBar(rating: $rating)
-            }
-            .padding(.leading,10)
-        }
-        .padding()
-    }
-}
+                           Text(viewModel.name)
+                               .font(.title2)
+                               .offset(x: 55)
+                           Spacer()
+                           RatingBar(rating: $rating)
+                       }
+                       .padding(.leading, 10)
+                   }
+                   .padding()
+               }
+           }
 
 #Preview {
     ProfileView(userID: "exampleUserID")
