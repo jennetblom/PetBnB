@@ -1,11 +1,15 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class ProfileViewModel: ObservableObject {
     
     let db = Firestore.firestore()
     let auth = Auth.auth()
+    
+    let storage = Storage.storage()
+    
     @Published var users = [User]()
     
     
@@ -23,6 +27,7 @@ class ProfileViewModel: ObservableObject {
     @Published var userInfo = ""
     @Published var animalExperienceType = "Reptil"
     @Published var animalExperienceInfo = ""
+    @Published var profilePictureUrl: URL?
     
     func addAnimal() {
          animalType.append("Fågel")
@@ -46,6 +51,15 @@ class ProfileViewModel: ObservableObject {
                         self.userInfo = data["userInfo"] as? String ?? ""
                         self.animalExperienceType = data["animalExperienceType"] as? String ?? "Katt"
                         self.animalExperienceInfo = data["animalExperienceInfo"] as? String ?? ""
+        
+       
+                    
+                    if let profilePictureUrlString = data["profilePictureUrl"] as? String,
+                        let url = URL(string: profilePictureUrlString) {
+                        self.profilePictureUrl = url
+                   }
+                    
+                   
                         
                         if let animalsData = data["animals"] as? [String: [String: Any]] {
                             self.animalType.removeAll()
@@ -89,7 +103,9 @@ class ProfileViewModel: ObservableObject {
                      "userAge": self.userAge,
                      "userInfo": self.userInfo,
                      "animalExperienceType": self.animalExperienceType,
-                     "animalExperienceInfo": self.animalExperienceInfo
+                     "animalExperienceInfo": self.animalExperienceInfo,
+                     
+                     "profilePictureUrl": self.profilePictureUrl?.absoluteString ?? ""
                  ]
                  
                  db.collection("users").document(user.uid).setData(userProfileData, merge: true) { error in
@@ -100,4 +116,46 @@ class ProfileViewModel: ObservableObject {
                      }
                  }
              }
+    func uploadProfileImage(_ image: UIImage, completion: @escaping (URL?) -> Void) {
+            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+                completion(nil)
+                return
+            }
+
+            let storageRef = Storage.storage().reference().child("profile_images/\(UUID().uuidString).jpg")
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+
+            storageRef.putData(imageData, metadata: metadata) { metadata, error in
+                if let error = error {
+                    print("Error uploading image: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+
+                storageRef.downloadURL { url, error in
+                    if let error = error {
+                        print("Error getting download URL: \(error.localizedDescription)")
+                        completion(nil)
+                        return
+                    }
+
+                    completion(url)
+                }
+            }
+        }
+
+        func saveProfileImageUrl(_ url: URL) {
+            guard let user = auth.currentUser else { return }
+            
+            db.collection("users").document(user.uid).updateData([
+                "profilePictureUrl": url.absoluteString
+            ]) { error in
+                if let error = error {
+                    print("Error updating profile picture URL: \(error)")
+                } else {
+                    print("Profile picture URL successfully updated!")
+                }
+            }
+        }
 }
