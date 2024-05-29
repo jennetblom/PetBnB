@@ -2,11 +2,12 @@
 import Foundation
 import SwiftUI
 import FirebaseFirestore
+import FirebaseAuth
 
 struct ChatWindowView : View {
     
     @State var chatText = ""
- 
+    @StateObject var viewModel = ChatWindowViewModel(conversationId: "")
     @State var messages = [
            Message(id: "0", senderID: "user1", receiverID: "user2", content: "Hejsan!", timestamp: Timestamp(date: Date())),
            Message(id: "1", senderID: "user2", receiverID: "user1", content: "Hej hur mår du?", timestamp: Timestamp(date: Date())),
@@ -25,14 +26,17 @@ struct ChatWindowView : View {
         }
         .navigationTitle("Username")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                viewModel.fetchMessages()
+            }
             
     }
 
     var messagesView: some View {
         ScrollView {
-            ForEach(messages) { message in
+            ForEach(viewModel.messages) { message in
                 HStack {
-                    if message.senderID == "user1" { // Assuming "user1" is the current user
+                    if message.senderID == Auth.auth().currentUser?.uid { // Assuming "user1" is the current user
                         Spacer()
                         MessageBubble(message: message.content, color: Color("primary"), timestamp: message.timestamp)
                     } else {
@@ -74,6 +78,7 @@ struct ChatWindowView : View {
             
             Button {
                 // Handle send action
+                viewModel.sendMessage(chatText)
             } label: {
                 Text("Send")
                     .foregroundColor(.black)

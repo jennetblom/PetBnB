@@ -2,11 +2,14 @@ import SwiftUI
 
 struct ChatView: View {
 
+    @StateObject var viewModel = ChatViewModel()
+    @State private var selectedConversationId: String?
+    
     var body: some View {
         VStack {
             HeaderView ()
             Divider()
-            MessageRowView()
+            MessageRowView(viewModel: viewModel)
             Divider()
         }
     }
@@ -38,9 +41,10 @@ struct HeaderView : View {
     }
 }
 struct MessageRowView: View {
+    @ObservedObject var viewModel : ChatViewModel
     var body: some View {
         ScrollView {
-            ForEach(0..<10, id: \.self) { num in
+            ForEach(viewModel.conversations) { conversation in
                 NavigationLink(destination: ChatWindowView() ) {
                     VStack {
                         HStack(spacing: 16){
