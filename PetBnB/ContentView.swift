@@ -31,7 +31,7 @@ struct MainTabView: View {
             createTabView(view: ExploreView(), title: "Utforska", systemImage: "magnifyingglass", showTitle: false)
             createTabView(view: FavoritesView(), title: "Favoriter", systemImage: "heart", showTitle: true)
             createTabView(view: ChatView(), title: "Chatt", systemImage: "message", showTitle: false)
-            createTabView(view: ProfileView(userID: userID), title: "Profil", systemImage: "person", showTitle: false) 
+            createTabView(view: ProfileView(userID: userID), title: "Profil", systemImage: "person", showTitle: false)
         }
         .accentColor(Color("secondary"))
     }

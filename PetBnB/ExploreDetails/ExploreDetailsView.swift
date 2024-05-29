@@ -6,27 +6,26 @@ struct ExploreDetailsView: View {
 
     var body: some View {
         ZStack {
-            Form {
-                Section {
-                    ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
-                        .frame(height: 300)
+            VStack {
+                
+                ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
+                    .frame(height: 300)
+                
+                Form {
+                    HomeHeaderView(home: home,
+                                   userName: exploreDetailsViewModel.user?.name,
+                                   userRating: exploreDetailsViewModel.user?.rating,
+                                   userAge: exploreDetailsViewModel.user?.userAge,
+                                   userInfo: exploreDetailsViewModel.user?.userInfo)
+                    
+                    HomeDetailsView(home: home)
+                    
+                    AnimalDetailsView(home: home)
+                    
+                    AdditionalInfoView(additionalInfo: home.additionalInfoHome)
                 }
-                
-                HomeHeaderView(home: home,
-                               userName: exploreDetailsViewModel.user?.name,
-                               userRating: exploreDetailsViewModel.user?.rating,
-                               userAge: exploreDetailsViewModel.user?.userAge,
-                               userInfo: exploreDetailsViewModel.user?.userInfo)
-                
-                HomeDetailsView(home: home)
-                
-                AnimalDetailsView(home: home)
-                
-                AdditionalInfoView(additionalInfo: home.additionalInfoHome)
             }
-            
             MapButtonView()
-                .padding()
         }
         .navigationTitle(home.name ?? "Ingen användare")
         .navigationBarTitleDisplayMode(.inline)

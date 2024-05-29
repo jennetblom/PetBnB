@@ -28,6 +28,7 @@ struct HomeHeaderView: View {
                     }
                 }
                 
+                
                 if let userAge = userAge {
                     Text("Ålder: \(userAge)")
                 }
