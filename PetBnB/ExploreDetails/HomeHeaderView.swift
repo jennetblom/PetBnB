@@ -12,11 +12,15 @@ struct HomeHeaderView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     if let userName = userName, let userID = home.userID {
-                        NavigationLink(destination: ProfileView(userID: userID)) {
+                        NavigationLink(destination: ProfileView(userID: userID, isEditable: false)) {
                             Text(userName)
-                                .underline()
-                                .foregroundColor(.blue)
+                                .foregroundColor(Color("text"))
                         }
+                        Button(action: {
+                                                  }) {
+                                                      Image(systemName: "message.fill")
+                                                          .foregroundColor(Color("primary"))
+                                                  }
                     }
                     Spacer()
                     if let userRating = userRating {
@@ -27,7 +31,6 @@ struct HomeHeaderView: View {
                         }
                     }
                 }
-                
                 
                 if let userAge = userAge {
                     Text("Ålder: \(userAge)")

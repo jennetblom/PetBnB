@@ -24,8 +24,10 @@ struct HomeDetailsView: View {
                 HStack {
                     Text("Storlek")
                     Spacer()
-                    Text("\(home.size) kvm2")
-                }
+                    Text("\(home.size, specifier: "%.0f") m")
+                                    + Text("2").font(.system(size: 12)).baselineOffset(6)
+                            }               
+            
                 VStack(alignment: .leading, spacing: 4) {
                     if let startDate = home.startDate, let endDate = home.endDate {
                         HStack {
