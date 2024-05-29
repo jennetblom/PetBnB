@@ -2,45 +2,45 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
-    var userID: String 
-    @State private var selectedSegment = 0 
+    var userID: String
+    var isEditable: Bool = true
+    @State private var selectedSegment = 1
     @State var hasChanges: Bool = false
     @State var isLoading: Bool = true
     @State var ignoreChanges: Bool = true
 
-    
     @State private var showImagePicker = false
     @State private var selectedProfileImage: UIImage?
     @State private var selectedImages = [UIImage]()
-    
+
     let segments = ["Uthyrare", "Hyresgäst"]
 
     var body: some View {
         VStack {
-            Picker("Select View", selection: $selectedSegment) {
-                ForEach(0..<segments.count) { index in
-                    Text(segments[index])
-                        .tag(index)
+            if isEditable {
+                Picker("Select View", selection: $selectedSegment) {
+                    ForEach(0..<segments.count) { index in
+                        Text(segments[index])
+                            .tag(index)
+                    }
                 }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
             }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
 
-            
             profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl)
-            
+
             if selectedSegment == 0 {
-                HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges)
+                HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges, isEditable: isEditable)
             } else {
-                HomeGuestView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges)
+                HomeGuestView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges, isEditable: isEditable)
             }
             Spacer()
 
-            if hasChanges {
+            if hasChanges && isEditable {
                 Button("Spara") {
                     hasChanges = false
                     viewModel.saveUserProfileToFirebase()
-
                     saveProfile()
                 }
                 .frame(width: 220, height: 40)
@@ -48,14 +48,13 @@ struct ProfileView: View {
                 .foregroundColor(.black)
                 .cornerRadius(10.0)
                 .padding()
-
             }
         }
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(selectedImages: $selectedImages, selectedSingleImage: $selectedProfileImage, isSingleImage: true)
         }
         .onAppear {
-            viewModel.fetchUserProfileFromFirebase(for: userID) { 
+            viewModel.fetchUserProfileFromFirebase(for: userID) {
                 isLoading = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     ignoreChanges = false
@@ -88,7 +87,7 @@ struct profileHeaderWithImageAndStars: View {
     @Binding var showImagePicker: Bool
     @Binding var selectedImage: UIImage?
     @Binding var profileImageUrl: URL?
-  
+
     var body: some View {
         HStack (alignment: .center) {
             if let selectedImage = selectedImage {
@@ -170,5 +169,5 @@ struct profileHeaderWithImageAndStars: View {
            }
 
 #Preview {
-    ProfileView(userID: "exampleUserID")
+    ProfileView(userID: "exampleUserID", isEditable: false)
 }

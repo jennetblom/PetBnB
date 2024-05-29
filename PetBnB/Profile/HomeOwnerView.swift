@@ -1,4 +1,3 @@
-
 import Foundation
 import SwiftUI
 
@@ -7,11 +6,12 @@ struct HomeOwnerView: View {
     @Binding var hasChanges: Bool
     @Binding var isLoading: Bool
     @Binding var ignoreChanges: Bool
+    var isEditable: Bool
 
     var body: some View {
         VStack {
             ScrollView {
-                HousingInfoView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges)
+                HousingInfoView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges, isEditable: isEditable)
                 animalInfoList
             }
         }
@@ -32,7 +32,8 @@ struct HomeOwnerView: View {
             isLast: index == viewModel.animalCount - 1,
             addAnimalAction: viewModel.addAnimal,
             hasChanges: $hasChanges,
-            ignoreChanges: $ignoreChanges
+            ignoreChanges: $ignoreChanges,
+            isEditable: isEditable
         )
     }
 }
@@ -47,6 +48,7 @@ struct HousingInfoView: View {
     @Binding var hasChanges: Bool
     @Binding var isLoading: Bool
     @Binding var ignoreChanges: Bool
+    var isEditable: Bool
 
     var body: some View {
         VStack {
@@ -65,8 +67,9 @@ struct HousingInfoView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .accentColor(.gray)
+                .disabled(!isEditable)
                 .onChange(of: viewModel.city) {
-                    if !ignoreChanges {
+                    if !ignoreChanges && isEditable {
                         hasChanges = true
                     }
                 }
@@ -81,8 +84,9 @@ struct HousingInfoView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .accentColor(.gray)
+                .disabled(!isEditable)
                 .onChange(of: viewModel.numberOfBeds) {
-                    if !ignoreChanges {
+                    if !ignoreChanges && isEditable {
                         hasChanges = true
                     }
                 }
@@ -97,8 +101,9 @@ struct HousingInfoView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .accentColor(.gray)
+                .disabled(!isEditable)
                 .onChange(of: viewModel.numberOfRooms) {
-                    if !ignoreChanges {
+                    if !ignoreChanges && isEditable {
                         hasChanges = true
                     }
                 }
@@ -112,8 +117,9 @@ struct HousingInfoView: View {
                     .padding(EdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2))
                     .multilineTextAlignment(.leading)
                     .offset(x: 8, y: -30)
+                    .disabled(!isEditable)
                     .onChange(of: viewModel.homeInfo) {
-                        if !ignoreChanges {
+                        if !ignoreChanges && isEditable {
                             hasChanges = true
                         }
                     }
@@ -136,6 +142,7 @@ struct AnimalInfoView: View {
     var addAnimalAction: () -> Void
     @Binding var hasChanges: Bool
     @Binding var ignoreChanges: Bool
+    var isEditable: Bool
 
     var body: some View {
         VStack {
@@ -153,8 +160,9 @@ struct AnimalInfoView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .accentColor(.gray)
+                .disabled(!isEditable)
                 .onChange(of: animalType) {
-                    if !ignoreChanges {
+                    if !ignoreChanges && isEditable {
                         hasChanges = true
                     }
                 }
@@ -168,8 +176,9 @@ struct AnimalInfoView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
                 .accentColor(.gray)
+                .disabled(!isEditable)
                 .onChange(of: animalAge) {
-                    if !ignoreChanges {
+                    if !ignoreChanges && isEditable {
                         hasChanges = true
                     }
                 }
@@ -182,8 +191,9 @@ struct AnimalInfoView: View {
                     .padding(EdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2))
                     .multilineTextAlignment(.leading)
                     .offset(x: 8, y: -30)
+                    .disabled(!isEditable)
                     .onChange(of: animalInfo) {
-                        if !ignoreChanges {
+                        if !ignoreChanges && isEditable {
                             hasChanges = true
                         }
                     }

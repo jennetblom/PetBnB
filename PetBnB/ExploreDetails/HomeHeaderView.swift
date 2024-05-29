@@ -12,7 +12,7 @@ struct HomeHeaderView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     if let userName = userName, let userID = home.userID {
-                        NavigationLink(destination: ProfileView(userID: userID)) {
+                        NavigationLink(destination: ProfileView(userID: userID, isEditable: false)) {
                             Text(userName)
                                 .underline()
                                 .foregroundColor(.blue)
@@ -27,7 +27,6 @@ struct HomeHeaderView: View {
                         }
                     }
                 }
-                
                 
                 if let userAge = userAge {
                     Text("Ålder: \(userAge)")
