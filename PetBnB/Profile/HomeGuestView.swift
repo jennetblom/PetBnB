@@ -29,7 +29,7 @@ struct AboutMeGuestView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Om mig")
+                Text(isEditable ? "Om mig" : "Om \(viewModel.name)")
                     .fontWeight(.bold)
                     .padding(.horizontal)
                 Spacer()
@@ -126,7 +126,7 @@ struct GuestAnimalExperienceView: View {
                             }.padding(.horizontal, 10)
                         }
             
-            InfoRowView(title: "Vad har du för erfarenhet av djur?") {
+            InfoRowView(title: isEditable ? "Vad har du för erfarenhet av djur?" : "Uthyrarens erfarenhet av djur") {
                 TextEditor(text: $viewModel.animalExperienceInfo)
                     .scrollContentBackground(.hidden)
                     .frame(height: 70)

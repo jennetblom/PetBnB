@@ -4,17 +4,22 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     var userID: String
     var isEditable: Bool = true
-    @State private var selectedSegment = 1
+    @State private var selectedSegment: Int
     @State var hasChanges: Bool = false
     @State var isLoading: Bool = true
     @State var ignoreChanges: Bool = true
-
     @State private var showImagePicker = false
     @State private var selectedProfileImage: UIImage?
     @State private var selectedImages = [UIImage]()
 
     let segments = ["Uthyrare", "Hyresgäst"]
 
+    init(userID: String, isEditable: Bool = true) {
+            self.userID = userID
+            self.isEditable = isEditable
+            _selectedSegment = State(initialValue: isEditable ? 0 : 1)
+        }
+    
     var body: some View {
         VStack {
             if isEditable {
