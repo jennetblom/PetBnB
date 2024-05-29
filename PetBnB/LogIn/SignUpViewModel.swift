@@ -8,7 +8,7 @@ class SignUpViewModel: ObservableObject {
     @Published var password = ""
     @Published var confirmPassword = ""
     @Published var errorMessage = ""
-    
+    @Published var userID: String? 
     @Published var showLogInView = false
     @Published var registrationSuccess = false {
         didSet{

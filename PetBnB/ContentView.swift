@@ -3,29 +3,39 @@ import Firebase
 
 struct ContentView: View {
     let db = Firestore.firestore()
-    
     @State var signedIn = false
+    @State var userID: String?
     
     var body: some View {
         if !signedIn {
             LogInView(signedIn: $signedIn)
+        } else if let userID = userID {
+            MainTabView(userID: userID)
         } else {
-            MainTabView()
+            Text("Loading...")
+                .onAppear {
+                    if let user = Auth.auth().currentUser {
+                        self.userID = user.uid
+                        self.signedIn = true
+                    }
+                }
         }
     }
 }
 
 struct MainTabView: View {
+    var userID: String
+
     var body: some View {
         TabView {
             createTabView(view: ExploreView(), title: "Utforska", systemImage: "magnifyingglass", showTitle: false)
             createTabView(view: FavoritesView(), title: "Favoriter", systemImage: "heart", showTitle: true)
             createTabView(view: ChatView(), title: "Chatt", systemImage: "message", showTitle: false)
-            createTabView(view: ProfileView(), title: "Profil", systemImage: "person", showTitle: false)
+            createTabView(view: ProfileView(userID: userID), title: "Profil", systemImage: "person", showTitle: false)
         }
         .accentColor(Color("secondary"))
     }
-    
+
     @ViewBuilder
     func createTabView<V: View>(view: V, title: String, systemImage: String, showTitle: Bool) -> some View {
         NavigationView {

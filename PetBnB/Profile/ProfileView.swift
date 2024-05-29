@@ -1,17 +1,20 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var selectedSegment = 0
     @StateObject var viewModel = ProfileViewModel()
-    @State var hasChanges: Bool = true
-    @State var isLoading: Bool = false
+    var userID: String 
+    @State private var selectedSegment = 0 
+    @State var hasChanges: Bool = false
+    @State var isLoading: Bool = true
+    @State var ignoreChanges: Bool = true
+
     
     @State private var showImagePicker = false
     @State private var selectedProfileImage: UIImage?
     @State private var selectedImages = [UIImage]()
     
     let segments = ["Uthyrare", "Hyresgäst"]
-    
+
     var body: some View {
         VStack {
             Picker("Select View", selection: $selectedSegment) {
@@ -22,18 +25,22 @@ struct ProfileView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
+
             
             profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl)
             
             if selectedSegment == 0 {
-                HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading)
+                HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges)
             } else {
                 HomeGuestView()
             }
             Spacer()
-            
+
             if hasChanges {
                 Button("Spara") {
+                    hasChanges = false
+                    viewModel.saveUserProfileToFirebase()
+
                     saveProfile()
                 }
                 .frame(width: 220, height: 40)
@@ -41,15 +48,19 @@ struct ProfileView: View {
                 .foregroundColor(.black)
                 .cornerRadius(10.0)
                 .padding()
-            }
-        }
-        .onAppear {
-            viewModel.fetchUserProfileFromFirebase {
-                isLoading = true
+
             }
         }
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(selectedImages: $selectedImages, selectedSingleImage: $selectedProfileImage, isSingleImage: true)
+        }
+        .onAppear {
+            viewModel.fetchUserProfileFromFirebase(for: userID) { 
+                isLoading = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    ignoreChanges = false
+                }
+            }
         }
         .environmentObject(viewModel)
     }
@@ -74,11 +85,10 @@ struct ProfileView: View {
 struct profileHeaderWithImageAndStars: View {
     @EnvironmentObject var viewModel: ProfileViewModel
     @Binding var rating: Int
-    
     @Binding var showImagePicker: Bool
     @Binding var selectedImage: UIImage?
     @Binding var profileImageUrl: URL?
-    
+  
     var body: some View {
         HStack (alignment: .center) {
             if let selectedImage = selectedImage {
@@ -150,7 +160,10 @@ struct profileHeaderWithImageAndStars: View {
                  
                     Text(viewModel.name)
                         .font(.title2)
-                
+                        .offset(x: 55)
+                    Spacer()
+                }
+          
                 RatingBar(rating: $rating)
             }
             .padding(.leading,10)
@@ -160,5 +173,5 @@ struct profileHeaderWithImageAndStars: View {
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(userID: "exampleUserID")
 }
