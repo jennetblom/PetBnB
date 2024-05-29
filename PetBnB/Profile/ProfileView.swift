@@ -32,7 +32,7 @@ struct ProfileView: View {
             if selectedSegment == 0 {
                 HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges)
             } else {
-                HomeGuestView()
+                HomeGuestView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges)
             }
             Spacer()
 
