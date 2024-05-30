@@ -25,16 +25,17 @@ struct RatingBar: View {
     var starSize: CGFloat = 24
     @EnvironmentObject var viewModel: ProfileViewModel
 
+    @State private var selectedRating: Double? = nil
+
     var body: some View {
         HStack {
             ForEach(1..<maximumRating + 1, id: \.self) { number in
-                StarView(filled: number <= Int(rating), size: starSize)
+                StarView(filled: number <= Int(selectedRating ?? rating), size: starSize)
                     .onTapGesture {
-                        let temporaryRating = rating // Save current rating
-                        rating = Double(number) // Update rating to temporary rating
+                        selectedRating = Double(number)
                         updateRating(newRating: Double(number))
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            rating = temporaryRating // Restore rating to original value after 0.5s
+                            selectedRating = nil 
                         }
                     }
             }
