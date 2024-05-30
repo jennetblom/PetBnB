@@ -3,10 +3,16 @@ import SwiftUI
 struct ExploreDetailsView: View {
     var home: Home
     @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
-
+    
     var body: some View {
         ZStack {
             VStack {
+                HStack{
+                    Spacer()
+                    MessageButton(home : home)
+                }
+         
+
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
                 
