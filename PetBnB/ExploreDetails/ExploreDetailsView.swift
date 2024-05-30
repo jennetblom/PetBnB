@@ -1,12 +1,17 @@
 import SwiftUI
+import FirebaseAuth
 
 struct ExploreDetailsView: View {
     var home: Home
     @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
-
+    @StateObject var chatViewModel = ChatViewModel()
+    @State var conversationId: String?
+    @State var isChatActive: Bool = false
     var body: some View {
         ZStack {
             VStack {
+                
+                
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
                 
@@ -33,7 +38,7 @@ struct ExploreDetailsView: View {
                 exploreDetailsViewModel.fetchUser(by: userID)
             }
         }
-    }
+        .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))    }
 }
 
 #Preview {
