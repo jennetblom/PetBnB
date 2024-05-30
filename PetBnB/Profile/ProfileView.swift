@@ -88,12 +88,13 @@ struct ProfileView: View {
 
 struct profileHeaderWithImageAndStars: View {
     @EnvironmentObject var viewModel: ProfileViewModel
-    @Binding var rating: Int
+    @Binding var rating: Double
     @Binding var showImagePicker: Bool
     @Binding var selectedImage: UIImage?
     @Binding var profileImageUrl: URL?
 
     var body: some View {
+        
         HStack (alignment: .center) {
             if let selectedImage = selectedImage {
                 Image(uiImage: selectedImage)
@@ -163,9 +164,7 @@ struct profileHeaderWithImageAndStars: View {
             VStack(alignment: .leading) {
                            Text(viewModel.name)
                                .font(.title2)
-                               .offset(x: 55)
-                           Spacer()
-                           RatingBar(rating: $rating)
+                RatingBar(rating: $rating, viewModel: _viewModel)
                        }
                        .padding(.leading, 10)
                    }
