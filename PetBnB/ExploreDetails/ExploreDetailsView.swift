@@ -3,10 +3,39 @@ import SwiftUI
 struct ExploreDetailsView: View {
     var home: Home
     @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
-
+    
+    @StateObject var chatViewModel = ChatViewModel()
+    @State var conversationId: String?
+    @State var navigateToChat : Bool = false
+    
     var body: some View {
         ZStack {
             VStack {
+                Button(action: {
+                    if let userID = home.userID {
+                        chatViewModel.startConversation(with: userID) { conversationId in
+                            if let conversationId = conversationId {
+                                DispatchQueue.main.async {
+                                    self.conversationId = conversationId
+                                    // Navigate to ChatWindowView
+                                    // You can do this by setting a boolean flag to true,
+                                    // which will trigger NavigationLink
+                                    self.navigateToChat = true
+                                }
+                            }
+                        }
+                    }
+                }, label: {
+                    Image(systemName: "message")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                })
+
+                if let conversationId = conversationId {
+                        NavigationLink(destination: ChatWindowView(conversationId: conversationId), isActive: $navigateToChat) {
+                            EmptyView()
+                        }
+                }
                 
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)

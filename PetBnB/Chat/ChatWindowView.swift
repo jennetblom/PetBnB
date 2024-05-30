@@ -7,15 +7,13 @@ import FirebaseAuth
 struct ChatWindowView : View {
     
     @State var chatText = ""
-    @StateObject var viewModel = ChatWindowViewModel(conversationId: "")
-    @State var messages = [
-           Message(id: "0", senderID: "user1", receiverID: "user2", content: "Hejsan!", timestamp: Timestamp(date: Date())),
-           Message(id: "1", senderID: "user2", receiverID: "user1", content: "Hej hur mår du?", timestamp: Timestamp(date: Date())),
-           Message(id: "2", senderID: "user1", receiverID: "user2", content: "Jo jag mår bra tack! Hur e det med dig?", timestamp: Timestamp(date: Date())),
-           Message(id: "3", senderID: "user2", receiverID: "user1", content: "Jo det e bra, ska ut i solen nu", timestamp: Timestamp(date: Date())),
-           Message(id: "4", senderID: "user1", receiverID: "user2", content: "Vad härligt!", timestamp: Timestamp(date: Date()))
-           ]
+    @StateObject var viewModel: ChatWindowViewModel
+    var conversationId : String
     
+    init(conversationId: String) {
+          self.conversationId = conversationId
+        _viewModel = StateObject(wrappedValue: ChatWindowViewModel(conversationId: conversationId))
+      }
     var body : some View {
         VStack{
         Divider()
@@ -79,6 +77,7 @@ struct ChatWindowView : View {
             Button {
                 // Handle send action
                 viewModel.sendMessage(chatText)
+                chatText = ""
             } label: {
                 Text("Send")
                     .foregroundColor(.black)
@@ -102,14 +101,14 @@ struct MessageBubble: View {
         VStack(alignment: .trailing) {
             Text(message)
                 .font(.system(size: 16))
-                .padding()
+                .padding(8)
                 .background(color)
                 .cornerRadius(8)
                 .foregroundColor(.black)
         }
     }
 }
-#Preview {
-    ChatWindowView()
-}
+//#Preview {
+//    ChatWindowView()
+//}
 

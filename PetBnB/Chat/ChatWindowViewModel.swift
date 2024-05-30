@@ -9,6 +9,7 @@ class ChatWindowViewModel : ObservableObject {
     @Published var messages : [Message] = []
     @Published var conversationId: String
     var db  = Firestore.firestore()
+//    var conversationId: String
     
     
     init(conversationId : String){
