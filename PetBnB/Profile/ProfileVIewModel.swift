@@ -14,7 +14,8 @@ class ProfileViewModel: ObservableObject {
     
     
     @Published var name = ""
-    @Published var rating = 3
+    @Published var rating: Double = 3
+    @Published var ratingCount = 0
     @Published var city = "Stockholm"
     @Published var numberOfBeds = 0
     @Published var numberOfRooms = 0
@@ -42,7 +43,8 @@ class ProfileViewModel: ObservableObject {
                     guard let data = document.data() else { return }
                     DispatchQueue.main.async {
                         self.name = data["name"] as? String ?? ""
-                        self.rating = data["rating"] as? Int ?? 0
+                        self.rating = data["rating"] as? Double ?? 0
+                        self.ratingCount = data["ratingCount"] as? Int ?? 0
                         self.city = data["city"] as? String ?? "Göteborg"
                         self.numberOfBeds = data["numberOfBeds"] as? Int ?? 0
                         self.numberOfRooms = data["numberOfRooms"] as? Int ?? 0
@@ -95,6 +97,7 @@ class ProfileViewModel: ObservableObject {
                  let userProfileData: [String: Any] = [
                      "name": self.name,
                      "rating": self.rating,
+                     "ratingCount": self.ratingCount,
                      "city": self.city,
                      "numberOfBeds": self.numberOfBeds,
                      "numberOfRooms": self.numberOfRooms,
