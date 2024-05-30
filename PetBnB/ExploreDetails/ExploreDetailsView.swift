@@ -11,7 +11,8 @@ struct ExploreDetailsView: View {
                     Spacer()
                     MessageButton(home : home)
                 }
-                
+         
+
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
                 
