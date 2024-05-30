@@ -61,6 +61,7 @@
 		5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */; };
 		5DD9C2DC2C07229600B65CAF /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C2DB2C07229600B65CAF /* Conversation.swift */; };
 		5DEAFB8D2BFDE9AD00BF067C /* RatingBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */; };
+		86ECBF392C0867F500D79BAF /* ProfileImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECBF382C0867F500D79BAF /* ProfileImagePicker.swift */; };
 		A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */; };
 		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
 		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
@@ -140,6 +141,7 @@
 		5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGuestView.swift; sourceTree = "<group>"; };
 		5DD9C2DB2C07229600B65CAF /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBarView.swift; sourceTree = "<group>"; };
+		86ECBF382C0867F500D79BAF /* ProfileImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePicker.swift; sourceTree = "<group>"; };
 		A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSectionView.swift; sourceTree = "<group>"; };
 		A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionView.swift; sourceTree = "<group>"; };
 		A904C6192BFCE67E004C0116 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */,
 				5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */,
 				5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */,
+				86ECBF382C0867F500D79BAF /* ProfileImagePicker.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				5548ED932BFA966E00E4CBF2 /* ExploreView.swift in Sources */,
 				5DCD18D72BFF77D00006A4B1 /* HomeOwnerView.swift in Sources */,
 				A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */,
+				86ECBF392C0867F500D79BAF /* ProfileImagePicker.swift in Sources */,
 				A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */,
 				5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */,
 				55CED7332BFB83010064EC52 /* FilterBarView.swift in Sources */,

@@ -4,7 +4,7 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     var userID: String
     var isEditable: Bool = true
-    @State private var selectedSegment: Int
+    @State private var selectedSegment: Int // Missing initialization
     @State var hasChanges: Bool = false
     @State var isLoading: Bool = true
     @State var ignoreChanges: Bool = true
@@ -15,10 +15,10 @@ struct ProfileView: View {
     let segments = ["Uthyrare", "Hyresgäst"]
 
     init(userID: String, isEditable: Bool = true) {
-            self.userID = userID
-            self.isEditable = isEditable
-            _selectedSegment = State(initialValue: isEditable ? 0 : 1)
-        }
+        self.userID = userID
+        self.isEditable = isEditable
+        _selectedSegment = State(initialValue: isEditable ? 0 : 1) // Initialize selectedSegment
+    }
     
     var body: some View {
         VStack {
@@ -56,7 +56,7 @@ struct ProfileView: View {
             }
         }
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker(selectedImages: $selectedImages, selectedSingleImage: $selectedProfileImage, isSingleImage: true)
+            ProfileImagePicker(selectedImages: $selectedImages, selectedSingleImage: $selectedProfileImage, isSingleImage: true)
         }
         .onAppear {
             viewModel.fetchUserProfileFromFirebase(for: userID) {
@@ -161,18 +161,20 @@ struct profileHeaderWithImageAndStars: View {
             }
             
             VStack(alignment: .leading) {
-                           Text(viewModel.name)
-                               .font(.title2)
-                               .offset(x: 55)
-                           Spacer()
-                           RatingBar(rating: $rating)
-                       }
-                       .padding(.leading, 10)
-                   }
-                   .padding()
-               }
-           }
+                Text(viewModel.name)
+                    .font(.title2)
+                    .offset(x: 55)
+                Spacer()
+                RatingBar(rating: $rating)
+            }
+            .padding(.leading, 10)
+        }
+        .padding()
+    }
+}
 
-#Preview {
-    ProfileView(userID: "exampleUserID", isEditable: false)
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView(userID: "exampleUserID", isEditable: false)
+    }
 }
