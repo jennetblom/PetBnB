@@ -61,6 +61,7 @@
 		5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */; };
 		5DD9C2DC2C07229600B65CAF /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C2DB2C07229600B65CAF /* Conversation.swift */; };
 		5DEAFB8D2BFDE9AD00BF067C /* RatingBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */; };
+		9A35DEE92C07D60700C7626D /* IdentiifiableCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A35DEE82C07D60700C7626D /* IdentiifiableCoordinate.swift */; };
 		A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */; };
 		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
 		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
@@ -140,6 +141,7 @@
 		5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGuestView.swift; sourceTree = "<group>"; };
 		5DD9C2DB2C07229600B65CAF /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBarView.swift; sourceTree = "<group>"; };
+		9A35DEE82C07D60700C7626D /* IdentiifiableCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentiifiableCoordinate.swift; sourceTree = "<group>"; };
 		A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSectionView.swift; sourceTree = "<group>"; };
 		A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionView.swift; sourceTree = "<group>"; };
 		A904C6192BFCE67E004C0116 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			children = (
 				5548EDB22BFA975400E4CBF2 /* MapView.swift */,
 				5548EDB42BFA975D00E4CBF2 /* MapViewModel.swift */,
+				9A35DEE82C07D60700C7626D /* IdentiifiableCoordinate.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */,
 				5548EDA72BFA971500E4CBF2 /* ProfileVIewModel.swift in Sources */,
 				5548EDB82BFA9EDE00E4CBF2 /* User.swift in Sources */,
+				9A35DEE92C07D60700C7626D /* IdentiifiableCoordinate.swift in Sources */,
 				55C120502C04CC550005B734 /* AdditionalInfoView.swift in Sources */,
 				5D036D0A2BF4B96D008D2C7A /* PetBnBApp.swift in Sources */,
 				5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */,
