@@ -1,21 +1,15 @@
-//
-//  ImagePicker.swift
-//  PetBnB
-//
-//  Created by Ina Burström on 2024-05-21.
-//
-
 import SwiftUI
 import PhotosUI
 
-struct ImagePicker: UIViewControllerRepresentable {
+struct ProfileImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImages: [UIImage]
+    @Binding var selectedSingleImage: UIImage?
+    var isSingleImage: Bool
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = 0 // 0 is no limit
-
+        configuration.selectionLimit = isSingleImage ? 1 : 0
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = context.coordinator
         return picker
@@ -28,9 +22,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        let parent: ImagePicker
+        let parent: ProfileImagePicker
 
-        init(_ parent: ImagePicker) {
+        init(_ parent: ProfileImagePicker) {
             self.parent = parent
         }
 
@@ -47,7 +41,11 @@ struct ImagePicker: UIViewControllerRepresentable {
                     provider.loadObject(ofClass: UIImage.self) { (image, error) in
                         DispatchQueue.main.async {
                             if let uiImage = image as? UIImage {
-                                self.parent.selectedImages.append(uiImage)
+                                if self.parent.isSingleImage {
+                                    self.parent.selectedSingleImage = uiImage
+                                } else {
+                                    self.parent.selectedImages.append(uiImage)
+                                }
                             }
                             group.leave()
                         }
@@ -58,7 +56,6 @@ struct ImagePicker: UIViewControllerRepresentable {
             }
 
             group.notify(queue: .main) {
-                // Handling after all images are loaded
             }
         }
     }
