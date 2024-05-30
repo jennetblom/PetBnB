@@ -11,11 +11,6 @@ class ChatViewModel : ObservableObject {
     var currentUser : User?
     var firestoreutils = FirestoreUtils()
     
-//    init(completion: @escaping () -> Void) {
-//          fetchConversations {
-//              completion() // Call the completion handler after fetching conversations
-//          }
-//      }
     func fetchConversations(completion: @escaping () -> Void) {
         guard let userId = auth.currentUser?.uid else { return }
         
