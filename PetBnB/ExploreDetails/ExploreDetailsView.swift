@@ -7,11 +7,10 @@ struct ExploreDetailsView: View {
     @StateObject var chatViewModel = ChatViewModel()
     @State var conversationId: String?
     @State var isChatActive: Bool = false
+    
     var body: some View {
         ZStack {
             VStack {
-                
-                
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
                 
@@ -31,14 +30,15 @@ struct ExploreDetailsView: View {
             }
             MapButtonView()
         }
-        .navigationTitle(home.name ?? "Ingen användare")
+        .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             if let userID = home.userID {
                 exploreDetailsViewModel.fetchUser(by: userID)
             }
         }
-        .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))    }
+        .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
+    }
 }
 
 #Preview {
@@ -62,6 +62,8 @@ struct ExploreDetailsView: View {
             "image1": URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home.png?alt=media&token=0e13552e-0052-4bd2-9170-856beacea3b1")!,
             "image2": URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home2.png?alt=media&token=a2c1ea5a-134a-466d-be39-19aedfa13e9a")!
         ],
-        rating: 4.8
+        rating: 4.8,
+        country: "Sweden",
+        bathrooms: 2
     ))
 }

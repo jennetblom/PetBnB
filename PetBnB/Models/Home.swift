@@ -17,5 +17,6 @@ struct Home: Identifiable, Codable {
     var endDate: Date?
     var images: [String: URL]
     var rating: Double
-    
+    var country: String
+    var bathrooms: Int?
 }

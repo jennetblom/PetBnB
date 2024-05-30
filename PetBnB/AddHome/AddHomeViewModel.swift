@@ -13,6 +13,7 @@ class AddHomeViewModel: ObservableObject {
     @Published var size: Int = 0
     @Published var additionalInfo: String = ""
     @Published var city: String = ""
+    @Published var country: String = ""
     var availability: Int = 0
     @Published var startDate: Date = Date()
     @Published var endDate: Date = Date()
@@ -38,8 +39,24 @@ class AddHomeViewModel: ObservableObject {
     
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
-        firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, startDate: startDate, endDate: endDate, selectedImages: selectedImages, animals: animals, rating: rating, completion: completion)
+        firestoreUtils.saveHome(
+            homeTitle: homeTitle,
+            beds: beds,
+            rooms: rooms,
+            size: size,
+            additionalInfo: additionalInfo,
+            city: city,
+            country: country,
+            availability: availability,
+            startDate: startDate,
+            endDate: endDate,
+            selectedImages: selectedImages,
+            animals: animals,
+            rating: rating,
+            completion: completion
+        )
     }
+
     
     func calculateAvailability() {
         let calendar = Calendar.current
