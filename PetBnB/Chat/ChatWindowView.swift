@@ -9,10 +9,10 @@ struct ChatWindowView : View {
     @State var chatText = ""
     @StateObject var viewModel: ChatWindowViewModel
     var conversationId : String
-    
+
     init(conversationId: String) {
-          self.conversationId = conversationId
-        _viewModel = StateObject(wrappedValue: ChatWindowViewModel(conversationId: conversationId))
+        self.conversationId = conversationId
+                self._viewModel = StateObject(wrappedValue: ChatWindowViewModel(conversationId: conversationId))
       }
     var body : some View {
         VStack{
@@ -22,7 +22,7 @@ struct ChatWindowView : View {
         chatBottomBar
             Divider()
         }
-        .navigationTitle("Username")
+        .navigationTitle(viewModel.otherUser?.name ?? "")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 viewModel.fetchMessages()
