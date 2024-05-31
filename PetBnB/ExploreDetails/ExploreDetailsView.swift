@@ -13,12 +13,12 @@ struct ExploreDetailsView: View {
     var body: some View {
         ZStack {
             VStack {
-
+                
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
                 
                 Form {
-
+                    
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
@@ -31,20 +31,8 @@ struct ExploreDetailsView: View {
                     
                     AdditionalInfoView(additionalInfo: home.additionalInfoHome)
                 }
-                    Button(action: {
-                        showMapView = true
-                        
-                    }) {
-                        HStack {
-                            Text("Kartor")
-                            Image(systemName: "map")
-                        }
-                        .padding()
-                        .background(Color("primary"))
-                        .foregroundColor(Color("text"))
-                        .cornerRadius(12)
-                }
             }
+            
             .navigationTitle(home.name) // ?? "Ingen användare")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
@@ -60,6 +48,33 @@ struct ExploreDetailsView: View {
                     
                 )
             )
+            
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        showMapView = true
+                        
+                    }) {
+                        
+                        HStack {
+                            
+                            Text("Kartor")
+                            Image(systemName: "map")
+                        }
+                        .padding()
+                        .background(Color("primary"))
+                        .foregroundColor(Color("text"))
+                        .cornerRadius(12)
+                    }
+                    .padding()
+                    Spacer()
+                }
+            }
+           
         }
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))    }
 }
