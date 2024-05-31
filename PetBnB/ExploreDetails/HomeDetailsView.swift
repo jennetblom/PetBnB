@@ -5,28 +5,16 @@ struct HomeDetailsView: View {
     @State private var showFullInfo = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 24) {
             
             VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("Storlek")
-                        .font(.subheadline)
-                        .foregroundColor(Color("text"))
-                    Spacer()
-                    Text("\(home.size, specifier: "%.0f") m")
-                        + Text("2").font(.system(size: 12)).baselineOffset(6)
-                }
-                
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Info om boendet")
-                        .font(.subheadline)
-                        .foregroundColor(Color("text"))
-                    
-                    if home.additionalInfoHome.count > 6 {
+    
+                    if home.additionalInfoHome.count > 5 {
                         Text(home.additionalInfoHome)
                             .font(.subheadline)
                             .foregroundColor(Color("text"))
-                            .lineLimit(6)
+                            .lineLimit(5)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Button(action: {
@@ -71,7 +59,8 @@ struct HomeDetailsView: View {
     
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "d MMMM"
+        formatter.locale = Locale(identifier: "sv_SE")
         return formatter.string(from: date)
     }
 }
@@ -111,59 +100,68 @@ struct FullInfoView: View {
                     .padding(.horizontal, 0)
                 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("Info om boendet")
-                            .font(.title)
-                            .padding(.horizontal)
-                        
+                    VStack(alignment: .leading, spacing: 8) {
+
                         Text(info)
                             .font(.subheadline)
                             .padding(.horizontal)
+                            .padding(.vertical)
                         
                         Text("Aktiviteter")
-                            .font(.title)
+                            .font(.body)
+                            .bold()
                             .padding(.horizontal)
                         
                         Text(activities)
                             .font(.subheadline)
                             .padding(.horizontal)
+                            .padding(.bottom)
+
                         
                         Text("Tillgänglighet")
-                            .font(.title)
+                            .font(.body)
+                            .bold()
                             .padding(.horizontal)
                         
                         if let startDate = startDate, let endDate = endDate {
-                            Text("\(formatDate(startDate)) - \(formatDate(endDate))")
+                            Text("Boendet är ledigt mellan den \(formatDate(startDate)) och \(formatDate(endDate))")
                                 .font(.subheadline)
                                 .padding(.horizontal)
+                                .padding(.bottom)
                         } else {
                             Text("N/A")
                                 .font(.subheadline)
                                 .padding(.horizontal)
+                                .padding(.bottom)
                         }
                         
                         Text("Gästernas tillgång")
-                            .font(.title)
+                            .font(.body)
+                            .bold()
                             .padding(.horizontal)
                         
                         Text(guestAccess)
                             .font(.subheadline)
                             .padding(.horizontal)
+                            .padding(.bottom)
                         
                         Text("Andra saker att notera")
-                            .font(.title)
+                            .font(.body)
+                            .bold()
                             .padding(.horizontal)
                         
                         Text(otherNotes)
                             .font(.subheadline)
                             .padding(.horizontal)
+                            .padding(.bottom)
 
                         Text("Storlek")
-                            .font(.title)
+                            .font(.body)
+                            .bold()
                             .padding(.horizontal)
 
                     
-                        (Text("Boendet har plats för \(home.guests) gäster, det finns \(home.rooms) rum med \(home.beds) sängar. Boendet har även \(home.bathrooms ?? 0) badrum och storleken är \(home.size, specifier: "%.0f") m") + Text("2").font(.system(size: 12)).baselineOffset(6))
+                        (Text("Boendet har plats för \(home.guests) gäster, det finns \(home.rooms) rum med \(home.beds) sängar. Boendet har även \(home.bathrooms ?? 0) badrum och dess storlek är  \(home.size, specifier: "%.0f") m") + Text("2").font(.system(size: 12)).baselineOffset(6))
                                                   .font(.subheadline)
                                                   .padding(.horizontal)
                                           }
@@ -176,7 +174,8 @@ struct FullInfoView: View {
     
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "d MMMM"
+        formatter.locale = Locale(identifier: "sv_SE")
         return formatter.string(from: date)
     }
 }

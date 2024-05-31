@@ -21,7 +21,7 @@ struct HomeHeaderView: View {
                     .foregroundColor(Color("text"))
                 
                 HStack(spacing: 2) {
-                    Text("\(home.availability) gäster")
+                    Text("\(home.guests) gäster")
                         .font(.subheadline)
                         .foregroundColor(Color("text"))
                     
