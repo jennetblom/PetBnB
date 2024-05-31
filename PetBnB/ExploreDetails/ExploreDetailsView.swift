@@ -10,12 +10,12 @@ struct ExploreDetailsView: View {
     var body: some View {
         ZStack {
             VStack {
-                
-                
+
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
                 
                 Form {
+                    
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
