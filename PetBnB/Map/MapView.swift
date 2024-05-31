@@ -2,7 +2,7 @@
 import SwiftUI
 import MapKit
 
-struct MapView: View {
+struct MapShowView: View {
     @ObservedObject var viewModel: MapViewModel
     
     var body: some View {
