@@ -20,18 +20,32 @@ struct StarView : View {
     }
 }
 struct RatingBar: View {
-    @Binding var rating: Int
+    @Binding var rating: Double
     var maximumRating: Int = 5
     var starSize: CGFloat = 24
-    
+    @EnvironmentObject var viewModel: ProfileViewModel
+
+    @State private var selectedRating: Double? = nil
+
     var body: some View {
         HStack {
             ForEach(1..<maximumRating + 1, id: \.self) { number in
-                StarView(filled: number <= rating, size: starSize)
+                StarView(filled: number <= Int(selectedRating ?? rating), size: starSize)
                     .onTapGesture {
-                        rating = number
+                        selectedRating = Double(number)
+                        updateRating(newRating: Double(number))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            selectedRating = nil 
+                        }
                     }
             }
         }
+    }
+
+    func updateRating(newRating: Double) {
+        viewModel.ratingCount += 1
+        let totalRating = rating * Double(viewModel.ratingCount - 1)
+        rating = (totalRating + newRating) / Double(viewModel.ratingCount)
+        viewModel.saveUserProfileToFirebase()
     }
 }

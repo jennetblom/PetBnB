@@ -1,21 +1,25 @@
 import SwiftUI
 import MapKit
+import FirebaseAut
 
 struct ExploreDetailsView: View {
     var home: Home
     @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
+    @StateObject var chatViewModel = ChatViewModel()
+    @State var conversationId: String?
+    @State var isChatActive: Bool = false
+              
     @State private var showMapView = false
-    
     var body: some View {
-        NavigationStack{
-            ZStack {
+        ZStack {
+            VStack {
+                
+                
+                ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
+                    .frame(height: 300)
+                
                 Form {
-                    Section {
-                        
-                        ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
-                            .frame(height: 300)
-                    }
-                    
+                       
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
@@ -66,7 +70,7 @@ struct ExploreDetailsView: View {
                 )
             )
         }
-    }
+        .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))    }
 }
 
 

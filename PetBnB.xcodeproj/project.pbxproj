@@ -56,12 +56,14 @@
 		5D08B27F2BF628F000F41D38 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5D08B27E2BF628F000F41D38 /* FirebaseFirestore */; };
 		5D08B2812BF628F000F41D38 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5D08B2802BF628F000F41D38 /* FirebaseFirestoreSwift */; };
 		5D08B2872BF62D5D00F41D38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */; };
+		5DC758B42C08700A00A88EBD /* MessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC758B32C08700A00A88EBD /* MessageButton.swift */; };
 		5DCD18D52BFF76DF0006A4B1 /* RowViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */; };
 		5DCD18D72BFF77D00006A4B1 /* HomeOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */; };
 		5DCD18D92BFF77DA0006A4B1 /* HomeGuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */; };
 		5DD9C2DC2C07229600B65CAF /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C2DB2C07229600B65CAF /* Conversation.swift */; };
 		5DEAFB8D2BFDE9AD00BF067C /* RatingBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */; };
 		9A35DEE92C07D60700C7626D /* IdentiifiableCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A35DEE82C07D60700C7626D /* IdentiifiableCoordinate.swift */; };
+		86ECBF392C0867F500D79BAF /* ProfileImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECBF382C0867F500D79BAF /* ProfileImagePicker.swift */; };
 		A904C6142BFCC68E004C0116 /* AnimalSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */; };
 		A904C6182BFCD2BB004C0116 /* HomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */; };
 		A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A904C6192BFCE67E004C0116 /* ImagePicker.swift */; };
@@ -136,12 +138,16 @@
 		5D036D242BF4B970008D2C7A /* PetBnBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBnBUITests.swift; sourceTree = "<group>"; };
 		5D036D262BF4B970008D2C7A /* PetBnBUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetBnBUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5DC758B32C08700A00A88EBD /* MessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageButton.swift; sourceTree = "<group>"; };
 		5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowViews.swift; sourceTree = "<group>"; };
 		5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOwnerView.swift; sourceTree = "<group>"; };
 		5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGuestView.swift; sourceTree = "<group>"; };
 		5DD9C2DB2C07229600B65CAF /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		5DEAFB8C2BFDE9AD00BF067C /* RatingBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBarView.swift; sourceTree = "<group>"; };
+
 		9A35DEE82C07D60700C7626D /* IdentiifiableCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentiifiableCoordinate.swift; sourceTree = "<group>"; };
+
+		86ECBF382C0867F500D79BAF /* ProfileImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePicker.swift; sourceTree = "<group>"; };
 		A904C6132BFCC68D004C0116 /* AnimalSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalSectionView.swift; sourceTree = "<group>"; };
 		A904C6172BFCD2BB004C0116 /* HomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionView.swift; sourceTree = "<group>"; };
 		A904C6192BFCE67E004C0116 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -233,6 +239,7 @@
 				5DCD18D42BFF76DF0006A4B1 /* RowViews.swift */,
 				5DCD18D62BFF77D00006A4B1 /* HomeOwnerView.swift */,
 				5DCD18D82BFF77DA0006A4B1 /* HomeGuestView.swift */,
+				86ECBF382C0867F500D79BAF /* ProfileImagePicker.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -269,6 +276,7 @@
 				55C1204D2C04CC1E0005B734 /* AnimalDetailsView.swift */,
 				55C1204F2C04CC550005B734 /* AdditionalInfoView.swift */,
 				55C120512C04CCBC0005B734 /* MapButtonView.swift */,
+				5DC758B32C08700A00A88EBD /* MessageButton.swift */,
 			);
 			path = ExploreDetails;
 			sourceTree = "<group>";
@@ -515,6 +523,7 @@
 				5548ED932BFA966E00E4CBF2 /* ExploreView.swift in Sources */,
 				5DCD18D72BFF77D00006A4B1 /* HomeOwnerView.swift in Sources */,
 				A904C61A2BFCE67E004C0116 /* ImagePicker.swift in Sources */,
+				86ECBF392C0867F500D79BAF /* ProfileImagePicker.swift in Sources */,
 				A904C61C2BFE0DE7004C0116 /* ImagePickerView.swift in Sources */,
 				5548ED972BFA968500E4CBF2 /* FavouritesView.swift in Sources */,
 				55CED7332BFB83010064EC52 /* FilterBarView.swift in Sources */,
@@ -537,6 +546,7 @@
 				5548ED8B2BFA962D00E4CBF2 /* LogInView.swift in Sources */,
 				5548EDB52BFA975D00E4CBF2 /* MapViewModel.swift in Sources */,
 				55C1204E2C04CC1E0005B734 /* AnimalDetailsView.swift in Sources */,
+				5DC758B42C08700A00A88EBD /* MessageButton.swift in Sources */,
 				55C1204A2C04CBD20005B734 /* HomeDetailsView.swift in Sources */,
 				5548EDA52BFA970700E4CBF2 /* ProfileView.swift in Sources */,
 				5548ED952BFA967700E4CBF2 /* ExploreViewModel.swift in Sources */,

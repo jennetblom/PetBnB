@@ -1,17 +1,31 @@
 import SwiftUI
+import FirebaseAuth
 
 struct ChatView: View {
 
     @StateObject var viewModel = ChatViewModel()
-    @State private var selectedConversationId: String?
-    
+    @State var selectedConversationId: String?
+    var auth = Auth.auth()
+    @State var user : User?
+    @State var isFetchingConversations = true
+
     var body: some View {
         VStack {
             HeaderView ()
             Divider()
-            MessageRowView(viewModel: viewModel)
+            
+            if isFetchingConversations {
+                ProgressView()
+            } else {
+                MessageRowView(viewModel: viewModel,selectedConversationId: $selectedConversationId)
+            }
+           
             Divider()
-        }
+        }.onAppear {
+            viewModel.fetchConversations {
+                isFetchingConversations = false
+            }
+    }
     }
 }
 struct HeaderView : View {
@@ -42,10 +56,11 @@ struct HeaderView : View {
 }
 struct MessageRowView: View {
     @ObservedObject var viewModel : ChatViewModel
+    @Binding var selectedConversationId: String?
     var body: some View {
         ScrollView {
             ForEach(viewModel.conversations) { conversation in
-                NavigationLink(destination: ChatWindowView() ) {
+                NavigationLink(destination: ChatWindowView(conversationId: conversation.id ?? "") ) {
                     VStack {
                         HStack(spacing: 16){
                             Image("catimage")

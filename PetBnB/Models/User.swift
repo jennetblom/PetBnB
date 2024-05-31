@@ -4,15 +4,16 @@ import FirebaseFirestoreSwift
 
 struct User: Identifiable, Codable {
     @DocumentID var id: String?
-    var uid: String
+    var uid: String?
     var name: String
-    var email: String
-    var password: String
+    var email: String?
+    var password: String?
     var homeIDs: [String]?
     var favourite: Bool?
     
     var profilePicture: URL?
-    var rating: Double
+    var rating: Double?
+    var ratingCount: Int?
     var city : String
     var numberOfBeds : Int
     var numberOfRooms : Int
