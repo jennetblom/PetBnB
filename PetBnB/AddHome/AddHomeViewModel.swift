@@ -10,6 +10,7 @@ class AddHomeViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var beds: Int = 0
     @Published var rooms: Int = 0
+    @Published var bathrooms: Int = 0
     @Published var size: Int = 0
     @Published var guests: Int = 0
     @Published var additionalInfoHome: String = ""
