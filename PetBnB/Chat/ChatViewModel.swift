@@ -9,11 +9,15 @@ class ChatViewModel : ObservableObject {
     var db = Firestore.firestore()
     var auth = Auth.auth()
     @Published var currentUser : User?
-    @Published var otherUser: User?
+    @Published var otherUsers: [String: User] = [:]
     var firestoreUtils = FirestoreUtils()
+    
     
     func fetchConversations(completion: @escaping () -> Void) {
         guard let userId = auth.currentUser?.uid else { return }
+        
+        // Fetch current user's data
+        fetchUser(withID: userId)
         
         db.collection("conversations")
             .whereField("participants", arrayContains: userId)
@@ -26,6 +30,9 @@ class ChatViewModel : ObservableObject {
                 self.conversations = querySnapshot?.documents.compactMap { document in
                     try? document.data(as: Conversation.self)
                 } ?? []
+                
+                // Fetch other users' data
+                self.fetchOtherUsers()
                 
                 completion() // Call completion handler when conversations are fetched
             }
@@ -65,29 +72,43 @@ class ChatViewModel : ObservableObject {
                 }
             }
     }
-    func fetchUser(withID id: String, forCurrentUser isCurrentUser: Bool) {
-           firestoreUtils.fetchUser(withID: id) { [weak self] result in
-               switch result {
-               case .success(let user):
-                   DispatchQueue.main.async {
-                       if isCurrentUser {
-                           self?.currentUser = user
-                       } else {
-                           self?.otherUser = user
-                       }
-                   }
-               case .failure(let error):
-                   print("Error fetching user: \(error)")
-               }
-           }
+    private func fetchOtherUsers() {
+          for conversation in conversations {
+              for participant in conversation.participants {
+                  if participant != auth.currentUser?.uid {
+                      fetchUser(withID: participant)
+                  }
+              }
+          }
+      }
+       
+    func fetchUser(withID id: String, completion: (() -> Void)? = nil) {
+        firestoreUtils.fetchUser(withID: id) { [weak self] result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    if id == self?.auth.currentUser?.uid {
+                        self?.currentUser = user // Store current user
+                        self?.currentUser?.profilePicture  = user.profilePicture // Set profile picture
+                    } else {
+                        self?.otherUsers[id] = user // Store other user in dictionary
+                    }
+                    completion?()
+                }
+            case .failure(let error):
+                print("Error fetching user: \(error)")
+                // Handle the decoding error
+                // For example, provide a default URL or placeholder image
+                // self?.currentUser?.profilePicture = URL(string: "default_profile_picture_url")
+                completion?()
+            }
+        }
+    }
+       func getUserName(for userId: String) -> String {
+           return otherUsers[userId]?.name ?? "Loading..."
        }
-
-       func fetchCurrentUser() {
-           guard let uid = Auth.auth().currentUser?.uid else {
-               print("No authenticated user found.")
-               return
-           }
-
-           fetchUser(withID: uid, forCurrentUser: true)
+       
+       func getUserProfilePicture(for userId: String) -> URL? {
+           return otherUsers[userId]?.profilePicture
        }
 }

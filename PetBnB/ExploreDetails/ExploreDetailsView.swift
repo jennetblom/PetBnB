@@ -8,7 +8,7 @@ struct ExploreDetailsView: View {
     @StateObject var chatViewModel = ChatViewModel()
     @State var conversationId: String?
     @State var isChatActive: Bool = false
-              
+    
     @State private var showMapView = false
     var body: some View {
         ZStack {
@@ -76,7 +76,7 @@ struct ExploreDetailsView: View {
             }
            
         }
-        .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))    }
+        .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel ))    }
 }
 
 //
