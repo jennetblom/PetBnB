@@ -7,11 +7,12 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 class AddHomeViewModel: ObservableObject {
-    @Published var homeTitle: String = ""
+    @Published var name: String = ""
     @Published var beds: Int = 0
     @Published var rooms: Int = 0
     @Published var size: Int = 0
-    @Published var additionalInfo: String = ""
+    @Published var guests: Int = 0
+    @Published var additionalInfoHome: String = ""
     @Published var city: String = ""
     @Published var country: String = ""
     var availability: Int = 0
@@ -21,30 +22,34 @@ class AddHomeViewModel: ObservableObject {
     @Published var animals: [AnimalInfo] = [AnimalInfo(type: "", age: 0, additionalInfoAnimal: "")]
     @Published var rating: Double = 0.0
     @Published var isShowingImagePicker: Bool = false
+    @Published var activities: String = ""
+    @Published var guestAccess: String = ""
+    @Published var otherNotes: String = ""
     
     var animalCount: Int {
-          animals.count
-      }
+        animals.count
+    }
     
     private let firestoreUtils = FirestoreUtils()
 
     func addAnimal() {
-           animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
-       }
-       
-       func removeAnimal(at index: Int) {
-           guard index < animalCount else { return }
-           animals.remove(at: index)
-       }
+        animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
+    }
+    
+    func removeAnimal(at index: Int) {
+        guard index < animalCount else { return }
+        animals.remove(at: index)
+    }
     
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
         firestoreUtils.saveHome(
-            homeTitle: homeTitle,
+            name: name,
             beds: beds,
             rooms: rooms,
             size: size,
-            additionalInfo: additionalInfo,
+            guests: guests,
+            additionalInfoHome: additionalInfoHome,
             city: city,
             country: country,
             availability: availability,
@@ -53,11 +58,13 @@ class AddHomeViewModel: ObservableObject {
             selectedImages: selectedImages,
             animals: animals,
             rating: rating,
+            activities: activities,
+            guestAccess: guestAccess,
+            otherNotes: otherNotes,
             completion: completion
         )
     }
 
-    
     func calculateAvailability() {
         let calendar = Calendar.current
         let weekOfYear = calendar.component(.weekOfYear, from: startDate)

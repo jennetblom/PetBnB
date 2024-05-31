@@ -6,8 +6,8 @@ struct HomeSectionView: View {
     @Binding var beds: Int
     @Binding var rooms: Int
     @Binding var city: String
-    @Binding var additionalInfo: String
-    @Binding var homeTitle: String
+    @Binding var additionalInfoHome: String
+    @Binding var name: String
     @Binding var startDate: Date
     @Binding var endDate: Date
     
@@ -22,10 +22,10 @@ struct HomeSectionView: View {
     
     var body: some View {
         Section(header: Text("Rubrik")) {
-            TextField("Fyll i din rubrik för boendet här", text: $homeTitle)
-                .onChange(of: homeTitle) { newValue in
+            TextField("Fyll i din rubrik för boendet här", text: $name)
+                .onChange(of: name) { newValue in
                     if newValue.count > limit {
-                        homeTitle = String(newValue.prefix(limit))
+                        name = String(newValue.prefix(limit))
                     }
                 }
         }
@@ -53,7 +53,7 @@ struct HomeSectionView: View {
             }
             HStack {
                 Text("Övrig info:")
-                TextField("Fyll i här", text: $additionalInfo)
+                TextField("Fyll i här", text: $additionalInfoHome)
             }
             
             HStack {

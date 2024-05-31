@@ -112,7 +112,7 @@ class FirestoreUtils {
         }
     }
     
-    func saveHome(homeTitle: String, beds: Int, rooms: Int, size: Int, additionalInfo: String, city: String, country: String, availability: Int, startDate: Date, endDate: Date, selectedImages: [UIImage], animals: [AnimalInfo], rating: Double, completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveHome(name: String, beds: Int, rooms: Int, size: Int, guests: Int, additionalInfoHome: String, city: String, country: String, availability: Int, startDate: Date, endDate: Date, selectedImages: [UIImage], animals: [AnimalInfo], rating: Double, activities: String, guestAccess: String, otherNotes: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(.failure(NSError(domain: "SaveHome", code: -1, userInfo: [NSLocalizedDescriptionKey: "No user is logged in"])))
@@ -133,20 +133,23 @@ class FirestoreUtils {
                 let home = Home(
                     id: homeRef.documentID,
                     userID: userID,
-                    name: homeTitle,
+                    name: name,
                     beds: beds,
                     rooms: rooms,
                     size: size,
+                    guests: guests,
                     animals: animalInfos,
-                    additionalInfoHome: additionalInfo,
+                    additionalInfoHome: additionalInfoHome,
                     city: city,
                     availability: availability,
                     startDate: startDate,
                     endDate: endDate,
                     images: imageUrls,
                     rating: rating,
-                    country: country
-                    
+                    country: country,
+                    activities: activities,
+                    guestAccess: guestAccess,
+                    otherNotes: otherNotes
                 )
                 
                 // Save home document
@@ -166,6 +169,7 @@ class FirestoreUtils {
             }
         }
     }
+
     
     private func updateUserHomeIDs(userID: String, homeID: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let userRef = db.collection("users").document(userID)

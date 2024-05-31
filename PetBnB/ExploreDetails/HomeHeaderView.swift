@@ -107,8 +107,6 @@ struct HomeHeaderView: View {
         }
     }
 }
-    
-
 
 #Preview {
     HomeHeaderView(
@@ -119,6 +117,7 @@ struct HomeHeaderView: View {
             beds: 2,
             rooms: 3,
             size: 100,
+            guests: 4,
             animals: [
                 "Hund": AnimalInfo(type: "Bulldog", age: 2, additionalInfoAnimal: "Friendly dog loves to cuddle"),
                 "Katt": AnimalInfo(type: "Persian", age: 3, additionalInfoAnimal: "Loves to cuddle")
@@ -134,7 +133,10 @@ struct HomeHeaderView: View {
             ],
             rating: 4.8,
             country: "Sweden",
-            bathrooms: 2
+            bathrooms: 2,
+            activities: "Fiska, vandra, cykla",
+            guestAccess: "Hela stugan",
+            otherNotes: "Husdjur tillåtna"
         ),
         userName: "John Doe",
         userRating: 4.5,
