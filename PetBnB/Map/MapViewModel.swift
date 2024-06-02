@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import MapKit
 
+
 struct IdentifiableCoordinate: Identifiable {
     var id = UUID()
     var coordinate: CLLocationCoordinate2D
@@ -11,6 +12,7 @@ class MapViewModel: ObservableObject {
     @Published var city: String
     @Published var region: MKCoordinateRegion
     @Published var coordinates: [IdentifiableCoordinate]
+
     
     init(city: String) {
         self.city = city
@@ -44,3 +46,5 @@ class MapViewModel: ObservableObject {
             }
         }
     }
+
+

@@ -3,7 +3,6 @@ import SwiftUI
 struct HomeListView<ViewModel: HomeListViewModel>: View {
     @ObservedObject var viewModel: ViewModel
     var selectedFilter: String?
-
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
