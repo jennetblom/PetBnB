@@ -20,27 +20,49 @@ class AddHomeViewModel: ObservableObject {
     @Published var animals: [AnimalInfo] = [AnimalInfo(type: "", age: 0, additionalInfoAnimal: "")]
     @Published var rating: Double = 0.0
     @Published var isShowingImagePicker: Bool = false
-    
+
+    @Published var mapViewModel: MapViewModel
+
+    init() {
+        self.mapViewModel = MapViewModel(city: "")
+    }
+
     var animalCount: Int {
-          animals.count
-      }
-    
+        animals.count
+    }
+
     private let firestoreUtils = FirestoreUtils()
 
+    func updateCity(newCity: String) {
+        self.mapViewModel.city = newCity
+        self.mapViewModel.geocodeCity { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                print("Error geocoding city: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func geocodeCity(completion: @escaping (Result<Void, Error>) -> Void) {
+        mapViewModel.geocodeCity(completion: completion)
+    }
+
     func addAnimal() {
-           animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
-       }
-       
-       func removeAnimal(at index: Int) {
-           guard index < animalCount else { return }
-           animals.remove(at: index)
-       }
-    
+        animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
+    }
+
+    func removeAnimal(at index: Int) {
+        guard index < animalCount else { return }
+        animals.remove(at: index)
+    }
+
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
         firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, startDate: startDate, endDate: endDate, selectedImages: selectedImages, animals: animals, rating: rating, completion: completion)
     }
-    
+
     func calculateAvailability() {
         let calendar = Calendar.current
         let weekOfYear = calendar.component(.weekOfYear, from: startDate)
@@ -50,13 +72,13 @@ class AddHomeViewModel: ObservableObject {
     func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
         firestoreUtils.uploadImages(images: selectedImages, completion: completion)
     }
-    
+
     func fetchAndUpdateUser() {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("Error: No user is logged in")
             return
         }
-        
+
         firestoreUtils.fetchUser(withID: userID) { result in
             switch result {
             case .success(let user):
