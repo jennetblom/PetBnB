@@ -8,6 +8,7 @@ class ExploreViewModel: ObservableObject, HomeListViewModel {
     @Published var homes = [Home]()
     @Published var loading = true
     @Published var searchText: String = ""
+    @Published var selectedFilter: String? = nil
     private let firestoreUtils = FirestoreUtils()
     private var cancellables = Set<AnyCancellable>()
     
@@ -53,7 +54,8 @@ class ExploreViewModel: ObservableObject, HomeListViewModel {
 
     var filteredHomes: [Home] {
         homes.filter { home in
-            searchText.isEmpty || home.city.lowercased().contains(searchText.lowercased())
+            (searchText.isEmpty || home.city.lowercased().contains(searchText.lowercased())) &&
+            (selectedFilter == nil || home.animals.values.contains(where: { $0.type.lowercased() == selectedFilter!.lowercased() }))
         }
     }
 }
