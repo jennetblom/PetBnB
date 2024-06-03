@@ -1,4 +1,6 @@
 import SwiftUI
+import MapKit
+import CoreLocation
 
 struct HomeSectionView: View {
     @Binding var beds: Int
@@ -9,7 +11,6 @@ struct HomeSectionView: View {
     @Binding var name: String
     @Binding var startDate: Date
     @Binding var endDate: Date
-    @Binding var showMapView: Bool
     @Binding var activities: String
     @Binding var bathrooms: Int
     @Binding var guests: Int
@@ -26,7 +27,7 @@ struct HomeSectionView: View {
     
     let guestAccessOptions = ["Hela hemmet", "Delat badrum", "Delat boende"]
     let limit = 20
-
+    
     var body: some View {
         Section(header: Text("Rubrik")) {
             TextField("Fyll i din rubrik för boendet här", text: $name)
@@ -36,7 +37,7 @@ struct HomeSectionView: View {
                     }
                 }
         }
-
+        
         Section(header: Text("Boende")) {
             HStack {
                 Text("Sovplatser:")
@@ -61,8 +62,6 @@ struct HomeSectionView: View {
             HStack {
                 Text("Stad:")
                 TextField("Fyll i här", text: $city)
-               
-
                     .onChange(of: city) { newValue in
                         if !newValue.isEmpty {
                             country = "Sverige"
@@ -72,9 +71,6 @@ struct HomeSectionView: View {
                 NavigationLink(destination: MapView(coordinateRegion: $coordinateRegion, pinnedLocation: $pinnedLocation)) {
                     Image(systemName: "map")
                         .foregroundColor(Color("primary"))
-                  .onTapGesture {
-                        showMapView = true
-                    }
                 }
                 .onTapGesture {
                     geocodeCity()
@@ -84,15 +80,13 @@ struct HomeSectionView: View {
                 Text("Land:")
                 TextField("Fyll i här", text: $country)
             }
-
             HStack {
                 Text("Tillgängligt från:")
                 DatePicker(
                     "",
                     selection: $startDate,
                     in: Date()...,
-                    displayedComponents: [.date]
-                )
+                    displayedComponents: [.date])
             }
             HStack {
                 Text("Tillgängligt till:")
@@ -100,7 +94,7 @@ struct HomeSectionView: View {
                     "",
                     selection: $endDate,
                     in: startDate...,
-                    displayedComponents: [.date]
+                    displayedComponents: [.date])
             }
             HStack {
                 Text("Gästernas tillgång:")
@@ -154,7 +148,34 @@ struct HomeSectionView: View {
                     center: location.coordinate,
                     span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
                 )
+                showMap = true
             }
+        }
+    }
+}
+
+struct IdentifiableCoordinate: Identifiable {
+    var id = UUID()
+    var coordinate: CLLocationCoordinate2D
+}
+
+struct MapView: View {
+    @Binding var coordinateRegion: MKCoordinateRegion
+    @Binding var pinnedLocation: IdentifiableCoordinate?
+
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        NavigationView {
+            Map(coordinateRegion: $coordinateRegion, interactionModes: .all, showsUserLocation: true, annotationItems: [pinnedLocation].compactMap { $0 }) { location in
+                MapPin(coordinate: location.coordinate, tint: .red)
+            }
+            .navigationBarTitle("Pinna plats", displayMode: .inline)
+            .navigationBarItems(leading: Button("Tillbaka") {
+                presentationMode.wrappedValue.dismiss()
+            }, trailing: Button("Pinna") {
+                pinnedLocation = IdentifiableCoordinate(coordinate: coordinateRegion.center)
+            })
         }
     }
 }

@@ -27,12 +27,6 @@ class AddHomeViewModel: ObservableObject {
     @Published var guestAccess: String = ""
     @Published var otherNotes: String = ""
     
-  @Published var mapViewModel: MapViewModel
-
-    init() {
-        self.mapViewModel = MapViewModel(city: "")
-    }
-  
     var animalCount: Int {
         animals.count
     }
@@ -40,22 +34,6 @@ class AddHomeViewModel: ObservableObject {
     private let firestoreUtils = FirestoreUtils()
     
    
-  func updateCity(newCity: String) {
-        self.mapViewModel.city = newCity
-        self.mapViewModel.geocodeCity { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                print("Error geocoding city: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    func geocodeCity(completion: @escaping (Result<Void, Error>) -> Void) {
-        mapViewModel.geocodeCity(completion: completion)
-    }
-  
       func addAnimal() {
         DispatchQueue.main.async {
             self.animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
@@ -84,7 +62,6 @@ class AddHomeViewModel: ObservableObject {
             !animals.contains { $0.type.isEmpty || $0.age == 0 || $0.additionalInfoAnimal.isEmpty }
         }
     
- 
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
         firestoreUtils.saveHome(
@@ -118,13 +95,13 @@ class AddHomeViewModel: ObservableObject {
     func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
         firestoreUtils.uploadImages(images: selectedImages, completion: completion)
     }
-
+    
     func fetchAndUpdateUser() {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("Error: No user is logged in")
             return
         }
-
+        
         firestoreUtils.fetchUser(withID: userID) { result in
             switch result {
             case .success(let user):

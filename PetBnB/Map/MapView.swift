@@ -1,29 +1,16 @@
+
 import SwiftUI
 import MapKit
 
-struct MapView: View {
-
+struct MapShowView: View {
     @ObservedObject var viewModel: MapViewModel
     
     var body: some View {
         Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.coordinates) { item in
             MapMarker(coordinate: item.coordinate)
         }
-         addhomeMapFrida
-        .onAppear {
-            viewModel.geocodeCity { result in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    print("Error geocoding city: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-
         
-        /*.onAppear {
+        .onAppear {
             setRegion(for: viewModel.city)
         }
     }
@@ -34,6 +21,5 @@ struct MapView: View {
             center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         )
         viewModel.coordinates = [IdentiifiableCoordinate(coordinate: coordinate)]
-    } */
-
+    }
 }
