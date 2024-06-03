@@ -88,7 +88,8 @@ struct FullInfoView: View {
                     }
                     Spacer()
                     Text("Om detta boende")
-                        .font(.subheadline)
+                        .font(.body)
+                        .bold()
                         .padding()
                     Spacer()
                 }

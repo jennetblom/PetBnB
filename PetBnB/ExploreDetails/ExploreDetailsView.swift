@@ -51,10 +51,10 @@ struct ExploreDetailsView: View {
         size: 100,
         guests: 4,
         animals: [
-            "Hund": AnimalInfo(type: "Hund", age: 2, additionalInfoAnimal: "Friendly dog loves to cuddle"),
-            "Katt": AnimalInfo(type: "Katt", age: 3, additionalInfoAnimal: "Loves to cuddle"),
-            "Reptil": AnimalInfo(type: "Reptil", age: 1, additionalInfoAnimal: "Interesting reptile"),
-            "Reptil2": AnimalInfo(type: "Reptil", age: 2, additionalInfoAnimal: "Another interesting reptile")
+            "Hund": AnimalInfo(type: "Hund", age: 2, additionalInfoAnimal: "Vänlig hund som älskar att leka!"),
+            "Katt": AnimalInfo(type: "Katt", age: 3, additionalInfoAnimal: "Mycket energi, glad, galen katt."),
+            "Reptil": AnimalInfo(type: "Reptil", age: 1, additionalInfoAnimal: "En cool ödla."),
+            "Reptil2": AnimalInfo(type: "Reptil", age: 2, additionalInfoAnimal: "Något coolare ödla.")
         ],
         additionalInfoHome: "Mysig och idyllisk stuga/sommarstuga för en familj eller par som vill övernatta. Möjlighet att fiska i roddbåt finns vid uthyrning av stugan. Stäng av dina telefoner och njut av en trevlig vistelse och/eller helg med de människor du älskar.  Om det tas på de dagar du vill, skriv till mig. Jag har två stugor. Boendet Mysigt semesterhus 1 meter från stor sjö. Här kan du både bada och fiska Gästers tillgång Du har allt för dig själv. Andra saker att notera Mysigt och lugnt område",
         city: "Göteborg",

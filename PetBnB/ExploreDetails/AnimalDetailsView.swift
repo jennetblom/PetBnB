@@ -3,11 +3,12 @@ import SwiftUI
 struct AnimalDetailsView: View {
     var home: Home
     @State private var showFullInfo = false
+    @StateObject private var viewModel = ExploreDetailsViewModel()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
-                Text(animalSummary())
+                Text(viewModel.animalSummary(for: home))
                     .font(.subheadline)
                     .foregroundColor(Color("text"))
                     .padding(.horizontal)
@@ -25,7 +26,7 @@ struct AnimalDetailsView: View {
                 }
                 .padding(.horizontal)
                 .sheet(isPresented: $showFullInfo) {
-                    AnimalFullInfoView(home: home)
+                    AnimalFullInfoView(home: home, viewModel: viewModel)
                 }
             }
             
@@ -36,48 +37,12 @@ struct AnimalDetailsView: View {
         }
         .padding(.top)
     }
-    
-    private func animalSummary() -> String {
-        var animalCounts: [String: Int] = [:]
-        
-        for animal in home.animals.values {
-            animalCounts[animal.type, default: 0] += 1
-        }
-        
-        let descriptions = animalCounts.map { "\($0.value) \($0.key.lowercased())\($0.value > 1 ? pluralForm(for: $0.key) : "")" }
-        
-        if descriptions.count > 2 {
-            let allButLast = descriptions.dropLast().joined(separator: ", ")
-            let last = descriptions.last!
-            return "Boendet har " + allButLast + " och " + last + "."
-        } else {
-            return "Boendet har " + descriptions.joined(separator: " och ") + "."
-        }
-    }
-    
-    private func pluralForm(for type: String) -> String {
-        switch type.lowercased() {
-        case "hund":
-            return "ar"
-        case "fisk":
-            return "ar"
-        case "reptil":
-            return "er"
-        case "pälsdjur":
-            return ""
-        case "katt":
-            return "er"
-        case "fågel":
-            return "ar"
-        default:
-            return ""
-        }
-    }
 }
 
 struct AnimalFullInfoView: View {
     var home: Home
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var viewModel: ExploreDetailsViewModel
     
     var body: some View {
         NavigationView {
@@ -92,7 +57,8 @@ struct AnimalFullInfoView: View {
                     }
                     Spacer()
                     Text("Djur Information")
-                        .font(.subheadline)
+                        .font(.body)
+                        .bold()
                         .padding()
                     Spacer()
                 }
@@ -108,43 +74,21 @@ struct AnimalFullInfoView: View {
                         ForEach(home.animals.keys.sorted(), id: \.self) { key in
                             if let animalInfo = home.animals[key] {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    HStack {
-                                        Text("Typ")
-                                            .font(.subheadline)
-                                            .foregroundColor(Color("text"))
-                                        Spacer()
-                                        Text(animalInfo.type)
-                                            .font(.subheadline)
-                                            .foregroundColor(Color("text"))
-                                    }
+                                    Text(animalInfo.additionalInfoAnimal)
+                                        .font(.subheadline)
+                                        .foregroundColor(Color("text"))
+                                        .padding(.bottom, 4)
                                     
-                                    HStack {
-                                        Text("Ålder")
-                                            .font(.subheadline)
-                                            .foregroundColor(Color("text"))
-                                        Spacer()
-                                        Text("\(animalInfo.age)")
-                                            .font(.subheadline)
-                                            .foregroundColor(Color("text"))
-                                    }
+                                    Text(viewModel.randomAnimalSentence(for: animalInfo))
+                                        .font(.subheadline)
+                                        .foregroundColor(Color("text"))
                                     
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text("Info om djuret")
-                                            .font(.subheadline)
-                                            .foregroundColor(Color("text"))
-                                        Text(animalInfo.additionalInfoAnimal)
-                                            .font(.subheadline)
-                                            .foregroundColor(Color("text"))
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                    }
+                                    Rectangle()
+                                        .frame(height: 0.5)
+                                        .foregroundColor(.gray)
+                                        .padding(.vertical, 4)
                                 }
                                 .padding(.horizontal)
-                                .padding(.vertical, 4)
-                                
-                                Rectangle()
-                                    .frame(height: 0.5)
-                                    .foregroundColor(.gray)
-                                    .padding(.horizontal, 17)
                             }
                         }
                     }
@@ -167,12 +111,12 @@ struct AnimalFullInfoView: View {
             size: 100,
             guests: 4,
             animals: [
-                "Hund": AnimalInfo(type: "Hund", age: 2, additionalInfoAnimal: "Friendly dog loves to cuddle"),
-                "Katt": AnimalInfo(type: "Katt", age: 3, additionalInfoAnimal: "Loves to cuddle"),
-                "Reptil": AnimalInfo(type: "Reptil", age: 1, additionalInfoAnimal: "Interesting reptile"),
-                "Reptil2": AnimalInfo(type: "Reptil", age: 2, additionalInfoAnimal: "Another interesting reptile")
+                "Hund": AnimalInfo(type: "Hund", age: 2, additionalInfoAnimal: "Vänlig hund som är väldigt mysig"),
+                "Katt": AnimalInfo(type: "Katt", age: 3, additionalInfoAnimal: "Älskar att leka"),
+                "Reptil": AnimalInfo(type: "Reptil", age: 1, additionalInfoAnimal: "En nyfiken reptil"),
+                "Reptil2": AnimalInfo(type: "Reptil", age: 2, additionalInfoAnimal: "En till nyfiken reptil.")
             ],
-            additionalInfoHome: "Additional information about the home.",
+            additionalInfoHome: "Ytterliggare information.",
             city: "Göteborg",
             availability: 28,
             startDate: Date(),
