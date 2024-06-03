@@ -17,7 +17,6 @@ struct HomeSectionView: View {
     @Binding var country: String
     @Binding var guestAccess: String
     @Binding var otherNotes: String
-    @Binding var size: Int
 
     @State private var coordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),

@@ -8,62 +8,46 @@ struct ExploreDetailsView: View {
     @StateObject var chatViewModel = ChatViewModel()
     @State var conversationId: String?
     @State var isChatActive: Bool = false
-        @State private var showMapView = false
+    @State private var showMapView = false
 
     var body: some View {
         ZStack {
             VStack {
-                
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
-                
+
                 Form {
-                    
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
                                    userAge: exploreDetailsViewModel.user?.userAge,
                                    userInfo: exploreDetailsViewModel.user?.userInfo)
-                    
+
                     HomeDetailsView(home: home)
-                    
+
                     AnimalDetailsView(home: home)
-                    
+
                     AdditionalInfoView(home: home)
                 }
             }
-            MapButtonView()
-        }
-        .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            if let userID = home.userID {
-                exploreDetailsViewModel.fetchUser(by: userID)
-            
+            .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                if let userID = home.userID {
+                    exploreDetailsViewModel.fetchUser(by: userID)
                 }
             }
-            .background(
-                NavigationLink(
-                    destination: MapShowView(viewModel: MapViewModel(city: home.city)),
-                    isActive: $showMapView,
-                    label: { EmptyView() }
-                    
-                )
-            )
-            
+
             VStack {
                 Spacer()
-                
+
                 HStack {
                     Spacer()
-                    
+
                     Button(action: {
                         showMapView = true
-                        
                     }) {
-                        
                         HStack {
-                            
                             Text("Kartor")
                             Image(systemName: "map")
                         }
@@ -73,10 +57,14 @@ struct ExploreDetailsView: View {
                         .cornerRadius(12)
                     }
                     .padding()
-                    Spacer()
                 }
             }
-           
+
+            NavigationLink(
+                destination: MapShowView(viewModel: MapViewModel(city: home.city)),
+                isActive: $showMapView,
+                label: { EmptyView() }
+            )
         }
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
     }

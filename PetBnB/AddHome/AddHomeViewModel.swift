@@ -53,11 +53,11 @@ class AddHomeViewModel: ObservableObject {
     }
     
     var canSave: Bool {
-            !homeTitle.isEmpty &&
+            !name.isEmpty &&
             beds > 0 &&
             rooms > 0 &&
             size > 0 &&
-            !additionalInfo.isEmpty &&
+            !additionalInfoHome.isEmpty &&
             !city.isEmpty &&
             !animals.contains { $0.type.isEmpty || $0.age == 0 || $0.additionalInfoAnimal.isEmpty }
         }
