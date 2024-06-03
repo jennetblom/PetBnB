@@ -77,7 +77,8 @@ struct AnimalFullInfoView: View {
                                     Text(animalInfo.additionalInfoAnimal)
                                         .font(.subheadline)
                                         .foregroundColor(Color("text"))
-                                        .padding(.bottom, 4)
+                                        .padding(.bottom)
+                                        .padding(.top)
                                     
                                     Text(viewModel.randomAnimalSentence(for: animalInfo))
                                         .font(.subheadline)

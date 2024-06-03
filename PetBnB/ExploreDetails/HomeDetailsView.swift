@@ -162,7 +162,7 @@ struct FullInfoView: View {
                             .padding(.horizontal)
 
                     
-                        (Text("Boendet har plats för \(home.guests) gäster, det finns \(home.rooms) rum med \(home.beds) sängar. Boendet har även \(home.bathrooms ?? 0) badrum och dess storlek är  \(home.size, specifier: "%.0f") m") + Text("2").font(.system(size: 12)).baselineOffset(6))
+                        (Text("Boendet har plats för \(home.guests) gäster, det finns \(home.rooms) rum med \(home.beds) sängar. Boendet har även \(home.bathrooms ?? 0) badrum och dess storlek är \(home.size, specifier: "%.0f") m") + Text("2").font(.system(size: 12)).baselineOffset(6))
                                                   .font(.subheadline)
                                                   .padding(.horizontal)
                                           }
