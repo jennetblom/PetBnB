@@ -30,7 +30,7 @@ struct AddHomeView: View {
                             },
                             hasMultipleAnimals: viewModel.animals.count > 1
                         )
-                        .id(index) // Lägg till id-modifiering här
+                        .id(index)
                     }
                 }
             }
