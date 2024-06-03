@@ -34,7 +34,7 @@ struct HeaderView : View {
     @ObservedObject var viewModel: ChatViewModel
     var body: some View {
         HStack {
-            if let profilePictureURL = viewModel.currentUser?.profilePicture {
+            if let profilePictureURL = viewModel.currentUser?.profilePictureUrl {
                 AsyncImage(url: profilePictureURL) { phase in
                     switch phase {
                     case .empty:
