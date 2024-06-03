@@ -8,74 +8,61 @@ struct AddHomeView: View {
     @State private var errorMessage: String = ""
     @State private var showMapView: Bool = false
     
+
+     
     var body: some View {
-            ZStack {
-                VStack {
-                    if isSaving {
-                        ProgressView("Sparar...")
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .padding()
-                    } else {
-                        Form {
-                            ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
-                            
-                            HomeSectionView(beds: $viewModel.beds,
-                                            rooms: $viewModel.rooms,
-                                            city: $viewModel.city,
-                                            additionalInfo: $viewModel.additionalInfo,
-                                            homeTitle: $viewModel.homeTitle,
-                                            startDate: $viewModel.startDate,
-                                            endDate: $viewModel.endDate,
-                                            showMapView: $showMapView)
-                                .onChange(of: viewModel.city) { newCity in
-                                    viewModel.mapViewModel.city = newCity
-                                }
-                            
-                            ForEach(viewModel.animals.indices, id: \.self) { index in
-                                AnimalSectionView(
-                                    index: index,
-                                    animalInfo: $viewModel.animals[index],
-                                    isLast: index == viewModel.animals.count - 1,
-                                    addAnimalAction: viewModel.addAnimal,
-                                    removeAnimalAction: {
-                                        viewModel.removeAnimal(at: index)
-                                    },
-                                    hasMultipleAnimals: viewModel.animals.count > 1
-                                )
-                            }
-                        }
-                        Spacer()
+        VStack {
+            if isSaving {
+                ProgressView("Sparar...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else {
+                Form {
+                    ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
+                    
+                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, size: $viewModel.size, city: $viewModel.city, additionalInfoHome: $viewModel.additionalInfoHome, name: $viewModel.name, startDate: $viewModel.startDate, endDate: $viewModel.endDate, activities: $viewModel.activities, bathrooms: $viewModel.bathrooms, guests: $viewModel.guests, country: $viewModel.country, guestAccess: $viewModel.guestAccess, otherNotes: $viewModel.otherNotes)
+                    
+                    ForEach(viewModel.animals.indices, id: \.self) { index in
+                        AnimalSectionView(
+                            index: index,
+                            animalInfo: $viewModel.animals[index],
+                            isLast: index == viewModel.animals.count - 1,
+                            addAnimalAction: viewModel.addAnimal,
+                            removeAnimalAction: {
+                                viewModel.removeAnimal(at: index)
+                            },
+                            hasMultipleAnimals: viewModel.animals.count > 1
+                        )
+                        .id(index)
                     }
                 }
-                .navigationTitle("Lägg till boende")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(
-                    leading: Button("Tillbaka") {
-                        presentationMode.wrappedValue.dismiss()
-                    },
-                    trailing: Button(action: saveHome) {
-                        Text("Spara")
-                            .foregroundColor(Color("secondary"))
-                    }
-                )
-                .sheet(isPresented: $viewModel.isShowingImagePicker) {
-                    ImagePicker(selectedImages: $viewModel.selectedImages)
-                }
-                .alert(isPresented: $showError) {
-                    Alert(title: Text("Fel"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
-                }
-                .onAppear {
-                    viewModel.fetchAndUpdateUser()
-                }
-                
-                if showMapView {
+            }
+            Spacer()
+        }
+        .navigationTitle("Lägg till boende")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(trailing:
+          Button(action: saveHome) {
+            Text("Spara")
+                .foregroundColor(Color("secondary"))
+        }
+            .disabled(!viewModel.canSave)
+        )
+        .sheet(isPresented: $viewModel.isShowingImagePicker) {
+            ImagePicker(selectedImages: $viewModel.selectedImages)
+        }
+        .alert(isPresented: $showError) {
+            Alert(title: Text("Fel"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+        }
+        .onAppear {
+            viewModel.fetchAndUpdateUser()
+        }
+      if showMapView {
                     MapNavigationView(viewModel: viewModel.mapViewModel, dismissAction: { showMapView = false })
                     
                 }
-            }
-        }
-    
-    
+    }
+
     private func saveHome() {
         isSaving = true
         viewModel.saveHome { result in
@@ -91,12 +78,8 @@ struct AddHomeView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AddHomeView()
-        }
-    }
+#Preview {
+    AddHomeView()
 }
 
 struct MapNavigationView: View {
@@ -108,8 +91,8 @@ struct MapNavigationView: View {
                 MapView(viewModel: viewModel)
                     .navigationTitle("Karta")
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationBarHidden(true) // Dölj navigeringsfältet
+                    .navigationBarHidden(true) 
             }
-            .navigationViewStyle(StackNavigationViewStyle()) // Använd StackNavigationViewStyle
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }

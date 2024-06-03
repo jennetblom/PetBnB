@@ -7,12 +7,15 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 class AddHomeViewModel: ObservableObject {
-    @Published var homeTitle: String = ""
+    @Published var name: String = ""
     @Published var beds: Int = 0
     @Published var rooms: Int = 0
+    @Published var bathrooms: Int = 0
     @Published var size: Int = 0
-    @Published var additionalInfo: String = ""
+    @Published var guests: Int = 0
+    @Published var additionalInfoHome: String = ""
     @Published var city: String = ""
+    @Published var country: String = ""
     var availability: Int = 0
     @Published var startDate: Date = Date()
     @Published var endDate: Date = Date()
@@ -20,20 +23,24 @@ class AddHomeViewModel: ObservableObject {
     @Published var animals: [AnimalInfo] = [AnimalInfo(type: "", age: 0, additionalInfoAnimal: "")]
     @Published var rating: Double = 0.0
     @Published var isShowingImagePicker: Bool = false
-
-    @Published var mapViewModel: MapViewModel
+    @Published var activities: String = ""
+    @Published var guestAccess: String = ""
+    @Published var otherNotes: String = ""
+    
+  @Published var mapViewModel: MapViewModel
 
     init() {
         self.mapViewModel = MapViewModel(city: "")
     }
-
+  
     var animalCount: Int {
         animals.count
     }
-
+    
     private let firestoreUtils = FirestoreUtils()
-
-    func updateCity(newCity: String) {
+    
+   
+  func updateCity(newCity: String) {
         self.mapViewModel.city = newCity
         self.mapViewModel.geocodeCity { result in
             switch result {
@@ -48,19 +55,58 @@ class AddHomeViewModel: ObservableObject {
     func geocodeCity(completion: @escaping (Result<Void, Error>) -> Void) {
         mapViewModel.geocodeCity(completion: completion)
     }
-
-    func addAnimal() {
-        animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
+  
+      func addAnimal() {
+        DispatchQueue.main.async {
+            self.animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
+            print("Added animal. Current count: \(self.animalCount)")
+        }
     }
-
+    
     func removeAnimal(at index: Int) {
-        guard index < animalCount else { return }
-        animals.remove(at: index)
+        DispatchQueue.main.async {
+            guard index < self.animalCount else {
+                print("Index \(index) out of range. Current count: \(self.animalCount)")
+                return
+            }
+            self.animals.remove(at: index)
+            print("Removed animal at index \(index). Current count: \(self.animalCount)")
+        }
     }
-
+    
+    var canSave: Bool {
+            !name.isEmpty &&
+            beds > 0 &&
+            rooms > 0 &&
+            size > 0 &&
+            !additionalInfoHome.isEmpty &&
+            !city.isEmpty &&
+            !animals.contains { $0.type.isEmpty || $0.age == 0 || $0.additionalInfoAnimal.isEmpty }
+        }
+    
+ 
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
-        firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, startDate: startDate, endDate: endDate, selectedImages: selectedImages, animals: animals, rating: rating, completion: completion)
+        firestoreUtils.saveHome(
+            name: name,
+            beds: beds,
+            rooms: rooms,
+            size: size,
+            guests: guests,
+            additionalInfoHome: additionalInfoHome,
+            city: city,
+            country: country,
+            availability: availability,
+            startDate: startDate,
+            endDate: endDate,
+            selectedImages: selectedImages,
+            animals: animals,
+            rating: rating,
+            activities: activities,
+            guestAccess: guestAccess,
+            otherNotes: otherNotes,
+            completion: completion
+        )
     }
 
     func calculateAvailability() {
@@ -68,7 +114,7 @@ class AddHomeViewModel: ObservableObject {
         let weekOfYear = calendar.component(.weekOfYear, from: startDate)
         availability = weekOfYear
     }
-
+    
     func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
         firestoreUtils.uploadImages(images: selectedImages, completion: completion)
     }
