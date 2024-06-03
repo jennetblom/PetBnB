@@ -45,6 +45,16 @@ class AddHomeViewModel: ObservableObject {
         }
     }
     
+    var canSave: Bool {
+            !homeTitle.isEmpty &&
+            beds > 0 &&
+            rooms > 0 &&
+            size > 0 &&
+            !additionalInfo.isEmpty &&
+            !city.isEmpty &&
+            !animals.contains { $0.type.isEmpty || $0.age == 0 || $0.additionalInfoAnimal.isEmpty }
+        }
+    
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
         firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, startDate: startDate, endDate: endDate, selectedImages: selectedImages, animals: animals, rating: rating, completion: completion)
