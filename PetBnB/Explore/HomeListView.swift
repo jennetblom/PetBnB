@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HomeListView<ViewModel: HomeListViewModel>: View {
     @ObservedObject var viewModel: ViewModel
-    var selectedFilter: String?
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -10,10 +10,7 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
                     Text("Inga tillgängliga boende")
                         .foregroundColor(.gray)
                 } else {
-                    ForEach(viewModel.filteredHomes.filter { home in
-                        guard let selectedFilter = selectedFilter else { return true }
-                        return home.animals.keys.contains(selectedFilter)
-                    }) { home in
+                    ForEach(viewModel.filteredHomes) { home in
                         NavigationLink(destination: ExploreDetailsView(home: home)) {
                             HomeView(
                                 images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString },
@@ -24,7 +21,7 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
                                 homeID: home.id ?? ""
                             )
                             .transition(.opacity)
-                            .buttonStyle(PlainButtonStyle()) 
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }

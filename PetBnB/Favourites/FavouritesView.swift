@@ -9,7 +9,7 @@ struct FavoritesView: View {
                 ProgressView("Laddar...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                HomeListView(viewModel: viewModel, selectedFilter: nil)
+                HomeListView(viewModel: viewModel)
             }
         }
         .onAppear {
