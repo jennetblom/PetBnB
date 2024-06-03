@@ -11,7 +11,7 @@ struct User: Identifiable, Codable {
     var homeIDs: [String]?
     var favourite: Bool?
     
-    var profilePicture : URL?
+    var profilePictureUrl : URL?
     var rating: Double?
     var ratingCount: Int?
     var city : String

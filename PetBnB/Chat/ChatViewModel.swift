@@ -89,7 +89,7 @@ class ChatViewModel : ObservableObject {
                 DispatchQueue.main.async {
                     if id == self?.auth.currentUser?.uid {
                         self?.currentUser = user // Store current user
-                        self?.currentUser?.profilePicture  = user.profilePicture // Set profile picture
+                        self?.currentUser?.profilePictureUrl  = user.profilePictureUrl // Set profile picture
                     } else {
                         self?.otherUsers[id] = user // Store other user in dictionary
                     }
@@ -109,6 +109,6 @@ class ChatViewModel : ObservableObject {
        }
        
        func getUserProfilePicture(for userId: String) -> URL? {
-           return otherUsers[userId]?.profilePicture
+           return otherUsers[userId]?.profilePictureUrl
        }
 }
