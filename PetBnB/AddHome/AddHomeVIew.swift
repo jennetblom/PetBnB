@@ -17,7 +17,7 @@ struct AddHomeView: View {
                 Form {
                     ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
                     
-                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, city: $viewModel.city, additionalInfo: $viewModel.additionalInfo, homeTitle: $viewModel.homeTitle, startDate: $viewModel.startDate, endDate: $viewModel.endDate)
+                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, size: $viewModel.size,  city: $viewModel.city, additionalInfo: $viewModel.additionalInfo, homeTitle: $viewModel.homeTitle, startDate: $viewModel.startDate, endDate: $viewModel.endDate)
                     
                     ForEach(viewModel.animals.indices, id: \.self) { index in
                         AnimalSectionView(
@@ -42,7 +42,9 @@ struct AddHomeView: View {
                                 Button(action: saveHome) {
             Text("Spara")
                 .foregroundColor(Color("secondary"))
-        })
+        }
+            .disabled(!viewModel.canSave)
+        )
         .sheet(isPresented: $viewModel.isShowingImagePicker) {
             ImagePicker(selectedImages: $viewModel.selectedImages)
         }
