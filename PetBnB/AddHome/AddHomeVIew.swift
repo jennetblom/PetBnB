@@ -6,7 +6,10 @@ struct AddHomeView: View {
     @State private var isSaving: Bool = false
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
+    @State private var showMapView: Bool = false
     
+
+     
     var body: some View {
         VStack {
             if isSaving {
@@ -54,6 +57,10 @@ struct AddHomeView: View {
         .onAppear {
             viewModel.fetchAndUpdateUser()
         }
+      if showMapView {
+                    MapNavigationView(viewModel: viewModel.mapViewModel, dismissAction: { showMapView = false })
+                    
+                }
     }
 
     private func saveHome() {
@@ -74,3 +81,18 @@ struct AddHomeView: View {
 #Preview {
     AddHomeView()
 }
+
+struct MapNavigationView: View {
+    @ObservedObject var viewModel: MapViewModel
+    var dismissAction: () -> Void
+    
+    var body: some View {
+            NavigationView {
+                MapView(viewModel: viewModel)
+                    .navigationTitle("Karta")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarHidden(true) 
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+        }
+    }
