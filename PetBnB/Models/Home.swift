@@ -9,6 +9,7 @@ struct Home: Identifiable, Codable {
     var beds: Int
     var rooms: Int
     var size: Int
+    var guests: Int
     var animals: [String: AnimalInfo]
     var additionalInfoHome: String
     var city: String
@@ -17,5 +18,9 @@ struct Home: Identifiable, Codable {
     var endDate: Date?
     var images: [String: URL]
     var rating: Double
-    
+    var country: String
+    var bathrooms: Int?
+    var activities: String
+    var guestAccess: String
+    var otherNotes: String 
 }

@@ -7,12 +7,15 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 class AddHomeViewModel: ObservableObject {
-    @Published var homeTitle: String = ""
+    @Published var name: String = ""
     @Published var beds: Int = 0
     @Published var rooms: Int = 0
+    @Published var bathrooms: Int = 0
     @Published var size: Int = 0
-    @Published var additionalInfo: String = ""
+    @Published var guests: Int = 0
+    @Published var additionalInfoHome: String = ""
     @Published var city: String = ""
+    @Published var country: String = ""
     var availability: Int = 0
     @Published var startDate: Date = Date()
     @Published var endDate: Date = Date()
@@ -20,6 +23,9 @@ class AddHomeViewModel: ObservableObject {
     @Published var animals: [AnimalInfo] = [AnimalInfo(type: "", age: 0, additionalInfoAnimal: "")]
     @Published var rating: Double = 0.0
     @Published var isShowingImagePicker: Bool = false
+    @Published var activities: String = ""
+    @Published var guestAccess: String = ""
+    @Published var otherNotes: String = ""
     
     var animalCount: Int {
         animals.count
@@ -27,7 +33,8 @@ class AddHomeViewModel: ObservableObject {
     
     private let firestoreUtils = FirestoreUtils()
     
-    func addAnimal() {
+   
+      func addAnimal() {
         DispatchQueue.main.async {
             self.animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
             print("Added animal. Current count: \(self.animalCount)")
@@ -57,9 +64,28 @@ class AddHomeViewModel: ObservableObject {
     
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
-        firestoreUtils.saveHome(homeTitle: homeTitle, beds: beds, rooms: rooms, size: size, additionalInfo: additionalInfo, city: city, availability: availability, startDate: startDate, endDate: endDate, selectedImages: selectedImages, animals: animals, rating: rating, completion: completion)
+        firestoreUtils.saveHome(
+            name: name,
+            beds: beds,
+            rooms: rooms,
+            size: size,
+            guests: guests,
+            additionalInfoHome: additionalInfoHome,
+            city: city,
+            country: country,
+            availability: availability,
+            startDate: startDate,
+            endDate: endDate,
+            selectedImages: selectedImages,
+            animals: animals,
+            rating: rating,
+            activities: activities,
+            guestAccess: guestAccess,
+            otherNotes: otherNotes,
+            completion: completion
+        )
     }
-    
+
     func calculateAvailability() {
         let calendar = Calendar.current
         let weekOfYear = calendar.component(.weekOfYear, from: startDate)
