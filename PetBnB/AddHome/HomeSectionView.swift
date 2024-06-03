@@ -5,6 +5,7 @@ import CoreLocation
 struct HomeSectionView: View {
     @Binding var beds: Int
     @Binding var rooms: Int
+    @Binding var size: Int
     @Binding var city: String
     @Binding var additionalInfo: String
     @Binding var homeTitle: String
@@ -38,6 +39,10 @@ struct HomeSectionView: View {
             HStack {
                 Text("Antal rum:")
                 TextField("Fyll i här", value: $rooms, formatter: NumberFormatter())
+            }
+            HStack {
+                Text("Storlek:")
+                TextField("Fyll i kvm här", value: $size, formatter: NumberFormatter())
             }
             HStack {
                 Text("Stad:")
