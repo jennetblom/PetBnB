@@ -1,4 +1,5 @@
 import SwiftUI
+import MapKit
 import FirebaseAuth
 
 struct ExploreDetailsView: View {
@@ -7,14 +8,17 @@ struct ExploreDetailsView: View {
     @StateObject var chatViewModel = ChatViewModel()
     @State var conversationId: String?
     @State var isChatActive: Bool = false
-    
+        @State private var showMapView = false
+
     var body: some View {
         ZStack {
             VStack {
+                
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
                 
                 Form {
+                    
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
@@ -35,7 +39,44 @@ struct ExploreDetailsView: View {
         .onAppear {
             if let userID = home.userID {
                 exploreDetailsViewModel.fetchUser(by: userID)
+            
+                }
             }
+            .background(
+                NavigationLink(
+                    destination: MapShowView(viewModel: MapViewModel(city: home.city)),
+                    isActive: $showMapView,
+                    label: { EmptyView() }
+                    
+                )
+            )
+            
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        showMapView = true
+                        
+                    }) {
+                        
+                        HStack {
+                            
+                            Text("Kartor")
+                            Image(systemName: "map")
+                        }
+                        .padding()
+                        .background(Color("primary"))
+                        .foregroundColor(Color("text"))
+                        .cornerRadius(12)
+                    }
+                    .padding()
+                    Spacer()
+                }
+            }
+           
         }
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
     }

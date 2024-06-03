@@ -12,6 +12,7 @@ struct MessageButton: View {
     @Binding var conversationId: String?
     var home: Home
     var chatViewModel: ChatViewModel
+//    var otherUser: User
 
     var body: some View {
         NavigationLink(destination: ChatWindowView(conversationId: $conversationId.wrappedValue ?? ""), isActive: $isChatActive) {

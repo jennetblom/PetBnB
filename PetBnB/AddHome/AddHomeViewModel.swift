@@ -32,15 +32,35 @@ class AddHomeViewModel: ObservableObject {
     }
     
     private let firestoreUtils = FirestoreUtils()
-
-    func addAnimal() {
-        animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
+    
+   
+      func addAnimal() {
+        DispatchQueue.main.async {
+            self.animals.append(AnimalInfo(type: "", age: 0, additionalInfoAnimal: ""))
+            print("Added animal. Current count: \(self.animalCount)")
+        }
     }
     
     func removeAnimal(at index: Int) {
-        guard index < animalCount else { return }
-        animals.remove(at: index)
+        DispatchQueue.main.async {
+            guard index < self.animalCount else {
+                print("Index \(index) out of range. Current count: \(self.animalCount)")
+                return
+            }
+            self.animals.remove(at: index)
+            print("Removed animal at index \(index). Current count: \(self.animalCount)")
+        }
     }
+    
+    var canSave: Bool {
+            !homeTitle.isEmpty &&
+            beds > 0 &&
+            rooms > 0 &&
+            size > 0 &&
+            !additionalInfo.isEmpty &&
+            !city.isEmpty &&
+            !animals.contains { $0.type.isEmpty || $0.age == 0 || $0.additionalInfoAnimal.isEmpty }
+        }
     
     func saveHome(completion: @escaping (Result<Void, Error>) -> Void) {
         calculateAvailability()
@@ -71,7 +91,7 @@ class AddHomeViewModel: ObservableObject {
         let weekOfYear = calendar.component(.weekOfYear, from: startDate)
         availability = weekOfYear
     }
-
+    
     func uploadImages(completion: @escaping (Result<[String: URL], Error>) -> Void) {
         firestoreUtils.uploadImages(images: selectedImages, completion: completion)
     }

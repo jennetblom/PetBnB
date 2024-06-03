@@ -6,7 +6,7 @@ struct AddHomeView: View {
     @State private var isSaving: Bool = false
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
-
+    
     var body: some View {
         VStack {
             if isSaving {
@@ -18,7 +18,8 @@ struct AddHomeView: View {
                     ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
                     
                     HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, city: $viewModel.city, additionalInfoHome: $viewModel.additionalInfoHome, name: $viewModel.name, startDate: $viewModel.startDate, endDate: $viewModel.endDate, activities: $viewModel.activities, bathrooms: $viewModel.bathrooms, guests: $viewModel.guests, country: $viewModel.country, guestAccess: $viewModel.guestAccess, otherNotes: $viewModel.otherNotes, size: $viewModel.size)
-                    
+
+                  
                     ForEach(viewModel.animals.indices, id: \.self) { index in
                         AnimalSectionView(
                             index: index,
@@ -30,6 +31,7 @@ struct AddHomeView: View {
                             },
                             hasMultipleAnimals: viewModel.animals.count > 1
                         )
+                        .id(index)
                     }
                 }
             }
@@ -37,11 +39,13 @@ struct AddHomeView: View {
         }
         .navigationTitle("Lägg till boende")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing:
-            Button(action: saveHome) {
-                Text("Spara")
+        .navigationBarItems(trailing: 
+          Button(action: saveHome) {
+            Text("Spara")
                 .foregroundColor(Color("secondary"))
-            })
+        }
+            .disabled(!viewModel.canSave)
+        )
         .sheet(isPresented: $viewModel.isShowingImagePicker) {
             ImagePicker(selectedImages: $viewModel.selectedImages)
         }
