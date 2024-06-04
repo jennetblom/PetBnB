@@ -14,4 +14,5 @@ struct Conversation : Identifiable, Codable {
     var participants: [String]
     var lastMessage : String
     var timestamp : Timestamp
+    var unreadMessagesCount: [String: Int]?
 }
