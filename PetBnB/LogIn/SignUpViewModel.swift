@@ -5,7 +5,11 @@ import Firebase
 class SignUpViewModel: ObservableObject {
     @Published var name = ""
     @Published var email = ""
-    @Published var password = ""
+    @Published var password = "" {
+        didSet {
+            checkPasswordLength()
+        }
+    }
     @Published var confirmPassword = ""
     @Published var errorMessage = ""
     @Published var userID: String? 
@@ -20,6 +24,7 @@ class SignUpViewModel: ObservableObject {
         }
         
     }
+    @Published var isPasswordLengthValid = false
     
     func register(signedIn: Binding<Bool>) {
 
@@ -27,6 +32,8 @@ class SignUpViewModel: ObservableObject {
             errorMessage = "Lösenorden matchar inte"
         } else if name.isEmpty || email.isEmpty || password.isEmpty {
             errorMessage = "Alla fält måste vara ifyllda."
+        } else if !isPasswordLengthValid {
+            errorMessage = "Lösenordet måste vara minst 6 tecken."
         } else {
             errorMessage = ""
             
@@ -65,6 +72,10 @@ class SignUpViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func checkPasswordLength() {
+        isPasswordLengthValid = password.count >= 6
     }
 }
 extension Notification.Name {
