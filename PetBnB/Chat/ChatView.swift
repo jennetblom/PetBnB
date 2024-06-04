@@ -142,6 +142,21 @@ struct MessageRowView: View {
                                 Text("22d")
                                     .font(.system(size: 12, weight: .regular))
                                     .foregroundColor(.black)
+                                
+                                // Badge for unread messages
+                                if let unreadCount = conversation.unreadMessagesCount?[Auth.auth().currentUser?.uid ?? ""] {
+                                    if unreadCount > 0 {
+                                        ZStack {
+                                            Circle()
+                                                .foregroundColor(.red)
+                                                .frame(width: 20, height: 20)
+                                            
+                                            Text("\(unreadCount)")
+                                                .font(.system(size: 12))
+                                                .foregroundColor(.white)
+                                        }
+                                    }
+                                }
                             }
                         }
                         Divider()
