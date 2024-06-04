@@ -34,7 +34,9 @@ struct MainTabView: View {
                         Label("Utforska", systemImage: "magnifyingglass")
                     }
                     .tag(0)
-                FavoritesView()
+                NavigationView {
+                    FavoritesView()
+                }
                     .tabItem {
                         Label("Favoriter", systemImage: "heart")
                     }
@@ -51,7 +53,11 @@ struct MainTabView: View {
                     .tag(3)
             }
             .onChange(of: tabViewModel.selectedTab) { _ in
+                
                 tabViewModel.isAddHomePresented = false
+                tabViewModel.isExploreDetailsPresented = false
+                tabViewModel.isProfileViewPresented = false
+
             }
             .accentColor(Color("secondary"))
         }

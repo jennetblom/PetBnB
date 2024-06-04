@@ -12,6 +12,8 @@ struct FavoritesView: View {
                 HomeListView(viewModel: viewModel)
             }
         }
+        .navigationBarTitle("Favoriter", displayMode: .inline)
+
         .onAppear {
             viewModel.fetchHomes()
         }

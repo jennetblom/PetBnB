@@ -2,7 +2,8 @@ import SwiftUI
 
 struct HomeListView<ViewModel: HomeListViewModel>: View {
     @ObservedObject var viewModel: ViewModel
-    
+    @EnvironmentObject var tabViewModel: TabViewModel
+
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -11,7 +12,7 @@ struct HomeListView<ViewModel: HomeListViewModel>: View {
                         .foregroundColor(.gray)
                 } else {
                     ForEach(viewModel.filteredHomes) { home in
-                        NavigationLink(destination: ExploreDetailsView(home: home)) {
+                        NavigationLink(destination: ExploreDetailsView(home: home).environmentObject(tabViewModel)) {
                             HomeView(
                                 images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString },
                                 city: home.city,
