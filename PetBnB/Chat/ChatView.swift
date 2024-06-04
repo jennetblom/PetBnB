@@ -87,7 +87,7 @@ struct MessageRowView: View {
                                     
                                     
                                     if conversation.lastMessageSenderId == Auth.auth().currentUser?.uid {
-                                        Text("You: \(conversation.lastMessage)")
+                                        Text("Du: \(conversation.lastMessage)")
                                             .font(.system(size: 14))
                                             .foregroundColor(Color(.lightGray))
                                     } else {
@@ -97,7 +97,7 @@ struct MessageRowView: View {
                                     }
                                 }
                                 Spacer()
-                                Text("22d")
+                                Text(conversation.formattedTimestamp())
                                     .font(.system(size: 12, weight: .regular))
                                     .foregroundColor(.black)
                             }

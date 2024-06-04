@@ -32,7 +32,16 @@ struct ChatWindowView : View {
 
     var messagesView: some View {
         ScrollView {
-            ForEach(viewModel.messages) { message in
+            ForEach(viewModel.messages.indices, id: \.self) { index in
+                let message = viewModel.messages[index]
+                let previousMessage: Message? = index > 0 ? viewModel.messages[index - 1] : nil
+                
+                if let formattedTimestamp = message.formattedTimestamp(after: previousMessage) {
+                    Text(formattedTimestamp)
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray.opacity(0.8))
+                        .offset(y: 10)
+                }
                 HStack {
                     if message.senderID == Auth.auth().currentUser?.uid { // Assuming "user1" is the current user
                         Spacer()
