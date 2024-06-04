@@ -112,7 +112,7 @@ class FirestoreUtils {
         }
     }
     
-    func saveHome(name: String, beds: Int, rooms: Int, size: Int, guests: Int, additionalInfoHome: String, city: String, country: String, availability: Int, startDate: Date, endDate: Date, selectedImages: [UIImage], animals: [AnimalInfo], rating: Double, activities: String, guestAccess: String, otherNotes: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func saveHome(name: String, beds: Int, rooms: Int, size: Int, guests: Int, additionalInfoHome: String, city: String, country: String, availability: Int, startDate: Date, endDate: Date, selectedImages: [UIImage], animals: [AnimalInfo], rating: Double, activities: String, guestAccess: String, otherNotes: String, latitude: Double?, longitude: Double?, completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(.failure(NSError(domain: "SaveHome", code: -1, userInfo: [NSLocalizedDescriptionKey: "No user is logged in"])))
@@ -149,7 +149,9 @@ class FirestoreUtils {
                     country: country,
                     activities: activities,
                     guestAccess: guestAccess,
-                    otherNotes: otherNotes
+                    otherNotes: otherNotes,
+                    latitude: latitude,
+                    longitude: longitude
                 )
                 
                 // Save home document

@@ -26,6 +26,8 @@ class AddHomeViewModel: ObservableObject {
     @Published var activities: String = ""
     @Published var guestAccess: String = ""
     @Published var otherNotes: String = ""
+    @Published var latitude: Double?
+    @Published var longitude: Double?
     
     var animalCount: Int {
         animals.count
@@ -82,6 +84,8 @@ class AddHomeViewModel: ObservableObject {
             activities: activities,
             guestAccess: guestAccess,
             otherNotes: otherNotes,
+            latitude: latitude,
+            longitude: longitude,
             completion: completion
         )
     }

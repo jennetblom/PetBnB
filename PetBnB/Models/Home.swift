@@ -23,4 +23,6 @@ struct Home: Identifiable, Codable {
     var activities: String
     var guestAccess: String
     var otherNotes: String 
+    var latitude: Double?
+    var longitude: Double?
 }
