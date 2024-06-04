@@ -2,6 +2,8 @@ import SwiftUI
 
 struct AddHomeView: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var tabViewModel: TabViewModel
+
     @StateObject private var viewModel = AddHomeViewModel()
     @State private var isSaving: Bool = false
     @State private var showError: Bool = false
@@ -53,6 +55,11 @@ struct AddHomeView: View {
         }
         .onAppear {
             viewModel.fetchAndUpdateUser()
+        }
+        .onDisappear {
+            if !tabViewModel.isAddHomePresented {
+                presentationMode.wrappedValue.dismiss() 
+            }
         }
     }
 

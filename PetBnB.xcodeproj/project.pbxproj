@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		553BB9F22C0EEB460064ED19 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553BB9F12C0EEB460064ED19 /* TabViewModel.swift */; };
 		5548ED8B2BFA962D00E4CBF2 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED8A2BFA962C00E4CBF2 /* LogInView.swift */; };
 		5548ED8D2BFA963800E4CBF2 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED8C2BFA963800E4CBF2 /* LogInViewModel.swift */; };
 		5548ED8F2BFA965100E4CBF2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5548ED8E2BFA965100E4CBF2 /* SignUpView.swift */; };
@@ -89,6 +90,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		553BB9F12C0EEB460064ED19 /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
 		5548ED8A2BFA962C00E4CBF2 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		5548ED8C2BFA963800E4CBF2 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		5548ED8E2BFA965100E4CBF2 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				5548ED812BFA946B00E4CBF2 /* Explore */,
 				5D08B2862BF62D5D00F41D38 /* GoogleService-Info.plist */,
 				5D036D092BF4B96D008D2C7A /* PetBnBApp.swift */,
+				553BB9F12C0EEB460064ED19 /* TabViewModel.swift */,
 				5D036D0B2BF4B96D008D2C7A /* ContentView.swift */,
 				5D036D0D2BF4B970008D2C7A /* Assets.xcassets */,
 				5D036D0F2BF4B970008D2C7A /* Preview Content */,
@@ -540,6 +543,7 @@
 				5548EDBC2BFA9EFB00E4CBF2 /* Message.swift in Sources */,
 				55C1203C2BFCE6010005B734 /* ImageCarouselView.swift in Sources */,
 				55C120462BFD366A0005B734 /* HomeListViewModel.swift in Sources */,
+				553BB9F22C0EEB460064ED19 /* TabViewModel.swift in Sources */,
 				5548EDA92BFA972000E4CBF2 /* AddHomeVIew.swift in Sources */,
 				5548ED8B2BFA962D00E4CBF2 /* LogInView.swift in Sources */,
 				5548EDB52BFA975D00E4CBF2 /* MapViewModel.swift in Sources */,

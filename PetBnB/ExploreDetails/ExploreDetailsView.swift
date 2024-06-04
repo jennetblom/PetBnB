@@ -6,6 +6,8 @@ struct ExploreDetailsView: View {
     var home: Home
     @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
     @StateObject var chatViewModel = ChatViewModel()
+    @EnvironmentObject var tabViewModel: TabViewModel
+    @Environment(\.presentationMode) var presentationMode
     @State var conversationId: String?
     @State var isChatActive: Bool = false
     @State private var showMapView = false
@@ -64,6 +66,13 @@ struct ExploreDetailsView: View {
                 isActive: $showMapView,
                 label: { EmptyView() }
             )
+            
+            .onDisappear {
+                        if !tabViewModel.isExploreDetailsPresented {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+            
         }
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
     }

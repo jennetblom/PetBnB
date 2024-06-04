@@ -4,6 +4,8 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     var userID: String
     var isEditable: Bool = true
+    @EnvironmentObject var tabViewModel: TabViewModel
+    @Environment(\.presentationMode) var presentationMode
     @State private var selectedSegment: Int // Missing initialization
     @State var hasChanges: Bool = false
     @State var isLoading: Bool = true
@@ -61,11 +63,21 @@ struct ProfileView: View {
         .onAppear {
             viewModel.fetchUserProfileFromFirebase(for: userID) {
                 isLoading = false
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     ignoreChanges = false
                 }
             }
         }
+        
+        .onDisappear {
+                    if !tabViewModel.isProfileViewPresented {
+                        
+                        presentationMode.wrappedValue.dismiss()
+                        
+                    }
+                }
+        
         .environmentObject(viewModel)
     }
     

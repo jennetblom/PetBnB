@@ -8,7 +8,9 @@ struct HomeHeaderView: View {
     var userInfo: String?
     var userJob: String?
     var profilePicture: Image?
-    
+    @EnvironmentObject var tabViewModel: TabViewModel
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
@@ -59,6 +61,7 @@ struct HomeHeaderView: View {
             
             if let userID = home.userID {
                 NavigationLink(destination: ProfileView(userID: userID, isEditable: false)) {
+
                     HStack {
                         if let profilePicture = profilePicture {
                             profilePicture
@@ -96,6 +99,7 @@ struct HomeHeaderView: View {
                         }
                     }
                     .padding(.horizontal)
+                    
                 }
             }
             
