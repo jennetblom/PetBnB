@@ -55,7 +55,7 @@ class ChatViewModel : ObservableObject {
                 }
                 
                 // If no conversation exists, create a new one
-                let newConversation = Conversation(participants: [currentUserID, userID], lastMessage: "", timestamp: Timestamp(date: Date()))
+                let newConversation = Conversation(participants: [currentUserID, userID], lastMessage: "", lastMessageSenderId: "", timestamp: Timestamp(date: Date()))
                 let conversationRef = self.db.collection("conversations").document()
                 do {
                     try conversationRef.setData(from: newConversation) { error in

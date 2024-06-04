@@ -38,11 +38,10 @@ struct ChatWindowView : View {
                         Spacer()
                         MessageBubble(message: message.content, color: Color("primary"), timestamp: message.timestamp)
                     } else {
-                        Image("catimage")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .cornerRadius(44)
-                            .overlay(RoundedRectangle(cornerRadius : 44).stroke(Color.black, lineWidth: 0.5))
+                        NavigationLink(destination: ProfileView(userID: viewModel.otherUser?.id ?? "",
+                                                                isEditable: false)) {
+                            ProfileImageView(url: viewModel.otherUser?.profilePictureUrl, width: 40, height: 40)
+                        }
                         MessageBubble(message: message.content, color: Color.gray.opacity(0.1), timestamp: message.timestamp)
                         Spacer()
                     }
