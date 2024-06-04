@@ -25,40 +25,37 @@ struct ContentView: View {
 
 struct MainTabView: View {
     var userID: String
+    @EnvironmentObject var tabViewModel: TabViewModel
 
     var body: some View {
-        TabView {
-            createTabView(view: ExploreView(), title: "Utforska", systemImage: "magnifyingglass", showTitle: false)
-            createTabView(view: FavoritesView(), title: "Favoriter", systemImage: "heart", showTitle: true)
-            createTabView(view: ChatView(), title: "Chatt", systemImage: "message", showTitle: false)
-            createTabView(view: ProfileView(userID: userID), title: "Profil", systemImage: "person", showTitle: false)
-        }
-        .accentColor(Color("secondary"))
-    }
-
-    @ViewBuilder
-    func createTabView<V: View>(view: V, title: String, systemImage: String, showTitle: Bool) -> some View {
-        NavigationView {
-            if showTitle {
-                view
-                    .navigationTitle(title)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text(title)
-                                .font(.headline)
-                                .foregroundColor(.text)
-                        }
+            TabView(selection: $tabViewModel.selectedTab) {
+                ExploreView()
+                    .tabItem {
+                        Label("Utforska", systemImage: "magnifyingglass")
                     }
-            } else {
-                view
+                    .tag(0)
+                FavoritesView()
+                    .tabItem {
+                        Label("Favoriter", systemImage: "heart")
+                    }
+                    .tag(1)
+                ChatView()
+                    .tabItem {
+                        Label("Chatt", systemImage: "message")
+                    }
+                    .tag(2)
+                ProfileView(userID: userID)
+                    .tabItem {
+                        Label("Profil", systemImage: "person")
+                    }
+                    .tag(3)
             }
-        }
-        .tabItem {
-            Label(title, systemImage: systemImage)
+            .onChange(of: tabViewModel.selectedTab) { _ in
+                tabViewModel.isAddHomePresented = false
+            }
+            .accentColor(Color("secondary"))
         }
     }
-}
 
 #Preview {
     ContentView()
