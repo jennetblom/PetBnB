@@ -42,7 +42,6 @@ struct ExploreDetailsView: View {
                 Spacer()
 
                 HStack {
-                    Spacer()
 
                     Button(action: {
                         showMapView = true
