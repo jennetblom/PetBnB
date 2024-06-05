@@ -16,9 +16,9 @@ struct Message: Identifiable, Codable {
         
         let dateFormatter = DateFormatter()
         
-        // Check for pause and return timestamp only if there was a pause
+        
         if let previousMessage = previousMessage {
-            let pauseThreshold: TimeInterval = 60 * 5 // 5 minutes (adjust as needed)
+            let pauseThreshold: TimeInterval = 60 * 10
             let pauseDuration = messageDate.timeIntervalSince(previousMessage.timestamp.dateValue())
             if pauseDuration >= pauseThreshold {
                 dateFormatter.dateFormat = "HH:mm"
