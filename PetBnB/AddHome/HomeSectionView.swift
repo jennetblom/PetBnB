@@ -184,24 +184,19 @@ struct MapView: View {
             }
             .navigationBarTitle("Pinna plats", displayMode: .inline)
             .navigationBarItems(
-                
-                trailing: ZStack {
-                    HStack {
-                        Button("Pinna") {
-                            pinnedLocation = IdentifiableCoordinate(coordinate: coordinateRegion.center)
-                            isLocationPinned = true
+                leading: Button("Tillbaka") {
+                    presentationMode.wrappedValue.dismiss()
+                },
+                trailing: HStack {
+                    if isLocationPinned {
+                        Button("Spara") {
+                            presentationMode.wrappedValue.dismiss()
                         }
                     }
-                    .zIndex(1)
-                    if isLocationPinned {
-                        VStack {
-                            Button("Spara") {
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                            .padding(.bottom, 80)
-                            Spacer()
-                        }
-                        .zIndex(2)
+                    Button("Pin") {
+                        pinnedLocation = IdentifiableCoordinate(coordinate: coordinateRegion.center)
+                        isLocationPinned = true
+                        
                     }
                 }
             )
