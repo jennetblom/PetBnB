@@ -112,6 +112,9 @@ class AddHomeViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.city = user.city
                     self.beds = user.numberOfBeds
+                    self.guests = user.guests
+                    self.bathrooms = user.bathrooms
+                    self.size = user.size
                     self.rooms = user.numberOfRooms
                     self.animals = user.animals.map { AnimalInfo(type: $0.value.type, age: $0.value.age, additionalInfoAnimal: $0.value.additionalInfoAnimal) }
                 }

@@ -16,6 +16,9 @@ struct User: Identifiable, Codable {
     var ratingCount: Int?
     var city : String
     var numberOfBeds : Int
+    var guests : Int
+    var bathrooms : Int
+    var size : Int
     var numberOfRooms : Int
     var homeInfo : String
     var animals: [String: AnimalInfo]

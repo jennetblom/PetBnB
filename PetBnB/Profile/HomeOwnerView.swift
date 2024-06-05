@@ -44,6 +44,9 @@ struct HousingInfoView: View {
     var cities = ["Stockholm", "Göteborg", "Malmö", "Uppsala", "Jönköping", "Linköping", "Örebro", "Helsingborg"]
     var beds = Array(0...10)
     var rooms = Array(0...10)
+    var guests = Array(0...10)
+    var bathrooms = Array(0...10)
+    var size = Array(20...200)
 
     @Binding var hasChanges: Bool
     @Binding var isLoading: Bool
@@ -93,6 +96,23 @@ struct HousingInfoView: View {
             }
             .padding(.horizontal, 10)
 
+            RowView(title: "Gäster") {
+                Picker("Välj antal gäster", selection: $viewModel.guests) {
+                    ForEach(guests, id: \.self) { guest in
+                        Text("\(guest)").tag(guest)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .accentColor(.gray)
+                .disabled(!isEditable)
+                .onChange(of: viewModel.guests) {
+                    if !ignoreChanges && isEditable {
+                        hasChanges = true
+                    }
+                }
+            }
+            .padding(.horizontal, 10)
+
             RowView(title: "Antal rum") {
                 Picker("Välj antal rum", selection: $viewModel.numberOfRooms) {
                     ForEach(rooms, id: \.self) { room in
@@ -103,6 +123,40 @@ struct HousingInfoView: View {
                 .accentColor(.gray)
                 .disabled(!isEditable)
                 .onChange(of: viewModel.numberOfRooms) {
+                    if !ignoreChanges && isEditable {
+                        hasChanges = true
+                    }
+                }
+            }
+            .padding(.horizontal, 10)
+
+            RowView(title: "Antal badrum") {
+                Picker("Välj antal badrum", selection: $viewModel.bathrooms) {
+                    ForEach(bathrooms, id: \.self) { bathroom in
+                        Text("\(bathroom)").tag(bathroom)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .accentColor(.gray)
+                .disabled(!isEditable)
+                .onChange(of: viewModel.bathrooms) {
+                    if !ignoreChanges && isEditable {
+                        hasChanges = true
+                    }
+                }
+            }
+            .padding(.horizontal, 10)
+
+            RowView(title: "Storlek") {
+                Picker("Välj storlek", selection: $viewModel.size) {
+                    ForEach(size, id: \.self) { size in
+                        Text("\(size)").tag(size)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .accentColor(.gray)
+                .disabled(!isEditable)
+                .onChange(of: viewModel.size) {
                     if !ignoreChanges && isEditable {
                         hasChanges = true
                     }
