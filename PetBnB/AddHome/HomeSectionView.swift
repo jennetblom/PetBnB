@@ -184,9 +184,6 @@ struct MapView: View {
             }
             .navigationBarTitle("Pinna plats", displayMode: .inline)
             .navigationBarItems(
-                leading: Button("Tillbaka") {
-                    presentationMode.wrappedValue.dismiss()
-                },
                 trailing: HStack {
                     if isLocationPinned {
                         Button("Spara") {
