@@ -7,26 +7,27 @@ struct ChatView: View {
     @StateObject var viewModel = ChatViewModel()
     @State var selectedConversationId: String?
     var auth = Auth.auth()
-    //    @State var user : User?
     @State var isFetchingConversations = true
     
     var body: some View {
-        VStack {
-            HeaderView (viewModel: viewModel)
-            Divider()
-            
-            if isFetchingConversations {
-                ProgressView()
-            } else {
-                MessageRowView(viewModel: viewModel,selectedConversationId: $selectedConversationId)
+        NavigationView {
+            VStack {
+                HeaderView (viewModel: viewModel)
+                Divider()
+                
+                if isFetchingConversations {
+                    ProgressView()
+                } else {
+                    MessageRowView(viewModel: viewModel,selectedConversationId: $selectedConversationId)
+                }
+                
+                Divider()
+            } .onAppear {
+                viewModel.fetchConversations {
+                    isFetchingConversations = false
+                }
+                
             }
-            
-            Divider()
-        } .onAppear {
-            viewModel.fetchConversations {
-                isFetchingConversations = false
-            }
-            
         }
     }
 }
