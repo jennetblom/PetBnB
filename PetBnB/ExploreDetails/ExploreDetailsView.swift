@@ -62,7 +62,7 @@ struct ExploreDetailsView: View {
             }
 
             NavigationLink(
-                destination: MapShowView(viewModel: MapViewModel(city: home.city)),
+                destination: MapShowView(viewModel: MapViewModel(city: home.city, country: home.country, latitude: home.latitude, longitude: home.longitude)),
                 isActive: $showMapView,
                 label: { EmptyView() }
             )
