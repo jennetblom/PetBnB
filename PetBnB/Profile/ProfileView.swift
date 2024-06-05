@@ -6,20 +6,21 @@ struct ProfileView: View {
     var isEditable: Bool = true
     @EnvironmentObject var tabViewModel: TabViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State private var selectedSegment: Int // Missing initialization
+    @State private var selectedSegment: Int
     @State var hasChanges: Bool = false
     @State var isLoading: Bool = true
     @State var ignoreChanges: Bool = true
     @State private var showImagePicker = false
     @State private var selectedProfileImage: UIImage?
     @State private var selectedImages = [UIImage]()
+    @State private var hasImageChanged = false
 
     let segments = ["Uthyrare", "Hyresgäst"]
 
     init(userID: String, isEditable: Bool = true) {
         self.userID = userID
         self.isEditable = isEditable
-        _selectedSegment = State(initialValue: isEditable ? 0 : 1) // Initialize selectedSegment
+        _selectedSegment = State(initialValue: isEditable ? 0 : 1)
     }
     
     var body: some View {
@@ -35,7 +36,7 @@ struct ProfileView: View {
                 .padding()
             }
 
-            profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl)
+            profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl, hasImageChanged: $hasImageChanged)
 
             if selectedSegment == 0 {
                 HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges, isEditable: isEditable)
@@ -44,10 +45,10 @@ struct ProfileView: View {
             }
             Spacer()
 
-            if hasChanges && isEditable {
+            if (hasChanges || hasImageChanged) && isEditable {
                 Button("Spara") {
                     hasChanges = false
-                    viewModel.saveUserProfileToFirebase()
+                    hasImageChanged = false
                     saveProfile()
                 }
                 .frame(width: 220, height: 40)
@@ -59,6 +60,9 @@ struct ProfileView: View {
         }
         .sheet(isPresented: $showImagePicker) {
             ProfileImagePicker(selectedImages: $selectedImages, selectedSingleImage: $selectedProfileImage, isSingleImage: true)
+                .onChange(of: selectedProfileImage) { _ in
+                    hasImageChanged = true
+                }
         }
         .onAppear {
             viewModel.fetchUserProfileFromFirebase(for: userID) {
@@ -69,15 +73,11 @@ struct ProfileView: View {
                 }
             }
         }
-        
         .onDisappear {
-                    if !tabViewModel.isProfileViewPresented {
-                        
-                        presentationMode.wrappedValue.dismiss()
-                        
-                    }
-                }
-        
+            if !tabViewModel.isProfileViewPresented {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
         .environmentObject(viewModel)
     }
     
@@ -89,11 +89,13 @@ struct ProfileView: View {
                     viewModel.saveProfileImageUrl(url)
                     viewModel.saveUserProfileToFirebase()
                     hasChanges = false
+                    hasImageChanged = false
                 }
             }
         } else {
             viewModel.saveUserProfileToFirebase()
             hasChanges = false
+            hasImageChanged = false
         }
     }
 }
@@ -104,9 +106,9 @@ struct profileHeaderWithImageAndStars: View {
     @Binding var showImagePicker: Bool
     @Binding var selectedImage: UIImage?
     @Binding var profileImageUrl: URL?
+    @Binding var hasImageChanged: Bool 
 
     var body: some View {
-        
         HStack (alignment: .center) {
             if let selectedImage = selectedImage {
                 Image(uiImage: selectedImage)
@@ -138,8 +140,8 @@ struct profileHeaderWithImageAndStars: View {
                             .clipped()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.gray, lineWidth: 1)
-                                     )
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
                             .onTapGesture {
                                 showImagePicker = true
                             }
@@ -147,12 +149,11 @@ struct profileHeaderWithImageAndStars: View {
                         Image("profileIcon")
                             .resizable()
                             .frame(width: 100, height: 100)
-                            //.cornerRadius(20)
                             .clipped()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.gray, lineWidth: 1)
-                                     )
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
                             .onTapGesture {
                                 showImagePicker = true
                             }
@@ -162,28 +163,26 @@ struct profileHeaderWithImageAndStars: View {
                 Image("profileIcon")
                     .resizable()
                     .frame(width: 100, height: 100)
-                   // .cornerRadius(20)
                     .clipped()
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray, lineWidth: 1)
-                             )
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
                     .onTapGesture {
                         showImagePicker = true
                     }
             }
             
             VStack(alignment: .leading) {
-                   Text(viewModel.name)
-                        .font(.title2)
+                Text(viewModel.name)
+                    .font(.title2)
                 RatingBar(rating: $rating, viewModel: _viewModel)
-                       }
-                       .padding(.leading, 10)
-                   }
-                   .padding()
-               }
-           }
-
+            }
+            .padding(.leading, 10)
+        }
+        .padding()
+    }
+}
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
