@@ -3,18 +3,19 @@ import MapKit
 
 struct AdditionalInfoView: View {
     var home: Home
-    @State private var coordinateRegion = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-    )
+    @StateObject private var viewModel: MapViewModel
+    
+    init(home: Home) {
+        self.home = home
+        _viewModel = StateObject(wrappedValue: MapViewModel(city: home.city, country: home.country, latitude: home.latitude, longitude: home.longitude))
+    }
     
     var body: some View {
-         
-            
-            Map(coordinateRegion: $coordinateRegion, interactionModes: [])
+        VStack {
+            Map(coordinateRegion: $viewModel.region, interactionModes: [])
                 .frame(height: 200)
                 .onAppear {
-                    geocodeCity(city: home.city, country: home.country)
+                    viewModel.geocodeCity()
                 }
                 .padding(.horizontal)
             
@@ -22,23 +23,11 @@ struct AdditionalInfoView: View {
                 .font(.subheadline)
                 .foregroundColor(Color("text"))
                 .padding(.horizontal)
-        
-    }
-    
-    private func geocodeCity(city: String, country: String) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString("\(city), \(country)") { (placemarks, error) in
-            if let error = error {
-                print("Geocoding error: \(error.localizedDescription)")
-            } else if let placemarks = placemarks, let location = placemarks.first?.location {
-                coordinateRegion = MKCoordinateRegion(
-                    center: location.coordinate,
-                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                )
-            }
         }
     }
 }
+    
+    
 
 #Preview {
     AdditionalInfoView(
@@ -70,7 +59,9 @@ struct AdditionalInfoView: View {
             bathrooms: 2,
             activities: "Fiska, vandra, cykla",
             guestAccess: "Hela stugan",
-            otherNotes: "Husdjur tillåtna"
+            otherNotes: "Husdjur tillåtna",
+            latitude: 57.70887,
+            longitude: 11.97456
         )
     )
 }
