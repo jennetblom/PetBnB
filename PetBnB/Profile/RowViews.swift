@@ -22,6 +22,7 @@ struct RowView<Content : View>:View {
                 .padding(.horizontal)
             Spacer()
             content
+                
         }
         .background(Color.gray.opacity(0.1))
         .cornerRadius(8)

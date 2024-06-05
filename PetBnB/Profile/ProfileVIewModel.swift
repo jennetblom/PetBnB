@@ -39,6 +39,7 @@ class ProfileViewModel: ObservableObject {
          animalCount += 1
      }
     func fetchUserProfileFromFirebase(for userID: String, completion: @escaping () -> Void) {
+        
         db.collection("users").document(userID).getDocument { [weak self] document, error in
             guard let self = self else { return }
             if let document = document, document.exists {

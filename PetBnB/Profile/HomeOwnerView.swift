@@ -57,7 +57,7 @@ struct HousingInfoView: View {
         VStack {
             HStack {
                 Text("Boende")
-                    .padding(.horizontal)
+                    .padding(.horizontal, 25)
                     .fontWeight(.bold)
                 Spacer()
             }
@@ -77,7 +77,7 @@ struct HousingInfoView: View {
                     }
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
 
             RowView(title: "Sovplatser") {
                 Picker("Välj sovplatser", selection: $viewModel.numberOfBeds) {
@@ -94,7 +94,7 @@ struct HousingInfoView: View {
                     }
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
 
             RowView(title: "Gäster") {
                 Picker("Välj antal gäster", selection: $viewModel.guests) {
@@ -111,7 +111,7 @@ struct HousingInfoView: View {
                     }
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
 
             RowView(title: "Antal rum") {
                 Picker("Välj antal rum", selection: $viewModel.numberOfRooms) {
@@ -128,7 +128,7 @@ struct HousingInfoView: View {
                     }
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
 
             RowView(title: "Antal badrum") {
                 Picker("Välj antal badrum", selection: $viewModel.bathrooms) {
@@ -145,7 +145,7 @@ struct HousingInfoView: View {
                     }
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
 
             RowView(title: "Storlek") {
                 Picker("Välj storlek", selection: $viewModel.size) {
@@ -162,7 +162,7 @@ struct HousingInfoView: View {
                     }
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
 
             InfoRowView(title: "Info om boendet") {
                 TextEditor(text: $viewModel.homeInfo)
@@ -178,7 +178,7 @@ struct HousingInfoView: View {
                         }
                     }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
         }
         .padding(.vertical)
     }
@@ -202,7 +202,7 @@ struct AnimalInfoView: View {
         VStack {
             HStack {
                 Text("Djur")
-                    .padding(.horizontal)
+                    .padding(.horizontal, 25)
                     .fontWeight(.bold)
                 Spacer()
             }
@@ -220,7 +220,7 @@ struct AnimalInfoView: View {
                         hasChanges = true
                     }
                 }
-            }.padding(.horizontal, 10)
+            }.padding(.horizontal, 15)
 
             RowView(title: "Ålder") {
                 Picker("Välj ålder", selection: $animalAge) {
@@ -236,7 +236,7 @@ struct AnimalInfoView: View {
                         hasChanges = true
                     }
                 }
-            }.padding(.horizontal, 10)
+            }.padding(.horizontal, 15)
 
             InfoRowView(title: "Info om djur") {
                 TextEditor(text: $animalInfo)
@@ -251,7 +251,7 @@ struct AnimalInfoView: View {
                             hasChanges = true
                         }
                     }
-            }.padding(.horizontal, 10)
+            }.padding(.horizontal, 15)
 
             if isLast {
                 Button(action: addAnimalAction) {
