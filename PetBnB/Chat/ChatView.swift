@@ -115,10 +115,12 @@ struct MessageRowView: View {
                                         }
                                     }
                                 }
+                                
                             }
+                            Divider()
+                                .padding(.vertical, 8)
                         }
-                        Divider()
-                            .padding(.vertical, 8)
+                
                     }
                     .padding(.horizontal)
                 }
