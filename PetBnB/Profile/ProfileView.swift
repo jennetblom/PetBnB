@@ -46,18 +46,21 @@ struct ProfileView: View {
             Spacer()
 
             if (hasChanges || hasImageChanged) && isEditable {
-                Button("Spara") {
-                    hasChanges = false
-                    hasImageChanged = false
-                    saveProfile()
+                    Button(action: {
+                        hasChanges = false
+                        hasImageChanged = false
+                        saveProfile()
+                    }) {
+                        Text("Spara")
+                            .frame(width: 220, height: 40)
+                            .background(Color("primary"))
+                            .foregroundColor(.black)
+                            .cornerRadius(10.0)
+                            .padding()
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .frame(width: 220, height: 40)
-                .background(Color("primary"))
-                .foregroundColor(.black)
-                .cornerRadius(10.0)
-                .padding()
             }
-        }
         .sheet(isPresented: $showImagePicker) {
             ProfileImagePicker(selectedImages: $selectedImages, selectedSingleImage: $selectedProfileImage, isSingleImage: true)
                 .onChange(of: selectedProfileImage) { _ in
@@ -68,7 +71,7 @@ struct ProfileView: View {
             viewModel.fetchUserProfileFromFirebase(for: userID) {
                 isLoading = false
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     ignoreChanges = false
                 }
             }
