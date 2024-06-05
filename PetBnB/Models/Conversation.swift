@@ -15,6 +15,7 @@ struct Conversation : Identifiable, Codable {
     var lastMessage : String
     var lastMessageSenderId : String
     var timestamp : Timestamp
+    var unreadMessagesCount: [String: Int]?
     
     func formattedTimestamp() -> String {
         let calendar = Calendar.current
@@ -38,4 +39,5 @@ struct Conversation : Identifiable, Codable {
         }
         
     }
+
 }

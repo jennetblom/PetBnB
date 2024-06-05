@@ -16,7 +16,6 @@ class ChatViewModel : ObservableObject {
     func fetchConversations(completion: @escaping () -> Void) {
         guard let userId = auth.currentUser?.uid else { return }
         
-        // Fetch current user's data
         fetchUser(withID: userId)
         
         db.collection("conversations")
@@ -27,16 +26,35 @@ class ChatViewModel : ObservableObject {
                     print("Error fetching conversations \(error)")
                     return
                 }
+                
                 self.conversations = querySnapshot?.documents.compactMap { document in
                     try? document.data(as: Conversation.self)
                 } ?? []
                 
-                // Fetch other users' data
                 self.fetchOtherUsers()
                 
-                completion() // Call completion handler when conversations are fetched
+                // Calculate unread messages count for each conversation
+                self.calculateUnreadMessagesCount {
+                    completion()
+                }
             }
     }
+    
+    func calculateUnreadMessagesCount(completion: @escaping () -> Void) {
+        for conversation in conversations {
+            guard let userId = auth.currentUser?.uid else { return }
+            
+            // Get unread msg for current user
+            let unreadCount = conversation.unreadMessagesCount?[userId] ?? 0
+            
+            // Maybe some code to use the count
+            
+            print("Unread messages for conversation \(conversation.id ?? ""): \(unreadCount)")
+        }
+        
+        completion()
+    }
+    
     func startConversation(with userID: String, completion: @escaping (String?) -> Void) {
         let currentUserID = Auth.auth().currentUser?.uid ?? ""
         
