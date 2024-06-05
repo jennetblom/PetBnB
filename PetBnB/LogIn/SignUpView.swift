@@ -43,6 +43,12 @@ struct SignUpView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal, 20)
                     .textContentType(.newPassword)
+                
+                if !viewModel.isPasswordLengthValid && !viewModel.password.isEmpty {
+                    Text("Lösenordet måste vara minst 6 tecken.")
+                        .foregroundColor(.red)
+                        .padding(.horizontal, 20)
+                }
             }
 
             VStack(alignment: .leading) {

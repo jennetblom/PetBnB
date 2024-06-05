@@ -53,7 +53,8 @@ class ChatWindowViewModel : ObservableObject {
                 // Update the lastMessage and timestamp in the conversation document
                 self.db.collection("conversations").document(self.conversationId).updateData([
                     "lastMessage": content,
-                    "timestamp": Timestamp(date: Date())
+                    "timestamp": Timestamp(date: Date()),
+                    "lastMessageSenderId": currentUserID
                 ]) { error in
                     if let error = error {
                         print("Error updating conversation: \(error)")

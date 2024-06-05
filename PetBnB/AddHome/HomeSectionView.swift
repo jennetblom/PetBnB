@@ -17,7 +17,9 @@ struct HomeSectionView: View {
     @Binding var country: String
     @Binding var guestAccess: String
     @Binding var otherNotes: String
-
+    @Binding var latitude: Double?
+    @Binding var longitude: Double?
+    
     @State private var coordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -76,6 +78,12 @@ struct HomeSectionView: View {
                     geocodeCity()
                 }
             }
+            .onChange(of: pinnedLocation) { newValue in
+                if let newLocation = newValue {
+                    latitude = newLocation.coordinate.latitude
+                    longitude = newLocation.coordinate.longitude
+                }
+            }
             HStack {
                 Text("Land:")
                 TextField("Fyll i här", text: $country)
@@ -115,26 +123,25 @@ struct HomeSectionView: View {
             }
             
             HStack(alignment: .top) {
-                            Text("Beskrivelse:")
-                                .padding(.top, 8)
-                            TextEditorWithPlaceholder(placeholder: "Beskriv ditt hem här...", text: $additionalInfoHome)
-                                .frame(height: 100)
-                        }
+                Text("Beskrivelse:")
+                    .padding(.top, 8)
+                TextEditorWithPlaceholder(placeholder: "Beskriv ditt hem här...", text: $additionalInfoHome)
+                    .frame(height: 100)
+            }
             
             HStack(alignment: .top) {
-                            Text("Aktiviteter:")
-                                .padding(.top, 8)
-                            TextEditorWithPlaceholder(placeholder: "Skriv hemmets aktiviteter...", text: $activities)
-                                .frame(height: 50)
-                        }
+                Text("Aktiviteter:")
+                    .padding(.top, 8)
+                TextEditorWithPlaceholder(placeholder: "Skriv hemmets aktiviteter...", text: $activities)
+                    .frame(height: 50)
+            }
             
             HStack(alignment: .top) {
-                            Text("Övrigt:")
-                                .padding(.top, 8)
-                            TextEditorWithPlaceholder(placeholder: "Övrig info...", text: $otherNotes)
-                                .frame(height: 50)
-                        }
-            
+                Text("Övrigt:")
+                    .padding(.top, 8)
+                TextEditorWithPlaceholder(placeholder: "Övrig info...", text: $otherNotes)
+                    .frame(height: 50)
+            }
         }
     }
     
@@ -154,16 +161,21 @@ struct HomeSectionView: View {
     }
 }
 
-struct IdentifiableCoordinate: Identifiable {
+struct IdentifiableCoordinate: Identifiable, Equatable {
     var id = UUID()
     var coordinate: CLLocationCoordinate2D
+
+    static func == (lhs: IdentifiableCoordinate, rhs: IdentifiableCoordinate) -> Bool {
+        lhs.id == rhs.id && lhs.coordinate.latitude == rhs.coordinate.latitude && lhs.coordinate.longitude == rhs.coordinate.longitude
+    }
 }
 
 struct MapView: View {
     @Binding var coordinateRegion: MKCoordinateRegion
     @Binding var pinnedLocation: IdentifiableCoordinate?
-
+    
     @Environment(\.presentationMode) var presentationMode
+    @State private var isLocationPinned = false
     
     var body: some View {
         NavigationView {
@@ -171,14 +183,24 @@ struct MapView: View {
                 MapPin(coordinate: location.coordinate, tint: .red)
             }
             .navigationBarTitle("Pinna plats", displayMode: .inline)
-            .navigationBarItems(leading: Button("Tillbaka") {
-                presentationMode.wrappedValue.dismiss()
-            }, trailing: Button("Pinna") {
-                pinnedLocation = IdentifiableCoordinate(coordinate: coordinateRegion.center)
-            })
+            .navigationBarItems(
+                trailing: HStack {
+                    if isLocationPinned {
+                        Button("Spara") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                    Button("Pin") {
+                        pinnedLocation = IdentifiableCoordinate(coordinate: coordinateRegion.center)
+                        isLocationPinned = true
+                        
+                    }
+                }
+            )
         }
     }
 }
+    
 
 struct TextEditorWithPlaceholder: View {
     var placeholder: String

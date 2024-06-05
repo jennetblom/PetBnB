@@ -32,17 +32,25 @@ struct ChatWindowView : View {
 
     var messagesView: some View {
         ScrollView {
-            ForEach(viewModel.messages) { message in
+            ForEach(viewModel.messages.indices, id: \.self) { index in
+                let message = viewModel.messages[index]
+                let previousMessage: Message? = index > 0 ? viewModel.messages[index - 1] : nil
+                
+                if let formattedTimestamp = message.formattedTimestamp(after: previousMessage) {
+                    Text(formattedTimestamp)
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray.opacity(0.8))
+                        .offset(y: 10)
+                }
                 HStack {
                     if message.senderID == Auth.auth().currentUser?.uid { // Assuming "user1" is the current user
                         Spacer()
                         MessageBubble(message: message.content, color: Color("primary"), timestamp: message.timestamp)
                     } else {
-                        Image("catimage")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .cornerRadius(44)
-                            .overlay(RoundedRectangle(cornerRadius : 44).stroke(Color.black, lineWidth: 0.5))
+                        NavigationLink(destination: ProfileView(userID: viewModel.otherUser?.id ?? "",
+                                                                isEditable: false)) {
+                            ProfileImageView(url: viewModel.otherUser?.profilePictureUrl, width: 40, height: 40)
+                        }
                         MessageBubble(message: message.content, color: Color.gray.opacity(0.1), timestamp: message.timestamp)
                         Spacer()
                     }

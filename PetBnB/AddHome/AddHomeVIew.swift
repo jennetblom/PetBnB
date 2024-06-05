@@ -2,6 +2,8 @@ import SwiftUI
 
 struct AddHomeView: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var tabViewModel: TabViewModel
+
     @StateObject private var viewModel = AddHomeViewModel()
     @State private var isSaving: Bool = false
     @State private var showError: Bool = false
@@ -17,7 +19,7 @@ struct AddHomeView: View {
                 Form {
                     ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
                     
-                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, size: $viewModel.size, city: $viewModel.city, additionalInfoHome: $viewModel.additionalInfoHome, name: $viewModel.name, startDate: $viewModel.startDate, endDate: $viewModel.endDate, activities: $viewModel.activities, bathrooms: $viewModel.bathrooms, guests: $viewModel.guests, country: $viewModel.country, guestAccess: $viewModel.guestAccess, otherNotes: $viewModel.otherNotes)
+                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, size: $viewModel.size, city: $viewModel.city, additionalInfoHome: $viewModel.additionalInfoHome, name: $viewModel.name, startDate: $viewModel.startDate, endDate: $viewModel.endDate, activities: $viewModel.activities, bathrooms: $viewModel.bathrooms, guests: $viewModel.guests, country: $viewModel.country, guestAccess: $viewModel.guestAccess, otherNotes: $viewModel.otherNotes, latitude: $viewModel.latitude, longitude: $viewModel.longitude)
                     
                     ForEach(viewModel.animals.indices, id: \.self) { index in
                         AnimalSectionView(
@@ -53,6 +55,11 @@ struct AddHomeView: View {
         }
         .onAppear {
             viewModel.fetchAndUpdateUser()
+        }
+        .onDisappear {
+            if !tabViewModel.isAddHomePresented {
+                presentationMode.wrappedValue.dismiss() 
+            }
         }
     }
 
