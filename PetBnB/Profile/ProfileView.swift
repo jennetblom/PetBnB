@@ -36,7 +36,7 @@ struct ProfileView: View {
                 .padding()
             }
 
-            profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl, hasImageChanged: $hasImageChanged)
+            profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl, hasImageChanged: $hasImageChanged, isEditable: isEditable)
 
             if selectedSegment == 0 {
                 HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges, isEditable: isEditable)
@@ -109,72 +109,12 @@ struct profileHeaderWithImageAndStars: View {
     @Binding var showImagePicker: Bool
     @Binding var selectedImage: UIImage?
     @Binding var profileImageUrl: URL?
-    @Binding var hasImageChanged: Bool 
-
+    @Binding var hasImageChanged: Bool
+    var isEditable: Bool
+    
     var body: some View {
         HStack (alignment: .center) {
-            if let selectedImage = selectedImage {
-                Image(uiImage: selectedImage)
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .cornerRadius(20)
-                    .clipped()
-                    .onTapGesture {
-                        showImagePicker = true
-                    }
-            } else if let profileImageUrl = profileImageUrl {
-                AsyncImage(url: profileImageUrl) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: 100, height: 100)
-                    case .success(let image):
-                        image.resizable()
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(20)
-                            .clipped()
-                            .onTapGesture {
-                                showImagePicker = true
-                            }
-                    case .failure:
-                        Image("profileIcon")
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                            .clipped()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                            .onTapGesture {
-                                showImagePicker = true
-                            }
-                    @unknown default:
-                        Image("profileIcon")
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                            .clipped()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                            .onTapGesture {
-                                showImagePicker = true
-                            }
-                    }
-                }
-            } else {
-                Image("profileIcon")
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipped()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-                    .onTapGesture {
-                        showImagePicker = true
-                    }
-            }
+            ProfileImage(selectedImage : $selectedImage, profileImageUrl: $profileImageUrl, showImagePicker: $showImagePicker, isEditable: isEditable)
             
             VStack(alignment: .leading) {
                 Text(viewModel.name)
@@ -184,6 +124,77 @@ struct profileHeaderWithImageAndStars: View {
             .padding(.leading, 10)
         }
         .padding()
+    }
+}
+struct ProfileImage: View {
+    @Binding var selectedImage: UIImage?
+    @Binding var profileImageUrl: URL?
+    @Binding var showImagePicker: Bool
+    var isEditable: Bool
+    
+    var body: some View {
+        if let selectedImage = selectedImage {
+            Image(uiImage: selectedImage)
+                .resizable()
+                .frame(width: 100, height: 100)
+                .cornerRadius(20)
+                .clipped()
+                .onTapGesture {
+                    showImagePicker = isEditable
+                }
+        } else if let profileImageUrl = profileImageUrl {
+            AsyncImage(url: profileImageUrl) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                        .frame(width: 100, height: 100)
+                case .success(let image):
+                    image.resizable()
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(20)
+                        .clipped()
+                        .onTapGesture {
+                            showImagePicker = isEditable
+                        }
+                case .failure:
+                    Image("profileIcon")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
+                        .onTapGesture {
+                            showImagePicker = isEditable
+                        }
+                @unknown default:
+                    Image("profileIcon")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
+                        .onTapGesture {
+                            showImagePicker = isEditable
+                        }
+                }
+            }
+        } else {
+            Image("profileIcon")
+                .resizable()
+                .frame(width: 100, height: 100)
+                .clipped()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .onTapGesture {
+                    showImagePicker = isEditable
+                }
+        }
     }
 }
 

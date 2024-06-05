@@ -31,7 +31,7 @@ struct AboutMeGuestView: View {
             HStack {
                 Text(isEditable ? "Om mig" : "Om \(viewModel.name)")
                     .fontWeight(.bold)
-                    .padding(.horizontal)
+                    .padding(.horizontal, 25)
                 Spacer()
             }
 
@@ -50,15 +50,17 @@ struct AboutMeGuestView: View {
                             hasChanges = true
                         }
                     }
-                }.padding(.horizontal, 10)
+                }.padding(.horizontal, 15)
             } else {
                 RowView(title: "Ålder") {
                     Text("\(viewModel.userAge)")
-                        .padding(.horizontal, 10)
-                }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal,10)
+                        
+                }.padding(.horizontal, 15)
             }
 
-            InfoRowView(title: isEditable ? "Berätta lite om dig själv" : "Info om uthyraren") {
+            InfoRowView(title: isEditable ? "Berätta lite om dig själv" : "Berätta lite om dig själv") {
                 TextEditor(text: $viewModel.userInfo)
                     .scrollContentBackground(.hidden)
                     .frame(height: 70)
@@ -71,7 +73,7 @@ struct AboutMeGuestView: View {
                             hasChanges = true
                         }
                     }
-            }.padding(.horizontal, 10)
+            }.padding(.horizontal, 15)
         }
     }
 }
@@ -89,7 +91,7 @@ struct GuestAnimalExperienceView: View {
             HStack {
                 Text("Djurerfarenhet")
                     .fontWeight(.bold)
-                    .padding(.horizontal)
+                    .padding(.horizontal, 25)
                 Spacer()
             }
 
@@ -110,23 +112,12 @@ struct GuestAnimalExperienceView: View {
                     }
                 } else {
                     Text(viewModel.animalExperienceType)
-                        .padding(.horizontal, 10)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal,10)
                 }
-            }.padding(.horizontal, 10)
+            }.padding(.horizontal, 15)
 
-            if !isEditable {
-                            InfoRowView(title: "Någon mer? ") {
-                                Text("text")
-                                    .scrollContentBackground(.hidden)
-                                    .frame(height: 70)
-                                    .padding(EdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2))
-                                    .multilineTextAlignment(.leading)
-                                    .offset(x: 8, y: -30)
-                                    .disabled(true)
-                            }.padding(.horizontal, 10)
-                        }
-            
-            InfoRowView(title: isEditable ? "Vad har du för erfarenhet av djur?" : "Uthyrarens erfarenhet av djur") {
+            InfoRowView(title: isEditable ? "Vad har du för erfarenhet av djur?" : "\(viewModel.name)s erfarenhet av djur") {
                 TextEditor(text: $viewModel.animalExperienceInfo)
                     .scrollContentBackground(.hidden)
                     .frame(height: 70)
@@ -139,7 +130,7 @@ struct GuestAnimalExperienceView: View {
                             hasChanges = true
                         }
                     }
-            }.padding(.horizontal, 10)
+            }.padding(.horizontal, 15)
         }
     }
 }
