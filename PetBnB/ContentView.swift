@@ -5,12 +5,20 @@ struct ContentView: View {
     let db = Firestore.firestore()
     @State var signedIn = false
     @State var userID: String?
+    @StateObject var chatViewModel: ChatViewModel
+    @EnvironmentObject var tabViewModel: TabViewModel
     
     var body: some View {
         if !signedIn {
             LogInView(signedIn: $signedIn)
         } else if let userID = userID {
             MainTabView(userID: userID)
+                .environmentObject(chatViewModel)
+                .environmentObject(tabViewModel)
+                .onAppear {
+                    chatViewModel.fetchConversations(tabViewModel: tabViewModel) {
+                        // Conversations fetched
+                    } }
         } else {
             Text("Loading...")
                 .onAppear {
@@ -46,6 +54,7 @@ struct MainTabView: View {
                         Label("Chatt", systemImage: "message")
                     }
                     .tag(2)
+                            .badge(tabViewModel.totalUnreadMessagesCount)
                 ProfileView(userID: userID)
                     .tabItem {
                         Label("Profil", systemImage: "person")
@@ -63,6 +72,6 @@ struct MainTabView: View {
         }
     }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}
