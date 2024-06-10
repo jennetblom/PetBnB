@@ -36,7 +36,7 @@ struct ProfileView: View {
                 .padding()
             }
 
-            profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl, hasImageChanged: $hasImageChanged, isEditable: isEditable)
+            profileHeaderWithImageAndStars(rating: $viewModel.rating, showImagePicker: $showImagePicker, selectedImage: $selectedProfileImage, profileImageUrl: $viewModel.profilePictureUrl, hasImageChanged: $hasImageChanged, userID: userID,  isEditable: isEditable)
 
             if selectedSegment == 0 {
                 HomeOwnerView(hasChanges: $hasChanges, isLoading: $isLoading, ignoreChanges: $ignoreChanges, isEditable: isEditable)
@@ -110,6 +110,7 @@ struct profileHeaderWithImageAndStars: View {
     @Binding var selectedImage: UIImage?
     @Binding var profileImageUrl: URL?
     @Binding var hasImageChanged: Bool
+    var userID: String
     var isEditable: Bool
     
     var body: some View {
@@ -119,7 +120,7 @@ struct profileHeaderWithImageAndStars: View {
             VStack(alignment: .leading) {
                 Text(viewModel.name)
                     .font(.title2)
-                RatingBar(rating: $rating, viewModel: _viewModel)
+                RatingBar(rating: $rating, userID: userID)
             }
             .padding(.leading, 10)
         }
