@@ -5,6 +5,7 @@ import Combine
 struct ChatView: View {
     
     @StateObject var viewModel = ChatViewModel()
+    @EnvironmentObject var tabViewModel: TabViewModel
     @State var selectedConversationId: String?
     var auth = Auth.auth()
     @State var isFetchingConversations = true
@@ -23,7 +24,7 @@ struct ChatView: View {
                 
                 Divider()
             } .onAppear {
-                viewModel.fetchConversations {
+                viewModel.fetchConversations(tabViewModel: tabViewModel) {
                     isFetchingConversations = false
                 }
                 
