@@ -21,6 +21,7 @@ struct StarView : View {
 }
 struct RatingBar: View {
     @Binding var rating: Double
+    var userID: String
     var maximumRating: Int = 5
     var starSize: CGFloat = 24
     @EnvironmentObject var viewModel: ProfileViewModel
@@ -46,6 +47,6 @@ struct RatingBar: View {
         viewModel.ratingCount += 1
         let totalRating = rating * Double(viewModel.ratingCount - 1)
         rating = (totalRating + newRating) / Double(viewModel.ratingCount)
-        viewModel.saveUserProfileToFirebase()
+        viewModel.saveUserRatingToFirebase(for: userID)
     }
 }
