@@ -168,4 +168,26 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
+    
+    func saveUserRatingToFirebase(for userID: String) {
+        guard let currentUserID = auth.currentUser?.uid else { return }
+        
+        if currentUserID != userID {
+            let userDocRef = db.collection("users").document(userID)
+            
+            // Update selected user rating
+            userDocRef.updateData([
+                "rating": self.rating,
+                "ratingCount": self.ratingCount
+            ]) { error in
+                if let error = error {
+                    print("Error updating rating: \(error)")
+                } else {
+                    print("Rating successfully updated!")
+                }
+            }
+        } else {
+            print("Cannot rate yourself")
+        }
+    }
 }
