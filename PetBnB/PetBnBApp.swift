@@ -14,14 +14,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PetBnBApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var exploreViewModel = ExploreViewModel()
-    @StateObject private var tabViewModel = TabViewModel()  
+    @StateObject private var tabViewModel = TabViewModel()
+    @StateObject private var chatViewModel = ChatViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(chatViewModel: chatViewModel)
                 .environmentObject(exploreViewModel)
-                .environmentObject(TabViewModel())
-
+                .environmentObject(tabViewModel)
+                .environmentObject(chatViewModel)
         }
     }
 }
