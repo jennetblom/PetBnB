@@ -1,6 +1,4 @@
 import SwiftUI
-import Firebase
-import FirebaseAuth
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()

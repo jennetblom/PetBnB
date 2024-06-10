@@ -1,6 +1,4 @@
 import SwiftUI
-import Firebase
-import FirebaseAuth
 
     struct HomeHeaderView: View {
         var home: Home
@@ -102,14 +100,12 @@ import FirebaseAuth
                     
                     
                     VStack(alignment: .leading, spacing: 4) {
-                    NavigationLink(destination: ProfileView(userID: home.userID ?? "")) {
                         if let userName = userName {
-                        Text("\(userName) är din värd")
-                            .font(.subheadline)
-                            .bold()
-                            .foregroundColor(Color("text"))
-                    }
-            }
+                            Text("\(userName) är din värd")
+                                .font(.subheadline)
+                                .bold()
+                                .foregroundColor(Color("text"))
+                        }
                         
                         if let userJob = userJob {
                             Text(userJob)
