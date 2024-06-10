@@ -30,10 +30,10 @@ struct AnimalDetailsView: View {
                 }
             }
             
-            Rectangle()
+           /* Rectangle()
                 .frame(height: 0.5)
                 .foregroundColor(.gray)
-                .padding(.horizontal, 17)
+                .padding(.horizontal, 17)*/
         }
         .padding(.top)
     }
@@ -101,7 +101,7 @@ struct AnimalFullInfoView: View {
     }
 }
 
-#Preview {
+/*#Preview {
     AnimalDetailsView(
         home: Home(
             id: "tTCAOPeuRXAGLY2PXQTg",
@@ -134,4 +134,4 @@ struct AnimalFullInfoView: View {
             otherNotes: "Husdjur tillåtna"
         )
     )
-}
+}*/

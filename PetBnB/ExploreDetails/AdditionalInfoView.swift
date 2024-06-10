@@ -29,7 +29,7 @@ struct AdditionalInfoView: View {
     
     
 
-#Preview {
+/*#Preview {
     AdditionalInfoView(
         home: Home(
             id: "tTCAOPeuRXAGLY2PXQTg",
@@ -64,4 +64,4 @@ struct AdditionalInfoView: View {
             longitude: 11.97456
         )
     )
-}
+}*/
