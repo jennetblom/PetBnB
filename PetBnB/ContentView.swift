@@ -34,43 +34,43 @@ struct ContentView: View {
 struct MainTabView: View {
     var userID: String
     @EnvironmentObject var tabViewModel: TabViewModel
-
+    
     var body: some View {
-            TabView(selection: $tabViewModel.selectedTab) {
-                ExploreView()
-                    .tabItem {
-                        Label("Utforska", systemImage: "magnifyingglass")
-                    }
-                    .tag(0)
-                NavigationView {
-                    FavoritesView()
+        TabView(selection: $tabViewModel.selectedTab) {
+            ExploreView()
+                .tabItem {
+                    Label("Utforska", systemImage: "magnifyingglass")
                 }
-                    .tabItem {
-                        Label("Favoriter", systemImage: "heart")
-                    }
-                    .tag(1)
-                ChatView()
-                    .tabItem {
-                        Label("Chatt", systemImage: "message")
-                    }
-                    .tag(2)
-                            .badge(tabViewModel.totalUnreadMessagesCount)
-                ProfileView(userID: userID)
-                    .tabItem {
-                        Label("Profil", systemImage: "person")
-                    }
-                    .tag(3)
+                .tag(0)
+            NavigationView {
+                FavoritesView()
             }
-            .onChange(of: tabViewModel.selectedTab) { _ in
-                
-                tabViewModel.isAddHomePresented = false
-                tabViewModel.isExploreDetailsPresented = false
-                tabViewModel.isProfileViewPresented = false
-
+            .tabItem {
+                Label("Favoriter", systemImage: "heart")
             }
-            .accentColor(Color("secondary"))
+            .tag(1)
+            ChatView()
+                .tabItem {
+                    Label("Chatt", systemImage: "message")
+                }
+                .tag(2)
+                .badge(tabViewModel.totalUnreadMessagesCount)
+            ProfileView(userID: userID)
+                .tabItem {
+                    Label("Profil", systemImage: "person")
+                }
+                .tag(3)
         }
+        .onChange(of: tabViewModel.selectedTab) { _ in
+            
+            tabViewModel.isAddHomePresented = false
+            tabViewModel.isExploreDetailsPresented = false
+            tabViewModel.isProfileViewPresented = false
+            
+        }
+        .accentColor(Color("secondary"))
     }
+}
 
 //#Preview {
 //    ContentView()
