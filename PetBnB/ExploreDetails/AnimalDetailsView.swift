@@ -56,7 +56,7 @@ struct AnimalFullInfoView: View {
                             .foregroundColor(Color("text"))
                     }
                     Spacer()
-                    Text("Djur Information")
+                    Text("Information om djur")
                         .font(.body)
                         .bold()
                         .padding()
@@ -74,15 +74,17 @@ struct AnimalFullInfoView: View {
                         ForEach(home.animals.keys.sorted(), id: \.self) { key in
                             if let animalInfo = home.animals[key] {
                                 VStack(alignment: .leading, spacing: 8) {
+                                    
+                                    
+                                    Text(viewModel.randomAnimalSentence(for: animalInfo))
+                                        .font(.subheadline)
+                                        .foregroundColor(Color("text"))
+                                    
                                     Text(animalInfo.additionalInfoAnimal)
                                         .font(.subheadline)
                                         .foregroundColor(Color("text"))
                                         .padding(.bottom)
                                         .padding(.top)
-                                    
-                                    Text(viewModel.randomAnimalSentence(for: animalInfo))
-                                        .font(.subheadline)
-                                        .foregroundColor(Color("text"))
                                     
                                     Rectangle()
                                         .frame(height: 0.5)
