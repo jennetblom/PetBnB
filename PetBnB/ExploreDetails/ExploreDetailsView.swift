@@ -14,36 +14,22 @@ struct ExploreDetailsView: View {
 
     var body: some View {
         ZStack {
-              VStack {
-                    ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
-                        .frame(height: 300)
-                        .padding()
-        
-              /*  AsyncImage(url: home.images.values.first) { phase in
-                   switch phase {case .success(let image):image
-                       .resizable()
-                       .aspectRatio(contentMode: .fill)
-                       .frame(height: 300)
-                       .clipped() case
-                       .failure(_):Text("Failed to load image") case
-                       .empty: ProgressView()
-                }
-        }*/
+            VStack {
+                ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
+                    .frame(height: 300)
 
                 Form {
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
                                    userAge: exploreDetailsViewModel.user?.userAge,
-                                   userInfo: exploreDetailsViewModel.user?.userInfo,
-                                   //userJob: exploreDetailsViewModel.user?.userJob
-                                   profilePictureUrl: exploreDetailsViewModel.user?.profilePictureUrl)
-                                   //exploreDetailsViewModel: exploreDetailsViewModel)
+                                   userInfo: exploreDetailsViewModel.user?.userInfo)
 
                     HomeDetailsView(home: home)
+
                     AnimalDetailsView(home: home)
+
                     AdditionalInfoView(home: home)
-                    
                 }
             }
             .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
@@ -53,7 +39,6 @@ struct ExploreDetailsView: View {
                     exploreDetailsViewModel.fetchUser(by: userID)
                 }
             }
-            
 
             VStack {
                 Spacer()
@@ -87,13 +72,6 @@ struct ExploreDetailsView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
-                                   
-                      /*  .onAppear {
-                         if let userID = home.userID {
-                         exploreDetailsViewModel.fetchUser(by: userID)
-                    }
-             }*/
-                                   
             
         }
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
