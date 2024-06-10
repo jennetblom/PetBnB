@@ -177,7 +177,8 @@ class ProfileViewModel: ObservableObject {
             
             // Update selected user rating
             userDocRef.updateData([
-                "rating": self.rating
+                "rating": self.rating,
+                "ratingCount": self.ratingCount
             ]) { error in
                 if let error = error {
                     print("Error updating rating: \(error)")
