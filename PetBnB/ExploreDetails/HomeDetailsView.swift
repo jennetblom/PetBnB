@@ -49,10 +49,10 @@ struct HomeDetailsView: View {
             }
             .padding(.horizontal)
             
-            /*Rectangle()
+            Rectangle()
                 .frame(height: 0.5)
                 .foregroundColor(.gray)
-                .padding(.horizontal, 17)*/
+                .padding(.horizontal, 17)
         }
         .padding(.top)
     }
