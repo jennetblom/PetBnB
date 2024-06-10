@@ -3,6 +3,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
+import SwiftUI
 
 class ChatViewModel : ObservableObject {
     @Published var conversations : [Conversation] = []
@@ -12,8 +13,7 @@ class ChatViewModel : ObservableObject {
     @Published var otherUsers: [String: User] = [:]
     var firestoreUtils = FirestoreUtils()
     
-    
-    func fetchConversations(completion: @escaping () -> Void) {
+    func fetchConversations(tabViewModel: TabViewModel, completion: @escaping () -> Void) {
         guard let userId = auth.currentUser?.uid else { return }
         
         fetchUser(withID: userId)
@@ -34,22 +34,26 @@ class ChatViewModel : ObservableObject {
                 self.fetchOtherUsers()
                 
                 // Calculate unread messages count for each conversation
-                self.calculateUnreadMessagesCount {
+                self.calculateUnreadMessagesCount(tabViewModel: tabViewModel) {
                     completion()
                 }
             }
     }
     
-    func calculateUnreadMessagesCount(completion: @escaping () -> Void) {
+    func calculateUnreadMessagesCount(tabViewModel: TabViewModel, completion: @escaping () -> Void) {
+        var totalUnreadCount = 0
+        
         for conversation in conversations {
             guard let userId = auth.currentUser?.uid else { return }
             
             // Get unread msg for current user
             let unreadCount = conversation.unreadMessagesCount?[userId] ?? 0
-            
-            // Maybe some code to use the count
-            
-            print("Unread messages for conversation \(conversation.id ?? ""): \(unreadCount)")
+            totalUnreadCount += unreadCount
+        }
+        
+        // Update the total unread messages count in the TabViewModel
+        DispatchQueue.main.async {
+            tabViewModel.totalUnreadMessagesCount = totalUnreadCount
         }
         
         completion()
