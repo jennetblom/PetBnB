@@ -64,10 +64,10 @@ struct AnimalFullInfoView: View {
                 }
                 .padding([.leading, .top])
                 
-                Rectangle()
+               /* Rectangle()
                     .frame(height: 0.5)
                     .foregroundColor(.gray)
-                    .padding(.horizontal, 0)
+                    .padding(.horizontal, 0)*/
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
