@@ -17,13 +17,17 @@ struct ExploreDetailsView: View {
             VStack {
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
+                    .padding()
 
                 Form {
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
                                    userAge: exploreDetailsViewModel.user?.userAge,
-                                   userInfo: exploreDetailsViewModel.user?.userInfo)
+                                   userInfo: exploreDetailsViewModel.user?.userInfo,
+                                   
+                                   profilePictureUrl: exploreDetailsViewModel.user?.profilePictureUrl)
+                                         
 
                     HomeDetailsView(home: home)
 
