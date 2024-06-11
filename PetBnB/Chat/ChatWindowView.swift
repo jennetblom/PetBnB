@@ -83,7 +83,7 @@ struct ChatWindowView : View {
                             .stroke(Color.gray, lineWidth: 0.3)
                     )
                 if chatText.isEmpty {
-                    Text("Write something...")
+                    Text("Skriv något...")
                         .foregroundColor(.gray)
                         .padding(.leading, 4)
                         .offset(x: 5, y: -10)
@@ -95,7 +95,7 @@ struct ChatWindowView : View {
                 viewModel.sendMessage(chatText)
                 chatText = ""
             } label: {
-                Text("Send")
+                Text("Skicka")
                     .foregroundColor(.black)
                     .padding(.horizontal)
                     .padding(.vertical, 8)

@@ -114,7 +114,7 @@ struct HomeHeaderView: View {
                             }*/
                 
                 VStack(alignment: .leading, spacing: 4) {
-                              NavigationLink(destination: ProfileView(userID: home.userID ?? "")) {
+                              NavigationLink(destination: ProfileView(userID: home.userID ?? "", isEditable: false)) {
                                   if let userName = userName {
                                   Text("\(userName) är din värd")
                                       .font(.subheadline)
