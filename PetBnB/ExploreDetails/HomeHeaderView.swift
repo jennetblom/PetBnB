@@ -8,8 +8,6 @@ struct HomeHeaderView: View {
     var userInfo: String?
     var userJob: String?
     var profilePicture: Image?
-    @EnvironmentObject var tabViewModel: TabViewModel
-    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {

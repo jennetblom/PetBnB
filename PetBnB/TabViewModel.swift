@@ -8,8 +8,9 @@ class TabViewModel: ObservableObject {
     @Published var isAddHomePresented = false
     @Published var isExploreDetailsPresented = false
     @Published var isProfileViewPresented = false 
-    @Published var totalUnreadMessagesCount: Int = 0
     @Published var isMapViewPresented = false
+    @Published var isChatWindowPresented = false
+    @Published var totalUnreadMessagesCount: Int = 0
 
     
     
@@ -18,5 +19,6 @@ class TabViewModel: ObservableObject {
             isExploreDetailsPresented = false
             isProfileViewPresented = false
             isMapViewPresented = false 
+            isChatWindowPresented = false
         }
 }

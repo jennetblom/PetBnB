@@ -68,6 +68,7 @@ struct ProfileView: View {
                 }
         }
         .onAppear {
+            
             viewModel.fetchUserProfileFromFirebase(for: userID) {
                 isLoading = false
                 
@@ -81,8 +82,6 @@ struct ProfileView: View {
             if !tabViewModel.isProfileViewPresented {
                 presentationMode.wrappedValue.dismiss()
             }
-            tabViewModel.dismissActiveViews()
-
         }
         .environmentObject(viewModel)
     }

@@ -35,8 +35,6 @@ struct ExploreDetailsView: View {
             .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                tabViewModel.isExploreDetailsPresented = true
-
                 if let userID = home.userID {
                     exploreDetailsViewModel.fetchUser(by: userID)
                 }
