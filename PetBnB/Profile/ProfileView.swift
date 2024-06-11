@@ -75,11 +75,14 @@ struct ProfileView: View {
                     ignoreChanges = false
                 }
             }
+            
         }
         .onDisappear {
             if !tabViewModel.isProfileViewPresented {
                 presentationMode.wrappedValue.dismiss()
             }
+            tabViewModel.dismissActiveViews()
+
         }
         .environmentObject(viewModel)
     }
