@@ -62,12 +62,8 @@ struct MainTabView: View {
                 .tag(3)
         }
         .onChange(of: tabViewModel.selectedTab) { _ in
-            
-            tabViewModel.isAddHomePresented = false
-            tabViewModel.isExploreDetailsPresented = false
-            tabViewModel.isProfileViewPresented = false
-            
-        }
+                   tabViewModel.dismissActiveViews()  
+               }
         .accentColor(Color("secondary"))
     }
 }

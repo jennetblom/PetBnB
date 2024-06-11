@@ -8,6 +8,17 @@ class TabViewModel: ObservableObject {
     @Published var isAddHomePresented = false
     @Published var isExploreDetailsPresented = false
     @Published var isProfileViewPresented = false 
+    @Published var isMapViewPresented = false
+    @Published var isChatWindowPresented = false
     @Published var totalUnreadMessagesCount: Int = 0
 
+    
+    
+    func dismissActiveViews() {
+            isAddHomePresented = false
+            isExploreDetailsPresented = false
+            isProfileViewPresented = false
+            isMapViewPresented = false 
+            isChatWindowPresented = false
+        }
 }

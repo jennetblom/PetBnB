@@ -70,6 +70,7 @@ struct ProfileView: View {
                 }
         }
         .onAppear {
+            
             viewModel.fetchUserProfileFromFirebase(for: userID) {
                 isLoading = false
                 
@@ -77,6 +78,7 @@ struct ProfileView: View {
                     ignoreChanges = false
                 }
             }
+            
         }
         .onDisappear {
             if !tabViewModel.isProfileViewPresented {

@@ -8,7 +8,6 @@ struct HomeHeaderView: View {
     var userInfo: String?
     var userJob: String?
     var profilePicture: Image?
-    
     var profilePictureUrl: URL?
     
     @EnvironmentObject var tabViewModel: TabViewModel
