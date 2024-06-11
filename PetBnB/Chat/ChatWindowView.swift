@@ -9,6 +9,8 @@ struct ChatWindowView : View {
     @State var chatText = ""
     @StateObject var viewModel: ChatWindowViewModel
     var conversationId : String
+    @EnvironmentObject var tabViewModel: TabViewModel
+    @Environment(\.presentationMode) var presentationMode
 
     init(conversationId: String) {
         self.conversationId = conversationId
@@ -28,6 +30,12 @@ struct ChatWindowView : View {
                 viewModel.fetchMessages()
             }
             
+            .onDisappear {
+                if !tabViewModel.isChatWindowPresented {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
+        
     }
 
     var messagesView: some View {
@@ -68,7 +76,7 @@ struct ChatWindowView : View {
                 TextEditor(text: $chatText)
                     .frame(height: 50)
                     .padding(.leading, 4)
-                    .fontWeight(.light) // Adjust as needed
+                    .fontWeight(.light) 
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
