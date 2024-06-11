@@ -34,17 +34,11 @@ struct ExploreDetailsView: View {
             }
             .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                if let userID = home.userID {
-                    exploreDetailsViewModel.fetchUser(by: userID)
-                }
-            }
+            
 
             VStack {
                 Spacer()
-
                 HStack {
-
                     Button(action: {
                         showMapView = true
                     }) {
@@ -67,14 +61,20 @@ struct ExploreDetailsView: View {
                 label: { EmptyView() }
             )
             
-            .onDisappear {
-                        if !tabViewModel.isExploreDetailsPresented {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
+            
             
         }
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
+        .onAppear {
+            if let userID = home.userID {
+                exploreDetailsViewModel.fetchUser(by: userID)
+            }
+        }
+        .onDisappear {
+                    if !tabViewModel.isExploreDetailsPresented {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
     }
 }
 

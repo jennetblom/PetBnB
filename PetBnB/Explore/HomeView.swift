@@ -8,9 +8,10 @@ struct HomeView: View {
     var availability: String
     var homeID: String
 
+    @EnvironmentObject var viewModel: ExploreViewModel
+    
     @State private var isFavorite: Bool = false
     @State private var isInitialized: Bool = false
-    @EnvironmentObject var viewModel: ExploreViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -51,17 +52,3 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    HomeView(
-        images: [
-            URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home.png?alt=media&token=0e13552e-0052-4bd2-9170-856beacea3b1")!,
-            URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home2.png?alt=media&token=a2c1ea5a-134a-466d-be39-19aedfa13e9a")!,
-            URL(string: "https://firebasestorage.googleapis.com/v0/b/petbnb-267ff.appspot.com/o/placeholder_home3.png?alt=media&token=2f52cde5-4812-43df-8772-82c6c54d7b71")!
-        ],
-        city: "Göteborg",
-        name: "Fransk bulldog i villa",
-        roomsBeds: "3 rum, 2 sängar",
-        availability: "v.28",
-        homeID: "example_home_id"
-    ).environmentObject(ExploreViewModel())
-}

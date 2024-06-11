@@ -8,39 +8,45 @@ struct ExploreView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                SearchBarView(searchText: $viewModel.searchText)
-                FilterBarView(selectedFilter: $viewModel.selectedFilter, filters: filters)
-                
-                if viewModel.loading {
-                    ProgressView("Laddar...")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    HomeListView(viewModel: viewModel)
-                }
-            }
-            .onAppear {
-                viewModel.fetchHomes()
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        tabViewModel.isAddHomePresented = true
-                    }) {
-                        Image(systemName: "plus")
-                            .foregroundColor(Color("secondary"))
-                    }
-                }
-            }
+            content
+            .toolbar { navigationToolbar }
             .navigationDestination(isPresented: $tabViewModel.isAddHomePresented) {
                 AddHomeView()
             }
         }
     }
+
+private var content: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            SearchBarView(searchText: $viewModel.searchText)
+            FilterBarView(selectedFilter: $viewModel.selectedFilter, filters: filters)
+            homesList
+        }
+        .onAppear(perform: viewModel.fetchHomes)
+    }
+
+private var homesList: some View {
+        Group {
+            if viewModel.loading {
+                ProgressView("Laddar...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                HomeListView(viewModel: viewModel)
+            }
+        }
+    }
+private var navigationToolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            addButton
+        }
+    }
+
+    private var addButton: some View {
+        Button(action: { tabViewModel.isAddHomePresented = true }) {
+            Image(systemName: "plus")
+                .foregroundColor(Color("secondary"))
+        }
+    }
 }
 
-#Preview {
-    ExploreView()
-        .environmentObject(ExploreViewModel())
-        .environmentObject(TabViewModel())
-}
+
