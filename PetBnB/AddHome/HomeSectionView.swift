@@ -206,7 +206,9 @@ struct MapView: View {
             tabViewModel.isMapViewPresented = true
         }
         .onDisappear {
-            tabViewModel.dismissActiveViews()
+            if !tabViewModel.isMapViewPresented {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
        
