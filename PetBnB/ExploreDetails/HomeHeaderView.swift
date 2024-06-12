@@ -13,9 +13,6 @@ struct HomeHeaderView: View {
     @EnvironmentObject var tabViewModel: TabViewModel
     @Environment(\.presentationMode) var presentationMode
     
-    @EnvironmentObject var exploreDetailsViewModel: ExploreDetailsViewModel
-
-
     @State private var profileImage: Image? = Image("placeholder")
     @State private var isLoadingImage: Bool = false
             
@@ -63,6 +60,11 @@ struct HomeHeaderView: View {
             }
             .padding(.horizontal)
             
+          /*  Rectangle()
+                .frame(height: 0.5)
+                .foregroundColor(.gray)
+                .padding(.horizontal, 17)*/
+            
           
             /*if let userID = home.userID {
                 NavigationLink(destination: ProfileView(userID: userID, isEditable: false)) {
@@ -77,48 +79,56 @@ struct HomeHeaderView: View {
                         }*/
                         
             HStack {
-                if let profilePictureUrl = profilePictureUrl {
-                                  AsyncImage(url: profilePictureUrl) { image in
+                          if let profilePictureUrl = profilePictureUrl {
+                              AsyncImage(url: profilePictureUrl) { phase in
+                                  switch phase {
+                                  case .empty:
+                                      ProgressView()
+                                          .frame(width: 50, height: 50)
+                                  case .success(let image):
                                       image
                                           .resizable()
                                           .aspectRatio(contentMode: .fill)
                                           .frame(width: 50, height: 50)
                                           .clipShape(Circle())
-                                  } placeholder: {
-                                      Image(systemName: "person.crop.circle.fill")
-                                          .resizable()
+                                  case .failure:
+                                      DefaultProfilePicture()
+                                          .frame(width: 50, height: 50)
+                                  @unknown default:
+                                      DefaultProfilePicture()
                                           .frame(width: 50, height: 50)
                                   }
-                              } else {
-                                  Image(systemName: "person.crop.circle.fill")
-                                      .resizable()
-                                      .frame(width: 50, height: 50)
                               }
-                    
+                          } else {
+                              DefaultProfilePicture()
+                                  .frame(width: 50, height: 50)
+                          }
+                               
+                        
+                        /*VStack(alignment: .leading, spacing: 4) {
+                            if let userName = userName {
+                                Text("\(userName) är din värd")
+                                    .font(.subheadline)
+                                    .bold()
+                                    .foregroundColor(Color("text"))
+                            }*/
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    
-                    NavigationLink(destination: ProfileView(userID: home.userID ?? "", isEditable: false)) {
-                                                if let userName = userName {
-                                                    Text("\(userName) är din värd")
-                                                        .font(.headline)
-                                                } else {
-                                                    Text("Ingen användare")
-                                                        .font(.headline)
-                                                }
-                            }
-                        }
-                    
-
-                        
-           
+                              NavigationLink(destination: ProfileView(userID: home.userID ?? "", isEditable: false)) {
+                                  if let userName = userName {
+                                  Text("\(userName) är din värd")
+                                      .font(.subheadline)
+                                      .bold()
+                                      .foregroundColor(Color("text"))
+                              }
+                      }
                             
                             if let userJob = userJob {
                                 Text(userJob)
                                     .font(.subheadline)
                                     .foregroundColor(Color(white: 0.3))
                             }
-                 
+                        }
                         
                         Spacer()
                         
@@ -137,14 +147,16 @@ struct HomeHeaderView: View {
                 }
             }
             
-
+            /*Rectangle()
+                .frame(height: 0.5)
+                .foregroundColor(.gray)
+                .padding(.horizontal, 17)*/
             
         
     private func DefaultProfilePicture() -> some View {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
-                        .frame(width: 50, height: 50)
-
+                        .frame(width: 60, height: 60)
                         .clipShape(Circle())
                         .foregroundColor(.gray)
                 }
