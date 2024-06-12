@@ -92,10 +92,12 @@ struct MessageRowView: View {
                                         Text("Du: \(conversation.lastMessage)")
                                             .font(.system(size: 14))
                                             .foregroundColor(Color(.lightGray))
+                                            .multilineTextAlignment(.leading)
                                     } else {
                                         Text(conversation.lastMessage)
                                             .font(.system(size: 14))
                                             .foregroundColor(Color(.lightGray))
+                                            .multilineTextAlignment(.leading)
                                     }
                                 }
                                 Spacer()
