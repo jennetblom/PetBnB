@@ -8,7 +8,8 @@ struct AddHomeView: View {
     @State private var isSaving: Bool = false
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
-    
+    @State private var shouldDismiss = true
+
     var body: some View {
         VStack {
             if isSaving {
@@ -19,7 +20,8 @@ struct AddHomeView: View {
                 Form {
                     ImagePickerView(selectedImages: $viewModel.selectedImages, isShowingImagePicker: $viewModel.isShowingImagePicker)
                     
-                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, size: $viewModel.size, city: $viewModel.city, additionalInfoHome: $viewModel.additionalInfoHome, name: $viewModel.name, startDate: $viewModel.startDate, endDate: $viewModel.endDate, activities: $viewModel.activities, bathrooms: $viewModel.bathrooms, guests: $viewModel.guests, country: $viewModel.country, guestAccess: $viewModel.guestAccess, otherNotes: $viewModel.otherNotes, latitude: $viewModel.latitude, longitude: $viewModel.longitude)
+                    HomeSectionView(beds: $viewModel.beds, rooms: $viewModel.rooms, size: $viewModel.size, city: $viewModel.city, additionalInfoHome: $viewModel.additionalInfoHome, name: $viewModel.name, startDate: $viewModel.startDate, endDate: $viewModel.endDate, activities: $viewModel.activities, bathrooms: $viewModel.bathrooms, guests: $viewModel.guests, country: $viewModel.country, guestAccess: $viewModel.guestAccess, otherNotes: $viewModel.otherNotes, latitude: $viewModel.latitude, longitude: $viewModel.longitude, shouldDismiss: $shouldDismiss
+)
                     
                     ForEach(viewModel.animals.indices, id: \.self) { index in
                         AnimalSectionView(
@@ -54,11 +56,17 @@ struct AddHomeView: View {
             Alert(title: Text("Fel"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
         }
         .onAppear {
-            viewModel.fetchAndUpdateUser()
+            if !tabViewModel.returningFromMap {
+                viewModel.fetchAndUpdateUser()
+            } else {
+            }
+            tabViewModel.returningFromMap = false
         }
         .onDisappear {
             if !tabViewModel.isAddHomePresented {
-                presentationMode.wrappedValue.dismiss() 
+                if shouldDismiss {
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         }
     }
