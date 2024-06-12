@@ -4,6 +4,7 @@ import FirebaseAuth
 
 struct ExploreDetailsView: View {
     var home: Home
+    
     @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
     @StateObject var chatViewModel = ChatViewModel()
     @EnvironmentObject var tabViewModel: TabViewModel
@@ -25,9 +26,9 @@ struct ExploreDetailsView: View {
                                    userRating: exploreDetailsViewModel.user?.rating,
                                    userAge: exploreDetailsViewModel.user?.userAge,
                                    userInfo: exploreDetailsViewModel.user?.userInfo,
-                                   
                                    profilePictureUrl: exploreDetailsViewModel.user?.profilePictureUrl)
-                                         
+                    .environmentObject(exploreDetailsViewModel)
+
 
                     HomeDetailsView(home: home)
 
@@ -38,25 +39,62 @@ struct ExploreDetailsView: View {
                     
                     }
                 }
-            
-            .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
+            }
+            .navigationTitle(exploreDetailsViewModel.user?.name ?? "användaren hittas ej")
+
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 if let userID = home.userID {
                     exploreDetailsViewModel.fetchUser(by: userID)
                 }
             }
+
+            VStack {
+                Spacer()
+
+                HStack {
+
+                    Button(action: {
+                        showMapView = true
+                    }) {
+                        HStack {
+                            Text("Kartor")
+                            Image(systemName: "map")
+                        }
+                        .padding()
+                        .background(Color("primary"))
+                        .foregroundColor(Color("text"))
+                        .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                }
+            }
+
+            NavigationLink(
+                destination: MapShowView(viewModel: MapViewModel(city: home.city, country: home.country, latitude: home.latitude, longitude: home.longitude)),
+                isActive: $showMapView,
+                label: { EmptyView() }
+            )
+
             .onDisappear {
                         if !tabViewModel.isExploreDetailsPresented {
                             presentationMode.wrappedValue.dismiss()
                         }
+                      
                     }
         }
         
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
+       
+             .onAppear {
+                 if let userID = home.userID {
+                     exploreDetailsViewModel.fetchUser(by: userID)
+                 }
+             }
+             .environmentObject(exploreDetailsViewModel)
     }
+        
 }
-
 
 
 #Preview {

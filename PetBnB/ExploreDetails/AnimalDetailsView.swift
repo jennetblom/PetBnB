@@ -29,11 +29,6 @@ struct AnimalDetailsView: View {
                     AnimalFullInfoView(home: home, viewModel: viewModel)
                 }
             }
-            
-            Rectangle()
-                .frame(height: 0.5)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 17)
         }
         .padding(.top)
     }
@@ -64,11 +59,6 @@ struct AnimalFullInfoView: View {
                 }
                 .padding([.leading, .top])
                 
-               /* Rectangle()
-                    .frame(height: 0.5)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 0)*/
-                
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(home.animals.keys.sorted(), id: \.self) { key in
@@ -87,12 +77,8 @@ struct AnimalFullInfoView: View {
                                         .foregroundColor(Color("text"))
                                  
                                     
-                                    Rectangle()
-                                        .frame(height: 0.5)
-                                        .foregroundColor(.gray)
-                                        .padding(.vertical, 4)
                                 }
-                                .padding(.horizontal)
+                               // .padding(.horizontal)
                             }
                         }
                     }
