@@ -19,17 +19,17 @@ struct HomeSectionView: View {
     @Binding var otherNotes: String
     @Binding var latitude: Double?
     @Binding var longitude: Double?
-    @Binding var shouldDismiss: Bool  
-
+    @Binding var shouldDismiss: Bool
     
     @EnvironmentObject var tabViewModel: TabViewModel
-
+    
     @State private var coordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     )
     @State private var showMap: Bool = false
     @State private var pinnedLocation: IdentifiableCoordinate?
+    @State private var geocodingComplete: Bool = false // För att hålla reda på om geokodningen är klar
     
     let guestAccessOptions = ["Hela hemmet", "Delat badrum", "Delat boende"]
     let limit = 20
@@ -150,23 +150,33 @@ struct HomeSectionView: View {
                     .frame(height: 50)
             }
         }
+        .onAppear {
+                    // Check if location is loaded
+                    if latitude != nil && longitude != nil {
+                        coordinateRegion.center.latitude = latitude!
+                        coordinateRegion.center.longitude = longitude!
+                    } else {
+                        geocodeCity() // Otherwise geocode city
+                    }
+                }
     }
     
     private func geocodeCity() {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(city) { (placemarks, error) in
-            if let error = error {
-                print("Geocoding error: \(error.localizedDescription)")
-            } else if let placemarks = placemarks, let location = placemarks.first?.location {
-                coordinateRegion = MKCoordinateRegion(
-                    center: location.coordinate,
-                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                )
-                showMap = true
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(city) { (placemarks, error) in
+                if let error = error {
+                    print("Geocoding error: \(error.localizedDescription)")
+                } else if let placemarks = placemarks, let location = placemarks.first?.location {
+                    coordinateRegion = MKCoordinateRegion(
+                        center: location.coordinate,
+                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                    )
+                    geocodingComplete = true // Mark geocoding as done
+                    showMap = true
+                }
             }
         }
     }
-}
 
 struct IdentifiableCoordinate: Identifiable, Equatable {
     var id = UUID()
