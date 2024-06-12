@@ -59,6 +59,12 @@ class AddHomeViewModel: ObservableObject {
             beds > 0 &&
             rooms > 0 &&
             size > 0 &&
+            bathrooms > 0 &&
+            guests > 0 &&
+            !guestAccess.isEmpty &&
+            !activities.isEmpty &&
+            latitude != nil &&
+            longitude != nil &&
             !additionalInfoHome.isEmpty &&
             !city.isEmpty &&
             !animals.contains { $0.type.isEmpty || $0.age == 0 || $0.additionalInfoAnimal.isEmpty }
@@ -116,6 +122,7 @@ class AddHomeViewModel: ObservableObject {
                     self.guests = user.guests
                     self.bathrooms = user.bathrooms
                     self.size = user.size
+                    self.additionalInfoHome = user.homeInfo
                     self.rooms = user.numberOfRooms
                     self.animals = user.animals.map { AnimalInfo(type: $0.value.type, age: $0.value.age, additionalInfoAnimal: $0.value.additionalInfoAnimal) }
                 }
