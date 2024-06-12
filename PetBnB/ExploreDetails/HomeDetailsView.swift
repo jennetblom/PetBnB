@@ -6,7 +6,6 @@ struct HomeDetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
-            
             VStack(alignment: .leading, spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
     
@@ -48,11 +47,6 @@ struct HomeDetailsView: View {
                 }
             }
             .padding(.horizontal)
-            
-            Rectangle()
-                .frame(height: 0.5)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 17)
         }
         .padding(.top)
     }
@@ -90,16 +84,13 @@ struct FullInfoView: View {
                     Text("Om detta boende")
                         .font(.body)
                         .bold()
-                        .padding()
+                       // .padding()
                     Spacer()
                 }
                 .padding([.leading, .top])
+                .padding(.vertical)
                 
-                Rectangle()
-                    .frame(height: 0.5)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 0)
-                
+              
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
 
@@ -112,62 +103,74 @@ struct FullInfoView: View {
                             .font(.body)
                             .bold()
                             .padding(.horizontal)
+                            .padding(.vertical)
                         
                         Text(activities)
                             .font(.subheadline)
                             .padding(.horizontal)
                             .padding(.bottom)
+                            .padding(.vertical)
 
                         
                         Text("Tillgänglighet")
                             .font(.body)
                             .bold()
                             .padding(.horizontal)
+                            .padding(.vertical)
                         
                         if let startDate = startDate, let endDate = endDate {
                             Text("Boendet är ledigt mellan den \(formatDate(startDate)) och \(formatDate(endDate))")
                                 .font(.subheadline)
                                 .padding(.horizontal)
                                 .padding(.bottom)
+                                .padding(.vertical)
                         } else {
                             Text("N/A")
                                 .font(.subheadline)
                                 .padding(.horizontal)
                                 .padding(.bottom)
+                                .padding(.vertical)
                         }
                         
                         Text("Gästernas tillgång")
                             .font(.body)
                             .bold()
                             .padding(.horizontal)
+                            .padding(.vertical)
                         
                         Text(guestAccess)
                             .font(.subheadline)
                             .padding(.horizontal)
                             .padding(.bottom)
+                            .padding(.vertical)
                         
                         Text("Andra saker att notera")
                             .font(.body)
                             .bold()
                             .padding(.horizontal)
+                            .padding(.vertical)
                         
                         Text(otherNotes)
                             .font(.subheadline)
                             .padding(.horizontal)
                             .padding(.bottom)
+                            .padding(.vertical)
 
                         Text("Storlek")
                             .font(.body)
                             .bold()
                             .padding(.horizontal)
+                            .padding(.vertical)
 
                     
                         (Text("Boendet har plats för \(home.guests) gäster, det finns \(home.rooms) rum med \(home.beds) sängar. Boendet har även \(home.bathrooms ?? 0) badrum och dess storlek är \(home.size, specifier: "%.0f") m") + Text("2").font(.system(size: 12)).baselineOffset(6))
                                                   .font(.subheadline)
                                                   .padding(.horizontal)
+                                                  .padding(.vertical)
                                           }
                                       }
                                       .padding(.horizontal)
+                                      .padding(.vertical)
                                   }
                                   .navigationBarHidden(true)
                               }

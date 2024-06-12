@@ -4,6 +4,7 @@ import FirebaseAuth
 
 struct ExploreDetailsView: View {
     var home: Home
+    
     @StateObject private var exploreDetailsViewModel = ExploreDetailsViewModel()
     @StateObject var chatViewModel = ChatViewModel()
     @EnvironmentObject var tabViewModel: TabViewModel
@@ -17,13 +18,16 @@ struct ExploreDetailsView: View {
             VStack {
                 ImageCarouselView(images: Array(home.images.values).sorted { $0.absoluteString < $1.absoluteString })
                     .frame(height: 300)
+                    .padding()
 
                 Form {
                     HomeHeaderView(home: home,
                                    userName: exploreDetailsViewModel.user?.name,
                                    userRating: exploreDetailsViewModel.user?.rating,
                                    userAge: exploreDetailsViewModel.user?.userAge,
-                                   userInfo: exploreDetailsViewModel.user?.userInfo)
+                                   userInfo: exploreDetailsViewModel.user?.userInfo,
+                                   profilePictureUrl: exploreDetailsViewModel.user?.profilePictureUrl)
+                    .environmentObject(exploreDetailsViewModel)
 
                     HomeDetailsView(home: home)
 
@@ -32,7 +36,7 @@ struct ExploreDetailsView: View {
                     AdditionalInfoView(home: home)
                 }
             }
-            .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
+            .navigationTitle(exploreDetailsViewModel.user?.name ?? "användaren hittas ej")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 if let userID = home.userID {
@@ -57,7 +61,7 @@ struct ExploreDetailsView: View {
                         .foregroundColor(Color("text"))
                         .cornerRadius(12)
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
             }
 
@@ -71,12 +75,20 @@ struct ExploreDetailsView: View {
                         if !tabViewModel.isExploreDetailsPresented {
                             presentationMode.wrappedValue.dismiss()
                         }
-                    }
-            
+                    }     
         }
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
+       
+             .onAppear {
+                 if let userID = home.userID {
+                     exploreDetailsViewModel.fetchUser(by: userID)
+                 }
+             }
+             .environmentObject(exploreDetailsViewModel)
     }
+        
 }
+
 
 #Preview {
     ExploreDetailsView(home: Home(
