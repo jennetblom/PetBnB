@@ -234,6 +234,12 @@ struct TextEditorWithPlaceholder: View {
     @Binding var text: String
     @State private var showPlaceholder: Bool = true
     
+    init(placeholder: String, text: Binding<String>) {
+         self.placeholder = placeholder
+         self._text = text
+         self._showPlaceholder = State(initialValue: text.wrappedValue.isEmpty)
+     }
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
             if showPlaceholder {
