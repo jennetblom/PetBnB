@@ -29,6 +29,7 @@ class AddHomeViewModel: ObservableObject {
     @Published var latitude: Double?
     @Published var longitude: Double?
     
+    
     var animalCount: Int {
         animals.count
     }
@@ -64,6 +65,7 @@ class AddHomeViewModel: ObservableObject {
             !guestAccess.isEmpty &&
             !activities.isEmpty &&
             latitude != nil &&
+            selectedImages != [] &&
             longitude != nil &&
             !additionalInfoHome.isEmpty &&
             !city.isEmpty &&
@@ -128,6 +130,23 @@ class AddHomeViewModel: ObservableObject {
                 }
             case .failure(let error):
                 print("Error fetching user: \(error)")
+            }
+        }
+    }
+    func fetchCity(completion: @escaping (Result<String, Error>) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            completion(.failure(NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "No user logged in"])))
+            return
+        }
+        
+        firestoreUtils.fetchUser(withID: userID) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    completion(.success(user.city))
+                }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
