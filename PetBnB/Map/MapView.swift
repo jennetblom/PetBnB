@@ -6,12 +6,13 @@ struct MapShowView: View {
     @ObservedObject var viewModel: MapViewModel
     
     var body: some View {
-        Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.coordinates) { item in
-            MapMarker(coordinate: item.coordinate)
+        Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.coordinates) { annotation in
+            MapMarker(coordinate: annotation.coordinate)
         }
         
         .onAppear {
-            setRegion(for: viewModel.city)
+         
+        setRegion(for: viewModel.city)
         }
     }
     

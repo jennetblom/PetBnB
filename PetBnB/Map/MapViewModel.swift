@@ -7,7 +7,7 @@ class MapViewModel: ObservableObject {
     @Published var city: String
     @Published var country: String
     @Published var region: MKCoordinateRegion
-    @Published var coordinates: [IdentiifiableCoordinate]
+    @Published var coordinates: [IdentiifiableCoordinate] 
     
     init(city: String, country: String, latitude: Double?, longitude: Double?) {
         self.city = city
