@@ -21,7 +21,9 @@ struct HomeSectionView: View {
     @Binding var longitude: Double?
     @Binding var shouldDismiss: Bool
     
+    
     @EnvironmentObject var tabViewModel: TabViewModel
+    @StateObject var addHomeViewModel = AddHomeViewModel()
     
     @State private var coordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
@@ -82,7 +84,7 @@ struct HomeSectionView: View {
                 .onTapGesture {
                     shouldDismiss = false
                     tabViewModel.returningFromMap = true
-                    geocodeCity()
+                    geocodeCity(city: city)
                 }
             }
             .onChange(of: pinnedLocation) { newValue in
@@ -151,37 +153,50 @@ struct HomeSectionView: View {
             }
         }
         .onAppear {
-                    // Check if location is loaded
-                    if latitude != nil && longitude != nil {
-                        coordinateRegion.center.latitude = latitude!
-                        coordinateRegion.center.longitude = longitude!
-                    } else {
-                        geocodeCity() // Otherwise geocode city
+            addHomeViewModel.fetchCity { result in
+                switch result {
+                case .success(let city):
+                    DispatchQueue.main.async {
+                        geocodeCity(city: city)
+                    }
+                case .failure(let error):
+                    print("Error fetching city: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        setDefaultLocation()
                     }
                 }
-    }
-    
-    private func geocodeCity() {
-            let geocoder = CLGeocoder()
-            geocoder.geocodeAddressString(city) { (placemarks, error) in
-                if let error = error {
-                    print("Geocoding error: \(error.localizedDescription)")
-                } else if let placemarks = placemarks, let location = placemarks.first?.location {
-                    coordinateRegion = MKCoordinateRegion(
-                        center: location.coordinate,
-                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-                    )
-                    geocodingComplete = true // Mark geocoding as done
-                    showMap = true
-                }
+                
             }
         }
     }
-
+    
+    
+    private func geocodeCity(city : String) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(city) { (placemarks, error) in
+            if let error = error {
+                print("Geocoding error: \(error.localizedDescription)")
+                setDefaultLocation()
+            } else if let placemarks = placemarks, let location = placemarks.first?.location {
+                coordinateRegion = MKCoordinateRegion(
+                    center: location.coordinate,
+                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                )
+                geocodingComplete = true // Mark geocoding as done
+                showMap = true
+            }
+        }
+    }
+    func setDefaultLocation() {
+        // Set default location to Stockholm, Sweden
+        coordinateRegion.center = CLLocationCoordinate2D(latitude: 59.3293, longitude: 18.0686)
+        showMap = true
+    }
+}
 struct IdentifiableCoordinate: Identifiable, Equatable {
     var id = UUID()
     var coordinate: CLLocationCoordinate2D
-
+    
     static func == (lhs: IdentifiableCoordinate, rhs: IdentifiableCoordinate) -> Bool {
         lhs.id == rhs.id && lhs.coordinate.latitude == rhs.coordinate.latitude && lhs.coordinate.longitude == rhs.coordinate.longitude
     }
@@ -191,7 +206,7 @@ struct MapView: View {
     @Binding var coordinateRegion: MKCoordinateRegion
     @Binding var pinnedLocation: IdentifiableCoordinate?
     @EnvironmentObject var tabViewModel: TabViewModel
-
+    
     @Environment(\.presentationMode) var presentationMode
     @State private var isLocationPinned = false
     
@@ -222,12 +237,12 @@ struct MapView: View {
         }
         .onDisappear {
             tabViewModel.isMapViewPresented = false
-
-               }
+            
+        }
     }
-       
-}
     
+}
+
 
 struct TextEditorWithPlaceholder: View {
     var placeholder: String
@@ -235,10 +250,10 @@ struct TextEditorWithPlaceholder: View {
     @State private var showPlaceholder: Bool = true
     
     init(placeholder: String, text: Binding<String>) {
-         self.placeholder = placeholder
-         self._text = text
-         self._showPlaceholder = State(initialValue: text.wrappedValue.isEmpty)
-     }
+        self.placeholder = placeholder
+        self._text = text
+        self._showPlaceholder = State(initialValue: text.wrappedValue.isEmpty)
+    }
     
     var body: some View {
         ZStack(alignment: .topLeading) {

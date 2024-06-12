@@ -9,6 +9,8 @@ class MapViewModel: ObservableObject {
     @Published var region: MKCoordinateRegion
     @Published var coordinates: [IdentiifiableCoordinate] 
     
+
+    
     init(city: String, country: String, latitude: Double?, longitude: Double?) {
         self.city = city
         self.country = country
