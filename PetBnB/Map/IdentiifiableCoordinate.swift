@@ -1,9 +1,4 @@
-//
-//  IdentiifiableCoordinate.swift
-//  PetBnB
-//
-//  Created by Weda on 2024-05-29.
-//
+
 
 import Foundation
 import CoreLocation

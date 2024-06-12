@@ -10,7 +10,7 @@ struct ExploreDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var conversationId: String?
     @State var isChatActive: Bool = false
-    @State private var showMapView = false
+  //  @State private var showMapView = false
 
     var body: some View {
         ZStack {
@@ -34,8 +34,11 @@ struct ExploreDetailsView: View {
                     AnimalDetailsView(home: home)
 
                     AdditionalInfoView(home: home)
+                    
+                    
+                    }
                 }
-            }
+            
             .navigationTitle(exploreDetailsViewModel.user?.name ?? "Ingen användare")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
@@ -43,44 +46,18 @@ struct ExploreDetailsView: View {
                     exploreDetailsViewModel.fetchUser(by: userID)
                 }
             }
-
-            VStack {
-                Spacer()
-
-                HStack {
-
-                    Button(action: {
-                        showMapView = true
-                    }) {
-                        HStack {
-                            Text("Kartor")
-                            Image(systemName: "map")
-                        }
-                        .padding()
-                        .background(Color("primary"))
-                        .foregroundColor(Color("text"))
-                        .cornerRadius(12)
-                    }
-                    .padding()
-                }
-            }
-
-            NavigationLink(
-                destination: MapShowView(viewModel: MapViewModel(city: home.city, country: home.country, latitude: home.latitude, longitude: home.longitude)),
-                isActive: $showMapView,
-                label: { EmptyView() }
-            )
-            
             .onDisappear {
                         if !tabViewModel.isExploreDetailsPresented {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }
-            
         }
+        
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
     }
 }
+
+
 
 #Preview {
     ExploreDetailsView(home: Home(
