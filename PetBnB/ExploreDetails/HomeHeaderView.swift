@@ -59,24 +59,6 @@ struct HomeHeaderView: View {
                 }
             }
             .padding(.horizontal)
-            
-          /*  Rectangle()
-                .frame(height: 0.5)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 17)*/
-            
-          
-            /*if let userID = home.userID {
-                NavigationLink(destination: ProfileView(userID: userID, isEditable: false)) {
-
-                    HStack {
-                       if let profilePicture = profilePicture {
-                            profilePicture
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
-                        }*/
                         
             HStack {
                           if let profilePictureUrl = profilePictureUrl {
@@ -103,15 +85,6 @@ struct HomeHeaderView: View {
                               DefaultProfilePicture()
                                   .frame(width: 50, height: 50)
                           }
-                               
-                        
-                        /*VStack(alignment: .leading, spacing: 4) {
-                            if let userName = userName {
-                                Text("\(userName) är din värd")
-                                    .font(.subheadline)
-                                    .bold()
-                                    .foregroundColor(Color("text"))
-                            }*/
                 
                 VStack(alignment: .leading, spacing: 4) {
                               NavigationLink(destination: ProfileView(userID: home.userID ?? "", isEditable: false)) {
@@ -120,8 +93,8 @@ struct HomeHeaderView: View {
                                       .font(.subheadline)
                                       .bold()
                                       .foregroundColor(Color("text"))
-                              }
-                      }
+                                }
+                             }
                             
                             if let userJob = userJob {
                                 Text(userJob)
@@ -147,10 +120,6 @@ struct HomeHeaderView: View {
                 }
             }
             
-            /*Rectangle()
-                .frame(height: 0.5)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 17)*/
             
         
     private func DefaultProfilePicture() -> some View {

@@ -49,10 +49,6 @@ struct HomeDetailsView: View {
             }
             .padding(.horizontal)
             
-            /*Rectangle()
-                .frame(height: 0.5)
-                .foregroundColor(.gray)
-                .padding(.horizontal, 17)*/
         }
         .padding(.top)
     }
@@ -95,10 +91,6 @@ struct FullInfoView: View {
                 }
                 .padding([.leading, .top])
                 
-                Rectangle()
-                    .frame(height: 0.5)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 0)
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
