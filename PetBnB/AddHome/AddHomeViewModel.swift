@@ -75,6 +75,7 @@ class AddHomeViewModel: ObservableObject {
             additionalInfoHome: additionalInfoHome,
             city: city,
             country: country,
+            bathrooms: bathrooms,
             availability: availability,
             startDate: startDate,
             endDate: endDate,
