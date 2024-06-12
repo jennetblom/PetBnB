@@ -19,7 +19,11 @@ struct HomeSectionView: View {
     @Binding var otherNotes: String
     @Binding var latitude: Double?
     @Binding var longitude: Double?
+    @Binding var shouldDismiss: Bool  
+
     
+    @EnvironmentObject var tabViewModel: TabViewModel
+
     @State private var coordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -73,8 +77,11 @@ struct HomeSectionView: View {
                 NavigationLink(destination: MapView(coordinateRegion: $coordinateRegion, pinnedLocation: $pinnedLocation)) {
                     Image(systemName: "map")
                         .foregroundColor(Color("primary"))
+                    
                 }
                 .onTapGesture {
+                    shouldDismiss = false
+                    tabViewModel.returningFromMap = true
                     geocodeCity()
                 }
             }
@@ -173,7 +180,8 @@ struct IdentifiableCoordinate: Identifiable, Equatable {
 struct MapView: View {
     @Binding var coordinateRegion: MKCoordinateRegion
     @Binding var pinnedLocation: IdentifiableCoordinate?
-    
+    @EnvironmentObject var tabViewModel: TabViewModel
+
     @Environment(\.presentationMode) var presentationMode
     @State private var isLocationPinned = false
     
@@ -198,7 +206,16 @@ struct MapView: View {
                 }
             )
         }
+        .onAppear {
+            tabViewModel.isMapViewPresented = true
+            tabViewModel.returningFromMap = true
+        }
+        .onDisappear {
+            tabViewModel.isMapViewPresented = false
+
+               }
     }
+       
 }
     
 

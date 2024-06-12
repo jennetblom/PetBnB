@@ -8,7 +8,6 @@ struct HomeHeaderView: View {
     var userInfo: String?
     var userJob: String?
     var profilePicture: Image?
-    
     var profilePictureUrl: URL?
     
     @EnvironmentObject var tabViewModel: TabViewModel
@@ -16,7 +15,7 @@ struct HomeHeaderView: View {
     
     @EnvironmentObject var exploreDetailsViewModel: ExploreDetailsViewModel
 
-    
+
     @State private var profileImage: Image? = Image("placeholder")
     @State private var isLoadingImage: Bool = false
             
@@ -110,6 +109,9 @@ struct HomeHeaderView: View {
                             }
                         }
                     
+
+                        
+           
                             
                             if let userJob = userJob {
                                 Text(userJob)
@@ -135,12 +137,14 @@ struct HomeHeaderView: View {
                 }
             }
             
+
             
         
     private func DefaultProfilePicture() -> some View {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
                         .frame(width: 50, height: 50)
+
                         .clipShape(Circle())
                         .foregroundColor(.gray)
                 }

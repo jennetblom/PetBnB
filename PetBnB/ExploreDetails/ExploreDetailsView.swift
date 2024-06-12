@@ -11,7 +11,7 @@ struct ExploreDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var conversationId: String?
     @State var isChatActive: Bool = false
-    @State private var showMapView = false
+  //  @State private var showMapView = false
 
     var body: some View {
         ZStack {
@@ -29,14 +29,19 @@ struct ExploreDetailsView: View {
                                    profilePictureUrl: exploreDetailsViewModel.user?.profilePictureUrl)
                     .environmentObject(exploreDetailsViewModel)
 
+
                     HomeDetailsView(home: home)
 
                     AnimalDetailsView(home: home)
 
                     AdditionalInfoView(home: home)
+                    
+                    
+                    }
                 }
             }
             .navigationTitle(exploreDetailsViewModel.user?.name ?? "användaren hittas ej")
+
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 if let userID = home.userID {
@@ -70,13 +75,15 @@ struct ExploreDetailsView: View {
                 isActive: $showMapView,
                 label: { EmptyView() }
             )
-            
+
             .onDisappear {
                         if !tabViewModel.isExploreDetailsPresented {
                             presentationMode.wrappedValue.dismiss()
                         }
-                    }     
+                      
+                    }
         }
+        
         .navigationBarItems(trailing: MessageButton(isChatActive: $isChatActive, conversationId: $conversationId, home: home, chatViewModel: chatViewModel))
        
              .onAppear {

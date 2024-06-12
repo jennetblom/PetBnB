@@ -9,6 +9,8 @@ struct ChatWindowView : View {
     @State var chatText = ""
     @StateObject var viewModel: ChatWindowViewModel
     var conversationId : String
+    @EnvironmentObject var tabViewModel: TabViewModel
+    @Environment(\.presentationMode) var presentationMode
 
     init(conversationId: String) {
         self.conversationId = conversationId
@@ -28,6 +30,12 @@ struct ChatWindowView : View {
                 viewModel.fetchMessages()
             }
             
+            .onDisappear {
+                if !tabViewModel.isChatWindowPresented {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
+        
     }
 
     var messagesView: some View {
@@ -68,14 +76,14 @@ struct ChatWindowView : View {
                 TextEditor(text: $chatText)
                     .frame(height: 50)
                     .padding(.leading, 4)
-                    .fontWeight(.light) // Adjust as needed
+                    .fontWeight(.light) 
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.gray, lineWidth: 0.3)
                     )
                 if chatText.isEmpty {
-                    Text("Write something...")
+                    Text("Skriv något...")
                         .foregroundColor(.gray)
                         .padding(.leading, 4)
                         .offset(x: 5, y: -10)
@@ -87,7 +95,7 @@ struct ChatWindowView : View {
                 viewModel.sendMessage(chatText)
                 chatText = ""
             } label: {
-                Text("Send")
+                Text("Skicka")
                     .foregroundColor(.black)
                     .padding(.horizontal)
                     .padding(.vertical, 8)

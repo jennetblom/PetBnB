@@ -51,29 +51,31 @@ struct AnimalFullInfoView: View {
                             .foregroundColor(Color("text"))
                     }
                     Spacer()
-                    Text("Djur Information")
+                    Text("Information om djur")
                         .font(.body)
                         .bold()
                         .padding()
                     Spacer()
                 }
                 .padding([.leading, .top])
-               
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(home.animals.keys.sorted(), id: \.self) { key in
                             if let animalInfo = home.animals[key] {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    Text(animalInfo.additionalInfoAnimal)
+                                    
+                                    
+                                    Text(viewModel.randomAnimalSentence(for: animalInfo))
                                         .font(.subheadline)
                                         .foregroundColor(Color("text"))
                                         .padding(.bottom)
                                         .padding(.top)
                                     
-                                    Text(viewModel.randomAnimalSentence(for: animalInfo))
+                                    Text(animalInfo.additionalInfoAnimal)
                                         .font(.subheadline)
                                         .foregroundColor(Color("text"))
+                                 
                                     
                                 }
                                // .padding(.horizontal)

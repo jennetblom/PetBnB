@@ -47,6 +47,7 @@ struct HomeDetailsView: View {
                 }
             }
             .padding(.horizontal)
+
         }
         .padding(.top)
     }
