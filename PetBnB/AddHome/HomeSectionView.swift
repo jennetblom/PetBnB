@@ -19,6 +19,9 @@ struct HomeSectionView: View {
     @Binding var otherNotes: String
     @Binding var latitude: Double?
     @Binding var longitude: Double?
+    @Binding var shouldDismiss: Bool  
+
+    
     @EnvironmentObject var tabViewModel: TabViewModel
 
     @State private var coordinateRegion = MKCoordinateRegion(
@@ -77,8 +80,9 @@ struct HomeSectionView: View {
                     
                 }
                 .onTapGesture {
+                    shouldDismiss = false
+                    tabViewModel.returningFromMap = true
                     geocodeCity()
-                    
                 }
             }
             .onChange(of: pinnedLocation) { newValue in
@@ -204,12 +208,12 @@ struct MapView: View {
         }
         .onAppear {
             tabViewModel.isMapViewPresented = true
+            tabViewModel.returningFromMap = true
         }
         .onDisappear {
-            if !tabViewModel.isMapViewPresented {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
+            tabViewModel.isMapViewPresented = false
+
+               }
     }
        
 }
