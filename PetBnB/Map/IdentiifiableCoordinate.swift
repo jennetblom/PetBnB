@@ -1,6 +1,4 @@
 
-
-import Foundation
 import CoreLocation
 
 struct IdentiifiableCoordinate: Identifiable {

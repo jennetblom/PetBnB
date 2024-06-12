@@ -13,15 +13,19 @@ struct AdditionalInfoView: View {
     
     var body: some View {
         VStack {
-            Button(action: {
+                    Button(action: {
                 showMapView = true
             }) {
-                Map(coordinateRegion: $viewModel.region, interactionModes: [])
-                    .frame(height: 200)
-                    .onAppear {
-                        viewModel.geocodeCity()
-                    }
-                    .padding(.horizontal)
+                Map(coordinateRegion: $viewModel.region, interactionModes: [], annotationItems: viewModel.coordinates) { coordinate in
+                    MapMarker(coordinate: coordinate.coordinate) 
+                    
+                }
+                
+                .frame(height: 200)
+                .onAppear {
+                    viewModel.geocodeCity()
+                }
+                .padding(.horizontal)
                 
             }
                 
@@ -30,14 +34,14 @@ struct AdditionalInfoView: View {
                     .foregroundColor(Color("text"))
                     .padding(.horizontal)
             }
-        .background(
-                    NavigationLink(
-                        destination: MapShowView(viewModel: MapViewModel(city: home.city, country: home.country, latitude: home.latitude, longitude: home.longitude)),
+             .background(
+                   NavigationLink(
+                      destination: MapShowView(viewModel: MapViewModel(city: home.city, country: home.country, latitude: home.latitude, longitude: home.longitude)),
                         isActive: $showMapView,
-                        label: { EmptyView() }
+                      label: { EmptyView() }
                         )
-                    )
-                        }
+                  )
+        }
     }
     
     
@@ -78,4 +82,5 @@ struct AdditionalInfoView: View {
             )
         )
     }
+    
 
